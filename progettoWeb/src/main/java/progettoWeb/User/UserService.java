@@ -29,6 +29,11 @@ public class UserService {
         return userRepository.findById(id);
     }
 
+    public void modifyUser(UserRecord userRecord){
+        userRepository.save(userRecord);
+    }
+
+
     //Restituisco utente a partire dal sup Username
     public Optional<UserRecord> getUserByUsername(String username) {
         return userRepository.findByUsername(username);
@@ -39,5 +44,9 @@ public class UserService {
         UserRecord user = userRepository.findByEmail(email);
         int id = user.getId();
         userRepository.deleteById(id);
+    }
+
+    public void eliminaUtenteByID(int ID){
+        userRepository.deleteById(ID);
     }
 }

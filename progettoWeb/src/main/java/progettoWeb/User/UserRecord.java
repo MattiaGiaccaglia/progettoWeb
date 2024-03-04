@@ -22,7 +22,7 @@ public class UserRecord {
     private String telefono;
     @Enumerated(EnumType.STRING)
     private Role ruolo;
-    private int visite;
+    //private int visite;
 
     public int getId() {
         return id;
@@ -88,11 +88,11 @@ public class UserRecord {
         this.ruolo = ruolo;
     }
 
-    public int getVisite() {
+    /*public int getVisite() {
         return visite;
     }
 
     public void setVisite(int visite) {
         this.visite = visite;
-    }
+    }*/
 }
