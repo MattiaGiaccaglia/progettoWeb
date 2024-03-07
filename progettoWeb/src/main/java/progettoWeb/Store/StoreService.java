@@ -20,6 +20,11 @@ public class StoreService {
         return storeRecords;
     }
 
+    //Rimuovo uno store
+    public void removeStore(int id){
+        storeRepository.deleteById(id);
+    }
+
     //Metodo per restituire uno specifico store
     public Optional<StoreRecord> getStore(int id) {
         return storeRepository.findById(id);

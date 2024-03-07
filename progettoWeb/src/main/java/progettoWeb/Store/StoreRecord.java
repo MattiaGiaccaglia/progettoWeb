@@ -19,9 +19,9 @@ public class StoreRecord {
     @JoinColumn(name = "proprietario")
     private UserRecord proprietario;
 
-    @OneToMany(targetEntity = UserRecord.class, fetch = FetchType.EAGER)
+    /*@OneToMany(targetEntity = UserRecord.class, fetch = FetchType.EAGER)
     @JoinColumn(name = "dipendenti")
-    private List<UserRecord> dipendenti;
+    private List<UserRecord> dipendenti;*/
 
     @Column(nullable = false)
     private int programma;
@@ -50,13 +50,13 @@ public class StoreRecord {
         this.proprietario = proprietario;
     }
 
-    public List<UserRecord> getDipendenti() {
+    /*public List<UserRecord> getDipendenti() {
         return dipendenti;
     }
 
     public void setDipendenti(List<UserRecord> dipendenti) {
         this.dipendenti = dipendenti;
-    }
+    }*/
 
     public int getProgramma() {
         return programma;
