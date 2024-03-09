@@ -1,7 +1,6 @@
 package progettoWeb.User;
 
 import jakarta.persistence.*;
-import progettoWeb.Store.StoreRecord;
 
 @Entity
 public class UserRecord {
@@ -23,16 +22,8 @@ public class UserRecord {
     private String telefono;
     @Enumerated(EnumType.STRING)
     private Role ruolo;
-    @Column()
+    @Column(nullable = false)
     private int dipendente;
-
-    public int getDipendente() {
-        return dipendente;
-    }
-
-    public void setDipendente(int dipendente) {
-        this.dipendente = dipendente;
-    }
 
     public int getId() {
         return id;
@@ -96,6 +87,14 @@ public class UserRecord {
 
     public void setRuolo(Role ruolo) {
         this.ruolo = ruolo;
+    }
+
+    public int getDipendente() {
+        return dipendente;
+    }
+
+    public void setDipendente(int dipendente) {
+        this.dipendente = dipendente;
     }
 
     /*public int getVisite() {

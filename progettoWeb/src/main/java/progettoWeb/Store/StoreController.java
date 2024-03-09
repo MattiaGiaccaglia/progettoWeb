@@ -1,5 +1,6 @@
 package progettoWeb.Store;
 
+import com.fasterxml.jackson.databind.util.JSONPObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -8,6 +9,7 @@ import progettoWeb.User.Role;
 import progettoWeb.User.UserRecord;
 import progettoWeb.User.UserService;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -55,13 +57,12 @@ public class StoreController {
 
     //Restituisco uno specifico store
     @GetMapping("/api/store/{id}")
-    public ResponseEntity<Optional<StoreRecord>> getStore(@PathVariable("id") String id){
+    public ResponseEntity<Object> getStore(@PathVariable("id") String id){
         Optional<StoreRecord> store = null;
         try {
             store = storeService.getStore(Integer.parseInt(id));
         }catch (Exception e){
-            //In caso non dovesse essere presente, non restituisco nulla
-            return new ResponseEntity<>(store, HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>("Impossibile restituire store, non esiste", HttpStatus.BAD_REQUEST);
         }
         return new ResponseEntity<>(store, HttpStatus.OK);
     }
@@ -133,8 +134,21 @@ public class StoreController {
                 return new ResponseEntity<>("Non si puo rimuovere il dipendente di un altro store", HttpStatus.OK);
             }
             return new ResponseEntity<>("Non è possibile rimuovere il dipendente, lo store non esiste", HttpStatus.OK);
-        } catch (Exception e) {
+        } catch (Exception e){
             return new ResponseEntity<>("Non è possibile rimuovere il dipendente", HttpStatus.BAD_REQUEST);
         }
     }
+
+    //Restituisco dipendenti di uno specifico store
+    @GetMapping("/api/getDipendenti/{id}")
+    public ResponseEntity<Object> getDipendenti(@PathVariable ("id") String id){
+        List<UserRecord> dipendenti = new ArrayList<UserRecord>();
+        if(!storeService.getStore(Integer.parseInt(id)).isPresent())
+            return new ResponseEntity<>("Impossibile restituire dipendenti, lo store non esiste", HttpStatus.BAD_REQUEST);
+        for (UserRecord u : userService.getAllUsers())
+            if(u.getDipendente() == Integer.parseInt(id))
+                dipendenti.add(u);
+        return new ResponseEntity<>(dipendenti, HttpStatus.OK);
+    }
+
 }

@@ -34,7 +34,7 @@ public class UserService {
     }
 
 
-    //Restituisco utente a partire dal sup Username
+    //Restituisco utente a partire dal suo Username
     public Optional<UserRecord> getUserByUsername(String username) {
         return userRepository.findByUsername(username);
     }
