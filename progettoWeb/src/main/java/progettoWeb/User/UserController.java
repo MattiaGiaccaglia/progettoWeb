@@ -33,7 +33,6 @@ public class UserController {
     public ResponseEntity<String> aggiungiUtente(@RequestBody UserRecord user) {
         if (user.getRuolo() == null){
             user.setRuolo(Role.valueOf("utente"));
-            user.setDipendente(0);
         }
         if (user.getNome().isEmpty() || user.getCognome().isEmpty() || user.getUsername().isEmpty()
                 || user.getPassword().isEmpty() || user.getEmail().isEmpty() || user.getTelefono().isEmpty())

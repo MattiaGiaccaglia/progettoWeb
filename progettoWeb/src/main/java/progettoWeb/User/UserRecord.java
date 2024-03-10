@@ -22,8 +22,6 @@ public class UserRecord {
     private String telefono;
     @Enumerated(EnumType.STRING)
     private Role ruolo;
-    @Column(nullable = false)
-    private int dipendente;
 
     public int getId() {
         return id;
@@ -88,20 +86,4 @@ public class UserRecord {
     public void setRuolo(Role ruolo) {
         this.ruolo = ruolo;
     }
-
-    public int getDipendente() {
-        return dipendente;
-    }
-
-    public void setDipendente(int dipendente) {
-        this.dipendente = dipendente;
-    }
-
-    /*public int getVisite() {
-        return visite;
-    }
-
-    public void setVisite(int visite) {
-        this.visite = visite;
-    }*/
 }
