@@ -1,3 +1,15 @@
 2024-03-11 17:29:06.140950+01:00 jdbc[13]: exception
 org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "[*]DIPENDENTI"; expected "DELETE, DROP"; SQL statement:
 DIPENDENTI [42001-224]
+2024-03-12 16:52:58.256798+01:00 jdbc[13]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "[*]REVIEW_RECORD"; expected "ROLLBACK, REVOKE, RUNSCRIPT, RELEASE, REFRESH"; SQL statement:
+REVIEW_RECORD [42001-224]
+2024-03-12 17:03:59.516360+01:00 jdbc[13]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "[*]ID_CHAT_RECORD"; expected "INSERT"; SQL statement:
+ID_CHAT_RECORD [42001-224]
+2024-03-12 17:22:32.099758+01:00 jdbc[13]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "[*]MESSAGES_RECORD"; expected "MERGE"; SQL statement:
+MESSAGES_RECORD [42001-224]
+2024-03-12 17:30:23.393884+01:00 jdbc[13]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "[*]ASSISTANCE_RECORD"; expected "ALTER, ANALYZE"; SQL statement:
+ASSISTANCE_RECORD [42001-224]

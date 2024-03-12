@@ -15,7 +15,6 @@ public class MessagesRecord {
     @Column(nullable = false)
     private String testoMessaggio;
 
-    @Column(nullable = false)
     private LocalDateTime data;
 
     @ManyToOne(targetEntity = UserRecord.class)
@@ -27,7 +26,6 @@ public class MessagesRecord {
     private UserRecord gestorePiattaforma;
 
     @ManyToOne(targetEntity = IdChatRecord.class)
-    @JoinColumn(nullable = false)
     private IdChatRecord IdChat;
 
     public int getId() {
