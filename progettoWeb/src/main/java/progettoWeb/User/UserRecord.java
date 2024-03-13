@@ -1,6 +1,9 @@
 package progettoWeb.User;
 
 import jakarta.persistence.*;
+import progettoWeb.FidelityCard.FidelityCardRecord;
+
+import java.util.List;
 
 @Entity
 public class UserRecord {

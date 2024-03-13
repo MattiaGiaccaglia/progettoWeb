@@ -19,7 +19,7 @@ public class MessagesController {
         List<MessagesRecord> messagesRecords = messagesService.getAllMessages();
         if(!messagesRecords.isEmpty())
             return new ResponseEntity<>(messagesRecords, HttpStatus.OK);
-        return new ResponseEntity<>("Non ci sono messaggi da mostrare", HttpStatus.OK);
+        return new ResponseEntity<>("Non ci sono messaggi da mostrare", HttpStatus.NOT_FOUND);
     }
 
     //Restituisco tutti i messaggi di una determinata chat
@@ -28,7 +28,7 @@ public class MessagesController {
         List<MessagesRecord> messagesRecords = messagesService.getAllMessagesByIDChat(idChat);
         if(!messagesRecords.isEmpty())
             return new ResponseEntity<>(messagesRecords, HttpStatus.OK);
-        return new ResponseEntity<>("Non ci sono messaggi da mostrare per questa chat", HttpStatus.OK);
+        return new ResponseEntity<>("Non ci sono messaggi da mostrare per questa chat", HttpStatus.NOT_FOUND);
     }
 
     //Aggiungo un messaggio a una determinata chat

@@ -24,7 +24,7 @@ public class FidelityCardController {
     public ResponseEntity<Object> getAllFidelityCard() {
         List<FidelityCardRecord> fidelityCardRecord = fidelityCardService.getAllFidelityCard();
         if(fidelityCardRecord.isEmpty())
-            return new ResponseEntity<>("Nessuna Fidelity Card presente", HttpStatus.OK);
+            return new ResponseEntity<>("Nessuna Fidelity Card presente", HttpStatus.NOT_FOUND);
         return new ResponseEntity<>(fidelityCardRecord, HttpStatus.OK);
     }
 
@@ -33,16 +33,16 @@ public class FidelityCardController {
     public ResponseEntity<Object> getFidelityCard(@PathVariable("id") String id) {
         Optional<FidelityCardRecord> fidelityCard = fidelityCardService.getFidelityCard(Integer.parseInt(id));
         if(fidelityCard.isEmpty())
-            return new ResponseEntity<>("Nessuna Fidelity Card associata a questo ID", HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>("Nessuna Fidelity Card associata a questo ID", HttpStatus.NOT_FOUND);
         return new ResponseEntity<>(fidelityCard, HttpStatus.OK);
     }
 
     //Restituisco fidelity card di un utente
     @GetMapping(value = "/api/fidelityCardUser/{id}")
     public ResponseEntity<Object> getFidelityCardByUserId(@PathVariable("id") String id) {
-        Optional<FidelityCardRecord> fidelityCard = Optional.ofNullable(fidelityCardService.getFidelityCardByUserId(Integer.parseInt(id)));
+        Optional<List<FidelityCardRecord>> fidelityCard = fidelityCardService.getFidelityCardByUserId(Integer.parseInt(id));
         if(fidelityCard.isEmpty())
-            return new ResponseEntity<>("Nessuna Fidelity Card associata a questo utente", HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>("Nessuna Fidelity Card associata a questo utente", HttpStatus.NOT_FOUND);
         return new ResponseEntity<>(fidelityCard, HttpStatus.OK);
     }
 
@@ -86,7 +86,7 @@ public class FidelityCardController {
             FidelityCardRecord newFidelityCard = new FidelityCardRecord();
             newFidelityCard.setId(fidelityCard.get().getId());
             newFidelityCard.setUser(fidelityCard.get().getUser());
-            newFidelityCard.setFidelityVenditore(fidelityCard.get().getFidelityVenditore());
+            newFidelityCard.setVendorFidelity(fidelityCard.get().getVendorFidelity());
             newFidelityCard.setFidelityPlan(fidelityPlan);
 
             //Sostituisco fidelity card esistente con quella modificata

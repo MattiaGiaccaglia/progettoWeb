@@ -2,6 +2,7 @@ package progettoWeb.FidelityCard;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import progettoWeb.User.UserRecord;
 import progettoWeb.User.UserService;
 
 import java.util.ArrayList;
@@ -29,24 +30,47 @@ public class FidelityCardService {
         return fidelityCardRepository.findById(id);
     }
 
-    //Restituisco fidelity card di un user
-    public FidelityCardRecord getFidelityCardByUserId(int id) {
-        return fidelityCardRepository.findByUser(userService.getUser(id).get());
+    public Optional<List<FidelityCardRecord>> getFidelityCardByUserId(int id) {
+        List<FidelityCardRecord> fidelityCardRecords = new ArrayList<>();
+        Optional<UserRecord> userRecord = userService.getUser(id);
+        if(userRecord.isEmpty())
+            return Optional.empty();
+        for (FidelityCardRecord fc: this.getAllFidelityCard()){
+            if(fc.getUser().getId() == id)
+                fidelityCardRecords.add(fc);
+        }
+        if(fidelityCardRecords.isEmpty())
+            return Optional.empty();
+        return Optional.of(fidelityCardRecords);
     }
 
     //Aggiungo una nuova fidelity card
     public boolean addFidelityCard(FidelityCardRecord fidelityCardsRecord) {
-        if(fidelityCardRepository.existsById(fidelityCardsRecord.getId()))
-            return false;
+        //Controllo se l'utente ha gia una fidelity card assegnata
+        //Se non ha nessuna fidelity card la aggiungo e restituisco true
+        //Altrimenti se ha gia una fidelity card assegnata, controllo che il venditore della card non sia lo stesso
+        //Se non è lo stesso venditore restituisco true altrimenti false
+        List<FidelityCardRecord> f = this.getAllFidelityCard();
+        if(f.isEmpty()){
+            fidelityCardRepository.save(fidelityCardsRecord);
+            return true;
+        }
+        for (FidelityCardRecord fc: f)
+            if(fc.getUser().getId() == fidelityCardsRecord.getUser().getId() && fc.getVendorFidelity().getId() == fidelityCardsRecord.getVendorFidelity().getId())
+                return false;
         fidelityCardRepository.save(fidelityCardsRecord);
         return true;
     }
 
     //Modifico una fidelity card già esistente
     public boolean modifyFidelityCard(FidelityCardRecord fidelityCardsRecords) {
-        if(!fidelityCardRepository.existsById(fidelityCardsRecords.getId()))
+        try {
+            if (!fidelityCardRepository.existsById(fidelityCardsRecords.getId()))
+                return false;
+            fidelityCardRepository.save(fidelityCardsRecords);
+            return true;
+        }catch (Exception e){
             return false;
-        fidelityCardRepository.save(fidelityCardsRecords);
-        return true;
+        }
     }
 }

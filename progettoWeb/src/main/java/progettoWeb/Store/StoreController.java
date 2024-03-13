@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import progettoWeb.FidelityCard.FidelityCardRecord;
 import progettoWeb.User.Role;
 import progettoWeb.User.UserRecord;
 import progettoWeb.User.UserService;
@@ -22,19 +23,19 @@ public class StoreController {
 
     //Restituisco tutti gli store
     @RequestMapping("/api/getStores")
-    public List<StoreRecord> getAllStore() {
-        return storeService.getAllStore();
+    public ResponseEntity<Object> getAllStores() {
+        List<StoreRecord> storeRecords = storeService.getAllStore();
+        if (storeRecords.isEmpty())
+            return new ResponseEntity<>("Non ci sono store registrati", HttpStatus.NOT_FOUND);
+        return new ResponseEntity<>(storeRecords, HttpStatus.OK);
     }
 
     //Restituisco uno store specifico
     @GetMapping("/api/store/{id}")
     public ResponseEntity<Object> getStore(@PathVariable("id") String id) {
-        Optional<StoreRecord> store = null;
-        try {
-            store = storeService.getStore(Integer.parseInt(id));
-        }catch (Exception e){
-            return new ResponseEntity<>("Impossibile restituire store, non esiste", HttpStatus.BAD_REQUEST);
-        }
+        Optional<StoreRecord> store = storeService.getStore(Integer.parseInt(id));
+        if(store.isEmpty())
+            return new ResponseEntity<>("Impossibile restituire store, non esiste", HttpStatus.NOT_FOUND);
         return new ResponseEntity<>(store, HttpStatus.OK);
     }
 
