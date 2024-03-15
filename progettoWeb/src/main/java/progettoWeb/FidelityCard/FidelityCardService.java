@@ -33,12 +33,13 @@ public class FidelityCardService {
     public Optional<List<FidelityCardRecord>> getFidelityCardByUserId(int id) {
         List<FidelityCardRecord> fidelityCardRecords = new ArrayList<>();
         Optional<UserRecord> userRecord = userService.getUser(id);
+
+        //Se utente non esiste, restituisco Optional.empty()
         if(userRecord.isEmpty())
             return Optional.empty();
-        for (FidelityCardRecord fc: this.getAllFidelityCard()){
+        for (FidelityCardRecord fc: this.getAllFidelityCard())
             if(fc.getUser().getId() == id)
                 fidelityCardRecords.add(fc);
-        }
         if(fidelityCardRecords.isEmpty())
             return Optional.empty();
         return Optional.of(fidelityCardRecords);

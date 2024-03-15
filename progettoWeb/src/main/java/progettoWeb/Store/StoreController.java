@@ -1,11 +1,9 @@
 package progettoWeb.Store;
 
-import com.fasterxml.jackson.databind.util.JSONPObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import progettoWeb.FidelityCard.FidelityCardRecord;
 import progettoWeb.User.Role;
 import progettoWeb.User.UserRecord;
 import progettoWeb.User.UserService;
@@ -72,9 +70,9 @@ public class StoreController {
             dipendente.setNome(user.get().getNome());
             dipendente.setCognome(user.get().getCognome());
             dipendente.setEmail(user.get().getEmail());
-            dipendente.setUsername(user.get().getUsername());
+            dipendente.setUsername(user.get().getUsername1());
             dipendente.setTelefono(user.get().getTelefono());
-            dipendente.setPassword(user.get().getPassword());
+            dipendente.setPassword(user.get().getPassword1());
             dipendente.setRuolo(Role.dipendente);
             //Aggiungo dipendente
             userService.aggiungiUtente(dipendente);

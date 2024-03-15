@@ -50,7 +50,7 @@ public class CouponController {
     }
 
     //Aggiungo un Coupon a partire da un ID
-    @RequestMapping(value = "/api/addCouponId/{value}/{vendorid}/{userid}", method= RequestMethod.POST)
+    /*@RequestMapping(value = "/api/addCouponId/{value}/{vendorid}/{userid}", method= RequestMethod.POST)
     public ResponseEntity<String> addCouponFromId(@PathVariable("value") int value, @PathVariable ("vendorid") int vendorid, @PathVariable("userid") int userid){
         try {
             //Controllo che il ruolo del venditore sia Role.venditore
@@ -62,7 +62,7 @@ public class CouponController {
             return new ResponseEntity<>("Impossibile aggiungere Coupon", HttpStatus.BAD_REQUEST);
         }
         return new ResponseEntity<>("Impossibile aggiungere Coupon", HttpStatus.BAD_REQUEST);
-    }
+    }*/
 
     //Elimino un Coupon
     @RequestMapping(value="/api/deleteCoupon/{idCoupon}", method=RequestMethod.DELETE)

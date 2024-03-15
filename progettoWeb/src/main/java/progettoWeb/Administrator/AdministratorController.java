@@ -30,9 +30,9 @@ public class AdministratorController {
         utente.setNome(user.get().getNome());
         utente.setCognome(user.get().getCognome());
         utente.setEmail(user.get().getEmail());
-        utente.setUsername(user.get().getUsername());
+        utente.setUsername(user.get().getUsername1());
         utente.setTelefono(user.get().getTelefono());
-        utente.setPassword(user.get().getPassword());
+        utente.setPassword(user.get().getPassword1());
         utente.setRuolo(Role.valueOf(role));
         //utente.setVisite(user.get().getVisite());
         //Cambio vecchio utente con utente con ruolo modificato
