@@ -9,7 +9,6 @@ import progettoWeb.User.UserRecord;
 import progettoWeb.User.UserService;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 public class StoreController {
@@ -30,49 +29,49 @@ public class StoreController {
 
     //Restituisco uno store specifico
     @GetMapping("/api/store/{id}")
-    public ResponseEntity<Object> getStore(@PathVariable("id") String id) {
-        Optional<StoreRecord> store = storeService.getStore(Integer.parseInt(id));
-        if(store.isEmpty())
-            return new ResponseEntity<>("Impossibile restituire store, non esiste", HttpStatus.NOT_FOUND);
+    public ResponseEntity<Object> getStore(@PathVariable("id") int id) {
+        StoreRecord store = storeService.getStore(id);
         return new ResponseEntity<>(store, HttpStatus.OK);
     }
 
     //Aggiungo store
     @RequestMapping(value="/api/addStore", method= RequestMethod.POST)
     public ResponseEntity<String> addStore(@RequestBody StoreRecord store) {
-        UserRecord venditore = store.getProprietario();
-        List<UserRecord> dipendenti = store.getDipendenti();
-        //Assegno il ruolo di dipendente a tutti gli utenti aggiunti allo store
-        for (UserRecord dipendente: dipendenti) {
-            dipendente.setRuolo(Role.dipendente); //TODO controllare che l'utente non sia già venditore in un altro negozio
-            userService.modifyUser(dipendente);
+        try {
+            // Controllo se l'utente venditore è già associato a un altro negozio
+            UserRecord venditore = store.getProprietario();
+            // Assegno il ruolo di dipendente a tutti gli utenti aggiunti allo store
+            List<UserRecord> dipendenti = store.getDipendenti();
+            for (UserRecord dipendente : dipendenti) {
+                dipendente.setRuolo(Role.dipendente);
+                userService.modifyUser(dipendente);
+            }
+            // Aggiungo lo store
+            if (storeService.addStore(store))
+                return new ResponseEntity<>("Store aggiunto correttamente", HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>("Impossibile aggiungere Store", HttpStatus.INTERNAL_SERVER_ERROR);
         }
-        //Aggiungo venditore
-        if (venditore.getRuolo().compareTo(Role.venditore) == 0){
-            if(storeService.addStore(store))
-                return new ResponseEntity<>("Negozio aggiunto correttamente", HttpStatus.OK);
-        }
-        return new ResponseEntity<>("Non è possibile aggiungere il negozio", HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>("Impossibile aggiungere Store", HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
     //Aggiungo dipendente a uno store
     @RequestMapping(value="/api/addEmployee/{idstore}/{iduser}", method= RequestMethod.POST)
     public ResponseEntity<String> addEmployee(@PathVariable("idstore") String idstore, @PathVariable("iduser") String iduser) {
-
         try{
-            Optional<StoreRecord> store = storeService.getStore(Integer.parseInt(idstore));
-            List<UserRecord> dipendenti = store.get().getDipendenti();
-            Optional<UserRecord> user = userService.getUser(Integer.parseInt(iduser));
+            StoreRecord store = storeService.getStore(Integer.parseInt(idstore));
+            List<UserRecord> dipendenti = store.getDipendenti();
+            UserRecord user = userService.getUser(Integer.parseInt(iduser));
 
             //Creo il dipendente
             UserRecord dipendente = new UserRecord();
-            dipendente.setId(user.get().getId());
-            dipendente.setNome(user.get().getNome());
-            dipendente.setCognome(user.get().getCognome());
-            dipendente.setEmail(user.get().getEmail());
-            dipendente.setUsername(user.get().getUsername1());
-            dipendente.setTelefono(user.get().getTelefono());
-            dipendente.setPassword(user.get().getPassword1());
+            dipendente.setId(user.getId());
+            dipendente.setNome(user.getNome());
+            dipendente.setCognome(user.getCognome());
+            dipendente.setEmail(user.getEmail());
+            dipendente.setUsername(user.getUsername1());
+            dipendente.setTelefono(user.getTelefono());
+            dipendente.setPassword(user.getPassword1());
             dipendente.setRuolo(Role.dipendente);
             //Aggiungo dipendente
             userService.aggiungiUtente(dipendente);
@@ -80,11 +79,11 @@ public class StoreController {
 
             //Creo nuovo store
             StoreRecord newstore = new StoreRecord();
-            newstore.setId(store.get().getId());
-            newstore.setNome(store.get().getNome());
-            newstore.setProprietario(store.get().getProprietario());
+            newstore.setId(store.getId());
+            newstore.setNome(store.getNome());
+            newstore.setProprietario(store.getProprietario());
             newstore.setDipendenti(dipendenti);
-            newstore.setProgramma(store.get().getProgramma());
+            newstore.setProgramma(store.getProgramma());
 
             //Rimpiazzo lo store vecchio con quello nuovo appena creato
             storeService.modifyStore(newstore);
@@ -100,13 +99,13 @@ public class StoreController {
     @RequestMapping(value="/api/removeEmployee/{idstore}/{iduser}", method= RequestMethod.POST)
     public ResponseEntity<String> removeEmployee(@PathVariable("idstore") String idstore, @PathVariable("iduser") String iduser) {
 
-        try{
-            Optional<StoreRecord> store = storeService.getStore(Integer.parseInt(idstore));
-            List<UserRecord> dipendenti = store.get().getDipendenti();
+        try {
+            StoreRecord store = storeService.getStore(Integer.parseInt(idstore));
+            List<UserRecord> dipendenti = store.getDipendenti();
 
             //Trovo il dipendente da rimuovere e gli assegno il ruolo di utente
-            for (UserRecord user: dipendenti) {
-                if(user.getId() == Integer.parseInt(iduser)){
+            for (UserRecord user : dipendenti) {
+                if (user.getId() == Integer.parseInt(iduser)) {
                     dipendenti.remove(user);
                     user.setRuolo(Role.utente);
                     userService.aggiungiUtente(user);
@@ -115,18 +114,17 @@ public class StoreController {
 
             //Creo nuovo store
             StoreRecord newstore = new StoreRecord();
-            newstore.setId(store.get().getId());
-            newstore.setNome(store.get().getNome());
-            newstore.setProprietario(store.get().getProprietario());
+            newstore.setId(store.getId());
+            newstore.setNome(store.getNome());
+            newstore.setProprietario(store.getProprietario());
             newstore.setDipendenti(dipendenti);
-            newstore.setProgramma(store.get().getProgramma());
+            newstore.setProgramma(store.getProgramma());
 
             //Rimpiazzo lo store vecchio con quello nuovo appena creato
             storeService.modifyStore(newstore);
 
             return new ResponseEntity<>("Dipendente rimosso correttamente", HttpStatus.OK);
-        }
-        catch (Exception e){
+        }catch (Exception e){
             return new ResponseEntity<>("Non è possibile rimuovere il dipendente", HttpStatus.BAD_REQUEST);
         }
     }

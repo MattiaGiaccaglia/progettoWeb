@@ -1,6 +1,9 @@
 package progettoWeb.Coupon;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
+import org.antlr.v4.runtime.misc.NotNull;
+import org.springframework.lang.NonNull;
 import progettoWeb.User.UserRecord;
 
 @Entity
@@ -11,14 +14,14 @@ public class CouponRecord {
     private int id;
 
     @Column(nullable = false)
-    private int valore;
+    private Integer valore;
 
     @ManyToOne(targetEntity = UserRecord.class, fetch = FetchType.EAGER)
-    @JoinColumn(name = "vendor_id")
+    @JoinColumn(nullable = false, name = "vendor_id")
     private UserRecord vendorCoupon;
 
     @ManyToOne(targetEntity = UserRecord.class, fetch = FetchType.EAGER)
-    @JoinColumn(name = "user_id")
+    @JoinColumn(nullable = false ,name = "user_id")
     private UserRecord userCoupon;
 
     public int getId() {

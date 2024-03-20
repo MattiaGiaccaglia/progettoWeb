@@ -8,4 +8,5 @@ import java.util.List;
 public interface FidelityCardRepository extends CrudRepository<FidelityCardRecord, Integer> {
     List<FidelityCardRecord> findByVendorFidelity(UserRecord userRecord);
     FidelityCardRecord findByUser(UserRecord userRecord);
+    FidelityCardRecord findByUserId(int id);
 }

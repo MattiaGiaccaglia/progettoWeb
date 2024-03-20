@@ -1,7 +1,7 @@
 package progettoWeb.Messages;
 
 import jakarta.persistence.*;
-import progettoWeb.IdChat.IdChatRecord;
+import progettoWeb.Chat.ChatRecord;
 import progettoWeb.User.UserRecord;
 import java.time.LocalDateTime;
 
@@ -25,8 +25,8 @@ public class MessagesRecord {
     @JoinColumn(nullable = false)
     private UserRecord gestorePiattaforma;
 
-    @ManyToOne(targetEntity = IdChatRecord.class)
-    private IdChatRecord IdChat;
+    @ManyToOne(targetEntity = ChatRecord.class)
+    private ChatRecord IdChat;
 
     public int getId() {
         return id;
@@ -68,11 +68,11 @@ public class MessagesRecord {
         this.gestorePiattaforma = gestorePiattaforma;
     }
 
-    public IdChatRecord getIdChat() {
+    public ChatRecord getIdChat() {
         return IdChat;
     }
 
-    public void setIdChat(IdChatRecord idChat) {
+    public void setIdChat(ChatRecord idChat) {
         IdChat = idChat;
     }
 }

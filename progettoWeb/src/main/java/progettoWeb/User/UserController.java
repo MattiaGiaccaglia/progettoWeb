@@ -6,7 +6,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import progettoWeb.Authentication.Auth.AuthenticationRequest;
 import progettoWeb.Authentication.Auth.AuthenticationResponse;
-import progettoWeb.Authentication.Auth.RegisterRequest;
 
 import java.util.List;
 
@@ -23,7 +22,7 @@ public class UserController {
     }
 
     //Registrazione utenti nuovi
-    @PostMapping(value = "/api/registrazione")
+    @PostMapping(value = "/registrazione")
     public ResponseEntity<AuthenticationResponse> authenticate(@RequestBody UserRecord userRecord){
         return new ResponseEntity<>(userService.aggiungiUtente(userRecord), HttpStatus.OK);
     }
@@ -43,7 +42,7 @@ public class UserController {
         try {
             userService.eliminaUtente(email);
         } catch (Exception e) {
-            return new ResponseEntity<>("Utente non trovato", HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>("Utente non trovato", HttpStatus.NOT_FOUND);
         }
         return new ResponseEntity<>("Utente eliminato correttamente", HttpStatus.OK);
     }

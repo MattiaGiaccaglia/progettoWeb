@@ -26,9 +26,7 @@ public class UserService {
 
     //restituisco lista completa degli utenti
     public List<UserRecord> getAllUsers(){
-        List<UserRecord>UserRecords = new ArrayList<>();
-        userRepository.findAll().forEach(UserRecords::add);
-        return UserRecords;
+        return new ArrayList<>(userRepository.findAll());
     }
 
     public AuthenticationResponse login(AuthenticationRequest request){
@@ -62,8 +60,9 @@ public class UserService {
     }
 
     //Restituisco utente a partire dall'ID
-    public Optional<UserRecord> getUser(int id) {
-        return userRepository.findById(id);
+    public UserRecord getUser(int id) {
+        return userRepository.findById(id)
+                .orElseThrow(() -> new UserException.UserExceptionNotFound("Nessun utente presente con il seguente id: " + id));
     }
 
     public void modifyUser(UserRecord userRecord){

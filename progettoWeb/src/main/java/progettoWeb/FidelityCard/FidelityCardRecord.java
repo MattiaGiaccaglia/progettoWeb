@@ -16,18 +16,18 @@ public class FidelityCardRecord {
 
     @ManyToOne(targetEntity = UserRecord.class, fetch = FetchType.EAGER)
     @JoinColumn(nullable = false, name = "id_user")
-    @JsonProperty("user")
+    //@JsonProperty("user")
     private UserRecord user;
 
     @ManyToOne(targetEntity = UserRecord.class, fetch = FetchType.EAGER)
     @JoinColumn(nullable = false, name = "vendor_id")
-    @JsonProperty("vendorFidelity")
+    //@JsonProperty("vendorFidelity")
     private UserRecord vendorFidelity;
 
     @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(name = "FidelityCard_FidelityPlan", // Nome della tabella di join
-            joinColumns = @JoinColumn(name = "fidelityCard_id", referencedColumnName = "id"), // Colonna di join per l'entità corrente
-            inverseJoinColumns = @JoinColumn(name = "storeRecord_id", referencedColumnName = "id") // Colonna di join per l'entità associata
+    @JoinTable(name = "FidelityCard_FidelityPlan", //Nome della tabella di join
+            joinColumns = @JoinColumn(name = "fidelityCard_id", referencedColumnName = "id"), //Colonna di join per l'entità corrente
+            inverseJoinColumns = @JoinColumn(name = "storeRecord_id", referencedColumnName = "id") //Colonna di join per l'entità associata
     )
     private List<StoreRecord> fidelityPlan;
 

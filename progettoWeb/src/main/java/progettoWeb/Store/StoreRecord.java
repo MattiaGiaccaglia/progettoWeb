@@ -15,7 +15,7 @@ public class StoreRecord {
     private String nome;
 
     @OneToOne(targetEntity = UserRecord.class, fetch = FetchType.EAGER)
-    @JoinColumn(name = "proprietario")
+    @JoinColumn(nullable = false, name = "proprietario")
     private UserRecord proprietario;
 
     @OneToMany(targetEntity = UserRecord.class,  fetch = FetchType.EAGER)

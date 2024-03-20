@@ -35,7 +35,7 @@ public class JwtService {
                 .setClaims(extractClaims)
                 .setSubject(userDetails.getUsername())
                 .setIssuedAt(new Date(System.currentTimeMillis()))
-                .setExpiration(new Date(System.currentTimeMillis() + 3600000)) //un ora
+                .setExpiration(new Date(System.currentTimeMillis() + 86400000)) //24 ore //TODO cambiare a fine progetto in un ora (3600000)
                 .signWith(getSignKey(), SignatureAlgorithm.HS256)
                 .compact();
     }

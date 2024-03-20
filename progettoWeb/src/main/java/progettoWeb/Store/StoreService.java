@@ -5,7 +5,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class StoreService {
@@ -26,8 +25,9 @@ public class StoreService {
     }
 
     //Metodo per restituire uno specifico store
-    public Optional<StoreRecord> getStore(int id) {
-        return storeRepository.findById(id);
+    public StoreRecord getStore(int id) throws StoreException.StoreExceptionNotFound {
+        return storeRepository.findById(id)
+                .orElseThrow(() -> new StoreException.StoreExceptionNotFound("Nessuno store presente con il seguente id: " + id));
     }
 
     //Aggiungo un nuovo store, controllando che prima non esisti già

@@ -1,7 +1,7 @@
 package progettoWeb.Assistence;
 
 import jakarta.persistence.*;
-import progettoWeb.IdChat.IdChatRecord;
+import progettoWeb.Chat.ChatRecord;
 import progettoWeb.User.UserRecord;
 
 @Entity
@@ -11,12 +11,12 @@ public class AssistanceRecord {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @ManyToOne(targetEntity = IdChatRecord.class)
-    @JoinColumn(name = "IdChat")
-    private IdChatRecord IdChat;
+    @ManyToOne(targetEntity = ChatRecord.class)
+    @JoinColumn(nullable = false ,name = "IdChat")
+    private ChatRecord IdChat;
 
     @ManyToOne(targetEntity = UserRecord.class)
-    @JoinColumn(name = "staff")
+    @JoinColumn(nullable = false ,name = "staff")
     private UserRecord staff;
 
     public int getId() {
@@ -27,11 +27,11 @@ public class AssistanceRecord {
         this.id = id;
     }
 
-    public IdChatRecord getIdChat() {
+    public ChatRecord getIdChat() {
         return IdChat;
     }
 
-    public void setIdChat(IdChatRecord idChat) {
+    public void setIdChat(ChatRecord idChat) {
         IdChat = idChat;
     }
 

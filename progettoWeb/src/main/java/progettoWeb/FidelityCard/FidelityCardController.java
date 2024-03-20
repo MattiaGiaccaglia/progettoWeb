@@ -4,68 +4,66 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import progettoWeb.Store.StoreRecord;
-import progettoWeb.Store.StoreService;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
+@RequestMapping("/api/fidelityCard")
 public class FidelityCardController {
 
     @Autowired
     private FidelityCardService fidelityCardService;
 
-    @Autowired
-    private StoreService storeService;
-
     //Restituisco tutte le fidelity card
-    @RequestMapping(value = "/api/getFidelityCards")
+    @RequestMapping(value = "/getFidelityCards")
     public ResponseEntity<Object> getAllFidelityCard() {
         List<FidelityCardRecord> fidelityCardRecord = fidelityCardService.getAllFidelityCard();
         if(fidelityCardRecord.isEmpty())
-            return new ResponseEntity<>("Nessuna Fidelity Card presente", HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>("Nessuna Fidelity Card presente.", HttpStatus.NOT_FOUND);
         return new ResponseEntity<>(fidelityCardRecord, HttpStatus.OK);
     }
 
     //Restituisco fidelity card a partire da un ID
-    @GetMapping(value = "/api/fidelityCard/{id}")
-    public ResponseEntity<Object> getFidelityCard(@PathVariable("id") String id) {
-        Optional<FidelityCardRecord> fidelityCard = fidelityCardService.getFidelityCard(Integer.parseInt(id));
-        if(fidelityCard.isEmpty())
-            return new ResponseEntity<>("Nessuna Fidelity Card associata a questo ID", HttpStatus.NOT_FOUND);
-        return new ResponseEntity<>(fidelityCard, HttpStatus.OK);
+    @GetMapping(value = "/getFidelityCard/{id}")
+    public ResponseEntity<Object> getFidelityCard(@PathVariable("id") int id) {
+        FidelityCardRecord fidelityCard = fidelityCardService.getFidelityCard(id);
+        return new ResponseEntity<>(fidelityCardService.getFidelityCard(id), HttpStatus.OK);
     }
 
     //Restituisco fidelity card di un utente
-    @GetMapping(value = "/api/fidelityCardUser/{id}")
-    public ResponseEntity<Object> getFidelityCardByUserId(@PathVariable("id") String id) {
-        Optional<List<FidelityCardRecord>> fidelityCard = fidelityCardService.getFidelityCardByUserId(Integer.parseInt(id));
-        if(fidelityCard.isEmpty())
-            return new ResponseEntity<>("Nessuna Fidelity Card associata a questo utente", HttpStatus.NOT_FOUND);
+    @GetMapping(value = "/getFidelityCardUser/{id}")
+    public ResponseEntity<Object> getFidelityCardByUserId(@PathVariable("id") int id){
+        List<FidelityCardRecord> fidelityCard = fidelityCardService.getFidelityCardByUserId(id);
+        if (fidelityCard.isEmpty())
+            return new ResponseEntity<>("Nessuna Fidelity Card associata a questo utente.", HttpStatus.NOT_FOUND);
         return new ResponseEntity<>(fidelityCard, HttpStatus.OK);
     }
 
-
     //Aggiungo una fidelity card
-    @RequestMapping(value = "/api/addFidelityCard", method= RequestMethod.POST)
+    @RequestMapping(value = "/addFidelityCard", method= RequestMethod.POST)
     public ResponseEntity<String> addFidelityCard(@RequestBody FidelityCardRecord fidelityCard) {
-        if(fidelityCardService.addFidelityCard(fidelityCard))
-            return new ResponseEntity<>("Fidelity Card aggiunta correttamente", HttpStatus.OK);
-        return new ResponseEntity<>("Fidelity Card già assegnata", HttpStatus.BAD_REQUEST);
+        if (fidelityCardService.addFidelityCard(fidelityCard))
+            return new ResponseEntity<>("Fidelity Card aggiunta correttamente.", HttpStatus.OK);
+        return new ResponseEntity<>("Non è possibile aggiungere la Fidelity Card, controllare i dati inseriti e riprovare.", HttpStatus.BAD_REQUEST);
     }
 
-
     //Modifico una fidelity card
-    @RequestMapping(value = "/api/modifyFidelityCard", method= RequestMethod.POST)
+    @PutMapping(value = "/modifyFidelityCard")
     public ResponseEntity<String> modifyFidelityCard(@RequestBody FidelityCardRecord fidelityCard) {
-        if(fidelityCardService.modifyFidelityCard(fidelityCard))
-            return new ResponseEntity<>("Fidelity Card aggiornata correttamente", HttpStatus.OK);
-        return new ResponseEntity<>("Impossibile aggiornare la Fidelity Card", HttpStatus.BAD_REQUEST);
+        if (fidelityCardService.modifyFidelityCard(fidelityCard))
+            return new ResponseEntity<>("Fidelity Card aggiornata correttamente.", HttpStatus.OK);
+        return new ResponseEntity<>("Non è possibile aggiornare la Fidelity Card, controllare i dati inseriti e riprovare.", HttpStatus.BAD_REQUEST);
+    }
+
+    //Elimino fidelity card
+    @DeleteMapping(value = "/delete/{id}")
+    public ResponseEntity<String> deleteFidelityCard(@PathVariable("id") int id){
+        fidelityCardService.deleteFidelityCard(id);
+        return new ResponseEntity<>("Fidelity Card eliminata correttamente.", HttpStatus.OK);
     }
 
     //Aggiungo fidelity plan a una fidelity card
-    @RequestMapping(value="/api/addFidelityPlan/{idFidelityCard}/{idStore}", method= RequestMethod.POST)
+    /*@RequestMapping(value="/api/addFidelityPlan/{idFidelityCard}/{idStore}", method= RequestMethod.POST)
     public ResponseEntity<String> addFidelityPlan(@PathVariable("idFidelityCard") String idFidelityCard, @PathVariable("idStore") String idStore) {
         try{
             Optional<FidelityCardRecord> fidelityCard = fidelityCardService.getFidelityCard(Integer.parseInt(idFidelityCard));
@@ -97,6 +95,6 @@ public class FidelityCardController {
         catch (Exception e){
             return new ResponseEntity<>("Non è possibile aggiungere il piano fedeltà", HttpStatus.BAD_REQUEST);
         }
-    }
+    }*/
 
 }

@@ -2,12 +2,12 @@ package progettoWeb.Coupon;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import progettoWeb.User.Role;
 import progettoWeb.User.UserRecord;
 import progettoWeb.User.UserService;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class CouponService {
@@ -24,47 +24,28 @@ public class CouponService {
     }
 
     //Restituisco un singolo Coupon a partire da ID
-    public Optional<CouponRecord> getSingleCoupon(int id) {
-        return couponRepository.findById(id);
+    public CouponRecord getSingleCoupon(int id) {
+        return couponRepository.findById(id)
+                .orElseThrow(() -> new CouponException.CouponExceptionNotFound("Nessun coupon con l'id: " + id));
     }
 
-    //Aggiungo Coupon
-    public void addCoupon(CouponRecord couponRecords) {
-        couponRepository.save(couponRecords);
+    //Aggiungo un Coupon
+    public boolean addCoupon(CouponRecord couponRecord) {
+        //Controllo che i dati nella RequestBody siano corretti
+        UserRecord user = userService.getUser(couponRecord.getUserCoupon().getId());
+        UserRecord vendor = userService.getUser(couponRecord.getVendorCoupon().getId());
+        if (!user.equals(couponRecord.getUserCoupon()) || !vendor.equals(couponRecord.getVendorCoupon()))
+            return false;
+        //Controllo che il ruolo del venditore sia Role.venditore che l'user inserito abbia il ruolo di utente
+        if(couponRecord.getVendorCoupon().getRuolo().equals(Role.venditore) && couponRecord.getUserCoupon().getRuolo().equals(Role.utente)) {
+            couponRepository.save(couponRecord);
+            return true;
+        }
+        return false;
     }
 
-    //Aggiungo un Coupon a partire da un ID
-    public void addCouponFromId(int value, int vendorid, int userid) {
-        Optional<UserRecord> Venditore = userService.getUser(vendorid);
-        Optional<UserRecord> Utente = userService.getUser(userid);
-
-        //Creo Venditore
-        UserRecord vendor = new UserRecord();
-        vendor.setId(Venditore.get().getId());
-        vendor.setNome(Venditore.get().getNome());
-        vendor.setCognome(Venditore.get().getCognome());
-        vendor.setUsername(Venditore.get().getUsername());
-        vendor.setPassword(Venditore.get().getPassword());
-        vendor.setEmail(Venditore.get().getEmail());
-        vendor.setTelefono(Venditore.get().getTelefono());
-        vendor.setRuolo(Venditore.get().getRuolo());
-
-        //Creo Utente
-        UserRecord user = new UserRecord();
-        user.setId(Utente.get().getId());
-        user.setNome(Utente.get().getNome());
-        user.setCognome(Utente.get().getCognome());
-        user.setUsername(Utente.get().getUsername());
-        user.setPassword(Utente.get().getPassword());
-        user.setEmail(Utente.get().getEmail());
-        user.setTelefono(Utente.get().getTelefono());
-        user.setRuolo(Utente.get().getRuolo());
-
-        //Creo Coupon e aggiungo Venditore e Utente
-        CouponRecord couponRecords = new CouponRecord();
-        couponRecords.setValore(value);
-        couponRecords.setVendorCoupon(vendor);
-        couponRecords.setUserCoupon(user);
-        couponRepository.save(couponRecords);
+    //Elimino un Coupon
+    public void deleteCoupon(int id){
+        couponRepository.delete(getSingleCoupon(id));
     }
 }
