@@ -14,8 +14,11 @@ public class StoreRecord {
     @Column(nullable = false)
     private String nome;
 
-    @OneToOne(targetEntity = UserRecord.class, fetch = FetchType.EAGER)
-    @JoinColumn(nullable = false, name = "proprietario")
+    @Column(nullable = false)
+    private String luogo;
+
+    @ManyToOne(targetEntity = UserRecord.class, fetch = FetchType.EAGER)
+    @JoinColumn(name = "proprietario_id", nullable = false)
     private UserRecord proprietario;
 
     @OneToMany(targetEntity = UserRecord.class,  fetch = FetchType.EAGER)
@@ -39,6 +42,14 @@ public class StoreRecord {
 
     public void setNome(String nome) {
         this.nome = nome;
+    }
+
+    public String getLuogo() {
+        return luogo;
+    }
+
+    public void setLuogo(String luogo) {
+        this.luogo = luogo;
     }
 
     public UserRecord getProprietario() {

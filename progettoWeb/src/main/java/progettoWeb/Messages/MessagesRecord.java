@@ -1,5 +1,6 @@
 package progettoWeb.Messages;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import progettoWeb.Chat.ChatRecord;
 import progettoWeb.User.UserRecord;
@@ -19,14 +20,24 @@ public class MessagesRecord {
 
     @ManyToOne(targetEntity = UserRecord.class)
     @JoinColumn(nullable = false)
-    private UserRecord user;
+    private UserRecord mittente;
 
     @ManyToOne(targetEntity = UserRecord.class)
     @JoinColumn(nullable = false)
-    private UserRecord gestorePiattaforma;
+    private UserRecord destinatario;
 
-    @ManyToOne(targetEntity = ChatRecord.class)
-    private ChatRecord IdChat;
+    @ManyToOne
+    @JoinColumn(name = "chat_id")
+    @JsonIgnore
+    private ChatRecord chat;
+
+    public ChatRecord getChat() {
+        return chat;
+    }
+
+    public void setChat(ChatRecord chat) {
+        this.chat = chat;
+    }
 
     public int getId() {
         return id;
@@ -52,27 +63,19 @@ public class MessagesRecord {
         this.data = data;
     }
 
-    public UserRecord getUser() {
-        return user;
+    public UserRecord getMittente() {
+        return mittente;
     }
 
-    public void setUser(UserRecord user) {
-        this.user = user;
+    public void setMittente(UserRecord mittente) {
+        this.mittente = mittente;
     }
 
-    public UserRecord getGestorePiattaforma() {
-        return gestorePiattaforma;
+    public UserRecord getDestinatario() {
+        return destinatario;
     }
 
-    public void setGestorePiattaforma(UserRecord gestorePiattaforma) {
-        this.gestorePiattaforma = gestorePiattaforma;
-    }
-
-    public ChatRecord getIdChat() {
-        return IdChat;
-    }
-
-    public void setIdChat(ChatRecord idChat) {
-        IdChat = idChat;
+    public void setDestinatario(UserRecord destinatario) {
+        this.destinatario = destinatario;
     }
 }

@@ -2,22 +2,24 @@ package progettoWeb.Assistence;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import progettoWeb.Chat.ChatRecord;
+import progettoWeb.Chat.ChatService;
+import progettoWeb.User.Role;
 import progettoWeb.User.UserRecord;
-import progettoWeb.User.UserRepository;
 import progettoWeb.User.UserService;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class AssistanceService {
     @Autowired
     AssistanceRepository assistanceRepository;
     @Autowired
-    UserRepository userRepository;
-
-    @Autowired
     UserService userService;
+    @Autowired
+    ChatService chatService;
 
     //Restituisco tutte le Assistenze che sono state fatte
     public List<AssistanceRecord> getAllAssistance(){
@@ -33,14 +35,28 @@ public class AssistanceService {
     }
 
     //Restituisco tutte le Assistenze che sono state fatte da un determinato Staff
-    public List<AssistanceRecord> getAllAssistanceByStaff(int id){
+    public List<AssistanceRecord> getAllAssistanceByStaff(int id) {
         UserRecord user = userService.getUser(id);
-        List<AssistanceRecord> assistanceRecords = new ArrayList<>();
-        //per un determinato Staff, aggiungo tutte le assistenze che sono state fatte da lui in un array e lo restituisco
-        for (AssistanceRecord A: getAllAssistance())
-            if(A.getStaff().getId() == user.getId())
-                assistanceRecords.add(A);
-        return assistanceRecords;
+        if (!user.getRuolo().equals(Role.staff))
+            throw new IllegalArgumentException("L'utente inserito non è uno Staff.");
+        return getAllAssistance().stream().filter(a -> a.getStaff().getId() == id).collect(Collectors.toList());
+    }
+
+    //Metodo che permette di chiudere una chat
+    public boolean closeChat(int id){
+        ChatRecord chatRecord = chatService.getChat(id);
+        //Se già chiusa, restituisco false
+        if(chatRecord.isClose())
+            return false;
+        boolean close = true;
+        chatRecord.setClose(close);
+        chatService.addChat(chatRecord);
+        return true;
+    }
+
+    //Salvo l'assistenza
+    public void addAssistance(AssistanceRecord assistanceRecord){
+        assistanceRepository.save(assistanceRecord);
     }
 
     //Elimino una assistenza

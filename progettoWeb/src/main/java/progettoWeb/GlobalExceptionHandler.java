@@ -84,4 +84,9 @@ public class GlobalExceptionHandler {
     public ResponseEntity<Object> handleNullPointerException(NullPointerException e) {
         return new ResponseEntity<>("Si è verificato un errore: " + e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
     }
+
+    @ExceptionHandler(IllegalArgumentException.class)
+    public ResponseEntity<Object> handleIllegalArgumentException(IllegalArgumentException e){
+        return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+    }
 }

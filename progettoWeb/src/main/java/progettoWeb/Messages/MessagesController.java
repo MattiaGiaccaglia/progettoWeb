@@ -32,10 +32,10 @@ public class MessagesController {
     }
 
     //Aggiungo un messaggio a una determinata chat
-    @RequestMapping(value = "/api/addMessages/{idChat}", method= RequestMethod.POST)
-    public ResponseEntity<String> addMessages(@RequestBody MessagesRecord messages, @PathVariable("idChat") int idChat){
-        if(messagesService.addMessages(messages, idChat))
+    @RequestMapping(value = "/api/addMessages", method= RequestMethod.POST)
+    public ResponseEntity<String> addMessages(@RequestBody MessagesRecord messages){
+        if(messagesService.addMessages(messages))
             return new ResponseEntity<>("Messaggio inviato correttamente", HttpStatus.OK);
-        return new ResponseEntity<>("Impossibile inviare messaggio", HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>("Impossibile inviare messaggio, controllare i dati inseriti e riprovare.", HttpStatus.BAD_REQUEST);
     }
 }

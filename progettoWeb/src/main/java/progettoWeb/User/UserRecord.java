@@ -12,6 +12,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
 import java.util.List;
+import java.util.Objects;
 
 @Data
 @Builder
@@ -37,7 +38,6 @@ public class UserRecord implements UserDetails {
     private String telefono;
     @Enumerated(EnumType.STRING)
     private Role ruolo;
-
 
     public int getId() {
         return id;
@@ -103,6 +103,27 @@ public class UserRecord implements UserDetails {
 
     public void setRuolo(Role ruolo) {
         this.ruolo = ruolo;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o)
+            return true;
+        if (o == null || getClass() != o.getClass())
+            return false;
+        UserRecord user = (UserRecord) o;
+        return id == user.id &&
+                Objects.equals(nome, user.nome) &&
+                Objects.equals(cognome, user.cognome) &&
+                Objects.equals(username, user.username) &&
+                Objects.equals(email, user.email) &&
+                Objects.equals(telefono, user.telefono) &&
+                Objects.equals(ruolo, user.ruolo);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, nome, cognome, username, email, telefono, ruolo);
     }
 
     @Override

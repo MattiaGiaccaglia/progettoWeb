@@ -31,7 +31,7 @@ public class ReviewService {
     //Restituisco Review a partire da ID
     public ReviewRecord getReview(int id){
         return reviewRepository.findById(id)
-                .orElseThrow(() -> new ReviewException.ReviewExceptionNotFound("Review non presete con il seguente id: " + id));
+                .orElseThrow(() -> new ReviewException.ReviewExceptionNotFound("Review non presente con il seguente id: " + id));
     }
 
     //Aggiungo una Review

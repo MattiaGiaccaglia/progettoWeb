@@ -37,22 +37,9 @@ public class StoreController {
     //Aggiungo store
     @RequestMapping(value="/api/addStore", method= RequestMethod.POST)
     public ResponseEntity<String> addStore(@RequestBody StoreRecord store) {
-        try {
-            // Controllo se l'utente venditore è già associato a un altro negozio
-            UserRecord venditore = store.getProprietario();
-            // Assegno il ruolo di dipendente a tutti gli utenti aggiunti allo store
-            List<UserRecord> dipendenti = store.getDipendenti();
-            for (UserRecord dipendente : dipendenti) {
-                dipendente.setRuolo(Role.dipendente);
-                userService.modifyUser(dipendente);
-            }
-            // Aggiungo lo store
-            if (storeService.addStore(store))
-                return new ResponseEntity<>("Store aggiunto correttamente", HttpStatus.OK);
-        } catch (Exception e) {
-            return new ResponseEntity<>("Impossibile aggiungere Store", HttpStatus.INTERNAL_SERVER_ERROR);
-        }
-        return new ResponseEntity<>("Impossibile aggiungere Store", HttpStatus.INTERNAL_SERVER_ERROR);
+        if (storeService.addStore(store))
+            return new ResponseEntity<>("Store aggiunto correttamente", HttpStatus.OK);
+        return new ResponseEntity<>("Impossibile aggiungere Store, controllare i dati inseriti e riprovare.", HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
     //Aggiungo dipendente a uno store

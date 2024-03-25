@@ -1,5 +1,6 @@
 package progettoWeb.Assistence;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import progettoWeb.Chat.ChatRecord;
 import progettoWeb.User.UserRecord;
@@ -11,13 +12,14 @@ public class AssistanceRecord {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @ManyToOne(targetEntity = ChatRecord.class)
-    @JoinColumn(nullable = false ,name = "IdChat")
-    private ChatRecord IdChat;
-
     @ManyToOne(targetEntity = UserRecord.class)
-    @JoinColumn(nullable = false ,name = "staff")
+    @JoinColumn(nullable = false, name = "staff")
     private UserRecord staff;
+
+    @ManyToOne
+    @JoinColumn(name = "chat_id")
+    @JsonIgnore
+    private ChatRecord chat;
 
     public int getId() {
         return id;
@@ -27,19 +29,19 @@ public class AssistanceRecord {
         this.id = id;
     }
 
-    public ChatRecord getIdChat() {
-        return IdChat;
-    }
-
-    public void setIdChat(ChatRecord idChat) {
-        IdChat = idChat;
-    }
-
     public UserRecord getStaff() {
         return staff;
     }
 
     public void setStaff(UserRecord staff) {
         this.staff = staff;
+    }
+
+    public ChatRecord getChat() {
+        return chat;
+    }
+
+    public void setChat(ChatRecord chat) {
+        this.chat = chat;
     }
 }

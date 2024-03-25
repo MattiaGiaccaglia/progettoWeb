@@ -6,7 +6,6 @@ import progettoWeb.User.Role;
 import progettoWeb.User.UserRecord;
 import progettoWeb.User.UserService;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -32,6 +31,7 @@ public class FidelityCardService {
                         ("Nessuna fidelity card associata a questo id: " + id));
     }
 
+    //Restituisco Fidelity Card di un Utente
     public List<FidelityCardRecord> getFidelityCardByUserId(int id) {
         UserRecord user = userService.getUser(id);
         return getAllFidelityCard().stream().filter(fc -> fc.getUser().getId() == user.getId()).collect(Collectors.toList());
