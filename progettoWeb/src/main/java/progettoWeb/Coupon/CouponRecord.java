@@ -1,9 +1,6 @@
 package progettoWeb.Coupon;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
-import org.antlr.v4.runtime.misc.NotNull;
-import org.springframework.lang.NonNull;
 import progettoWeb.User.UserRecord;
 
 @Entity

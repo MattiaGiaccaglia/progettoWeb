@@ -8,13 +8,13 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
+@RequestMapping("/api/messages")
 public class MessagesController {
-
     @Autowired
     private MessagesService messagesService;
 
     //Restituisco tutti i messaggi
-    @RequestMapping(value = "/api/getMessages")
+    @GetMapping("/getMessages")
     public ResponseEntity<Object> getAllMessages(){
         List<MessagesRecord> messagesRecords = messagesService.getAllMessages();
         if(!messagesRecords.isEmpty())
@@ -23,7 +23,7 @@ public class MessagesController {
     }
 
     //Restituisco tutti i messaggi di una determinata chat
-    @RequestMapping(value = "/api/getMessagesByIDChat/{idChat}")
+    @GetMapping("/getMessagesByIDChat/{idChat}")
     public ResponseEntity<Object> getMessagesByIDChat(@PathVariable("idChat") int idChat){
         List<MessagesRecord> messagesRecords = messagesService.getAllMessagesByIDChat(idChat);
         if(!messagesRecords.isEmpty())
@@ -32,7 +32,7 @@ public class MessagesController {
     }
 
     //Aggiungo un messaggio a una determinata chat
-    @RequestMapping(value = "/api/addMessages", method= RequestMethod.POST)
+    @PostMapping("/addMessages")
     public ResponseEntity<String> addMessages(@RequestBody MessagesRecord messages){
         if(messagesService.addMessages(messages))
             return new ResponseEntity<>("Messaggio inviato correttamente", HttpStatus.OK);

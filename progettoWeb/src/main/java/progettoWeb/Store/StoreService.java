@@ -22,11 +22,6 @@ public class StoreService {
         return new ArrayList<>(storeRepository.findAll());
     }
 
-    //Rimuovo uno store
-    public void removeStore(int id){
-        storeRepository.deleteById(this.getStore(id).getId());
-    }
-
     //Restituisco uno specifico store
     public StoreRecord getStore(int id) throws StoreException.StoreExceptionNotFound {
         return storeRepository.findById(id)
@@ -41,32 +36,76 @@ public class StoreService {
     //Aggiungo un nuovo store
     public boolean addStore(StoreRecord storeRecords) {
         UserRecord proprietario = userService.getUser(storeRecords.getProprietario().getId());
-        if (!proprietario.equals(storeRecords.getProprietario()) || proprietario.getRuolo() != Role.venditore)
+        if (!proprietario.equals(storeRecords.getProprietario()))
             return false;
-        //Se proprietario ha già negozio in un luogo, non aggiungo
-        List<StoreRecord> storeRecords1 = this.getStoreByVendor(proprietario.getId());
-        for(StoreRecord s : storeRecords1)
-            if(s.getLuogo().equals(storeRecords.getLuogo()))
-                return false;
+        //Controllo se il proprietario ha già un negozio nello stesso luogo
+        if (getStoreByVendor(proprietario.getId()).stream().anyMatch(s -> s.getLuogo().equals(storeRecords.getLuogo())))
+            return false;
         //Cambio ruolo agli utenti in Role.dipendente, se presenti al momento della creazione
         List<UserRecord> dipendenti = storeRecords.getDipendenti();
         if (dipendenti != null)
-            for (UserRecord dipendente : dipendenti) {
-                dipendente.setRuolo(Role.dipendente);
-                userService.modifyUser(dipendente);
-            }
+            dipendenti.forEach(dipendente -> { dipendente.setRuolo(Role.dipendente); userService.save(dipendente); });
+        proprietario.setRuolo(Role.venditore);
+        userService.save(proprietario);
         //Salvo store
         storeRepository.save(storeRecords);
         return true;
     }
 
-    //Modifico uno store già esistente
-    public boolean modifyStore(StoreRecord storeRecords){
-        if(storeRepository.existsById(storeRecords.getId())) {
-            storeRepository.save(storeRecords);
-            return true;
-        }
-        return false;
+    //Rimuovo uno store
+    public void removeStore(int id) {
+        StoreRecord storeRecord = this.getStore(id);
+        //Cambio ruolo dei dipendenti in Ruolo.utente
+        storeRecord.getDipendenti().forEach(d -> { d.setRuolo(Role.utente); userService.save(d); });
+        storeRecord.getProprietario().setRuolo(Role.utente);
+        //Rimuovo il negozio
+        storeRepository.deleteById(id);
+    }
+
+    //Restituisco dipendenti di uno store
+    public List<UserRecord> getEmployees(int id){
+        StoreRecord storeRecord = this.getStore(id);
+        return storeRecord.getDipendenti();
+    }
+
+    //Aggiungo un dipendente a uno store
+    public boolean addEmployee(UserRecord userRecord, int id){
+        UserRecord user = userService.getUser(userRecord.getId());
+        StoreRecord store = this.getStore(id);
+        //Controllo che nella requestBody vengano inseriti i dati corretti
+        if(!user.equals(userRecord))
+            return false;
+        if(user.equals(store.getProprietario()))
+            throw new IllegalArgumentException("L'utente inserito è il proprietario del negozio.");
+        //Controllo che l'utente non sia già dipendente di questo store
+        if (store.getDipendenti().contains(user))
+            throw new IllegalArgumentException("L'utente è già dipendente di questo Store.");
+        // Controllo che l'utente non sia già dipendente in un altro store
+        List<StoreRecord> allStores = this.getAllStore();
+        for (StoreRecord s : allStores)
+            if (s.getDipendenti().contains(user))
+                throw new IllegalArgumentException("L'utente è già dipendente in un altro Store.");
+        store.getDipendenti().add(user);
+        user.setRuolo(Role.dipendente);
+        userService.save(user);
+        storeRepository.save(store);
+        return true;
+    }
+
+    //Rimuovo dipendente da uno store
+    public boolean removeEmployee(UserRecord userRecord, int id){
+        UserRecord user = userService.getUser(userRecord.getId());
+        StoreRecord store = this.getStore(id);
+        //Controllo che nella requestBody vengano inseriti i dati corretti
+        if(!user.equals(userRecord))
+            return false;
+        if(!store.getDipendenti().contains(user))
+            throw new IllegalArgumentException("L'utente non è dipendente di questo Store.");
+        store.getDipendenti().remove(user);
+        user.setRuolo(Role.utente);
+        userService.save(user);
+        storeRepository.save(store);
+        return true;
     }
 
 }

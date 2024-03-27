@@ -13,7 +13,6 @@ import progettoWeb.Authentication.Config.JwtService;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -43,46 +42,52 @@ public class UserService {
                 userRecord.getTelefono().length() != 10){
             return AuthenticationResponse.builder().token("").build();
         }
-        //create the user
-        UserRecord user = new UserRecord();
-        user.setNome(userRecord.getNome());
-        user.setCognome(userRecord.getCognome());
-        user.setUsername(userRecord.getUsername1());
-        user.setEmail(userRecord.getEmail());
-        user.setTelefono(userRecord.getTelefono());
-        user.setRuolo(Role.utente); //the default role is user
-        user.setPassword(passwordEncoder.encode(userRecord.getPassword1()));
-        userRepository.save(user);
-        var jwtToken = jwtService.generateToken(user); //generate jwt token
-        return AuthenticationResponse.builder()
-                .token(jwtToken)
-                .build();
+        userRecord.setRuolo(Role.utente); //Ruolo di default è Role.utente
+        userRecord.setPassword(passwordEncoder.encode(userRecord.getPassword1()));
+        save(userRecord);
+        var jwtToken = jwtService.generateToken(userRecord); //Genero jwt token
+        return AuthenticationResponse.builder().token(jwtToken).build();
     }
 
-    //Restituisco utente a partire dall'ID
+    //Restituisco utente a partire dall'id
     public UserRecord getUser(int id) {
         return userRepository.findById(id)
                 .orElseThrow(() -> new UserException.UserExceptionNotFound("Nessun utente presente con il seguente id: " + id));
     }
 
+    //Modifico utente
     public void modifyUser(UserRecord userRecord){
+        UserRecord user = this.getUser(userRecord.getId());
+        if(!user.getRuolo().equals(userRecord.getRuolo()))
+            throw new IllegalArgumentException
+                    ("Non è possibile modificare il ruolo. Modifiche ammesse:\nNome, Cognome, Username, Password, Email, Telefono");
+        if(userRecord.getNome().isEmpty() || userRecord.getCognome().isEmpty() || userRecord.getUsername1().isEmpty()
+                || userRecord.getPassword1().isEmpty() || userRecord.getEmail().isEmpty())
+            throw new IllegalArgumentException
+                    ("Non è possibile modificare utente. Non lasciare campi vuoti.");
+        if(userRecord.getTelefono().length() != 10)
+            throw new IllegalArgumentException
+                    ("Non è possibile modificare utente. Il numero di telefono è errato.");
+        if(userRecord.getPassword1().length() < 8)
+            throw new IllegalArgumentException
+                    ("Non è possibile modificare utente. La Password è troppo corta. Almeno 8 caratteri.");
+        user.setNome(userRecord.getNome());
+        user.setCognome(userRecord.getCognome());
+        user.setEmail(userRecord.getEmail());
+        user.setTelefono(userRecord.getTelefono());
+        if(!user.getPassword1().equals(userRecord.getPassword1()))
+            user.setPassword(passwordEncoder.encode(userRecord.getPassword1()));
+        user.setUsername(userRecord.getUsername());
+        save(user);
+    }
+
+    //Salvo utente
+    public void save(UserRecord userRecord){
         userRepository.save(userRecord);
     }
 
-
-    //Restituisco utente a partire dal suo Username
-    public Optional<UserRecord> getUserByUsername(String username) {
-        return userRepository.findByUsername(username);
-    }
-
-    //Elimino utente cercandolo tramite la sua email
-    public void eliminaUtente(String email){
-        Optional<UserRecord> user = userRepository.findByEmail(email);
-        int id = user.get().getId();
-        userRepository.deleteById(id);
-    }
-
-    public void eliminaUtenteByID(int ID){
-        userRepository.deleteById(ID);
+    //Elimino utente
+    public void deleteUser(int id){
+        userRepository.deleteById(this.getUser(id).getId());
     }
 }

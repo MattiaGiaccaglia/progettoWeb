@@ -1,11 +1,9 @@
 package progettoWeb.Review;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Service;
 import progettoWeb.User.Role;
 import progettoWeb.User.UserRecord;
-import progettoWeb.User.UserRepository;
 import progettoWeb.User.UserService;
 
 import java.util.ArrayList;
@@ -31,7 +29,7 @@ public class ReviewService {
     //Restituisco Review a partire da ID
     public ReviewRecord getReview(int id){
         return reviewRepository.findById(id)
-                .orElseThrow(() -> new ReviewException.ReviewExceptionNotFound("Review non presente con il seguente id: " + id));
+                .orElseThrow(() -> new ReviewException.ReviewExceptionNotFound("Nessuna Review presente con il seguente id: " + id));
     }
 
     //Aggiungo una Review
@@ -59,18 +57,17 @@ public class ReviewService {
         return getAllReviews().stream().filter(r -> user.getId() == r.getVendor().getId()).collect(Collectors.toList());
     }
 
-    //TODO Valutare se mantenere i due metodi distinti
-
     //Restituisco tutte le Review che sono state fatte da un Utente
     public List<ReviewRecord> getAllReviewByIdUser(int id) {
         UserRecord user = userService.getUser(id);
+        if(!user.getRuolo().equals(Role.utente))
+            throw new IllegalArgumentException("L'id inserito non appartiene ad un utente, ma a uno/un " + user.getRuolo());
         return getAllReviews().stream().filter(r -> user.getId() == r.getUser().getId()).collect(Collectors.toList());
     }
 
 
     //Elimino una Review
-    public boolean deleteReview(int id) {
+    public void deleteReview(int id) {
         reviewRepository.delete(getReview(id));
-        return true;
     }
 }

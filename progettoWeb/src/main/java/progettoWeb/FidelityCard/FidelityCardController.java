@@ -15,7 +15,7 @@ public class FidelityCardController {
     private FidelityCardService fidelityCardService;
 
     //Restituisco tutte le fidelity card
-    @RequestMapping(value = "/getFidelityCards")
+    @PostMapping("/getFidelityCards")
     public ResponseEntity<Object> getAllFidelityCard() {
         List<FidelityCardRecord> fidelityCardRecord = fidelityCardService.getAllFidelityCard();
         if(fidelityCardRecord.isEmpty())
@@ -24,14 +24,14 @@ public class FidelityCardController {
     }
 
     //Restituisco fidelity card a partire da un ID
-    @GetMapping(value = "/getFidelityCard/{id}")
+    @GetMapping("/getFidelityCard/{id}")
     public ResponseEntity<Object> getFidelityCard(@PathVariable("id") int id) {
         FidelityCardRecord fidelityCard = fidelityCardService.getFidelityCard(id);
         return new ResponseEntity<>(fidelityCardService.getFidelityCard(id), HttpStatus.OK);
     }
 
     //Restituisco fidelity card di un utente
-    @GetMapping(value = "/getFidelityCardUser/{id}")
+    @GetMapping("/getFidelityCardUser/{id}")
     public ResponseEntity<Object> getFidelityCardByUserId(@PathVariable("id") int id){
         List<FidelityCardRecord> fidelityCard = fidelityCardService.getFidelityCardByUserId(id);
         if (fidelityCard.isEmpty())
@@ -40,7 +40,7 @@ public class FidelityCardController {
     }
 
     //Aggiungo una fidelity card
-    @RequestMapping(value = "/addFidelityCard", method= RequestMethod.POST)
+    @PostMapping("/addFidelityCard")
     public ResponseEntity<String> addFidelityCard(@RequestBody FidelityCardRecord fidelityCard) {
         if (fidelityCardService.addFidelityCard(fidelityCard))
             return new ResponseEntity<>("Fidelity Card aggiunta correttamente.", HttpStatus.OK);
@@ -48,7 +48,7 @@ public class FidelityCardController {
     }
 
     //Modifico una fidelity card
-    @PutMapping(value = "/modifyFidelityCard")
+    @PutMapping("/modifyFidelityCard")
     public ResponseEntity<String> modifyFidelityCard(@RequestBody FidelityCardRecord fidelityCard) {
         if (fidelityCardService.modifyFidelityCard(fidelityCard))
             return new ResponseEntity<>("Fidelity Card aggiornata correttamente.", HttpStatus.OK);
@@ -56,7 +56,7 @@ public class FidelityCardController {
     }
 
     //Elimino fidelity card
-    @DeleteMapping(value = "/delete/{id}")
+    @DeleteMapping("/delete/{id}")
     public ResponseEntity<String> deleteFidelityCard(@PathVariable("id") int id){
         fidelityCardService.deleteFidelityCard(id);
         return new ResponseEntity<>("Fidelity Card eliminata correttamente.", HttpStatus.OK);

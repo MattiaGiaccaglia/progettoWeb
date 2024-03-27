@@ -22,7 +22,7 @@ public class SecurityConfiguration {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http.csrf().disable()
                 .authorizeRequests()
-                .requestMatchers("/h2-console/**", "/registrazione", "/api/login").permitAll()
+                .requestMatchers("/h2-console/**", "/api/user/registrazione", "/api/user/login").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .sessionManagement()

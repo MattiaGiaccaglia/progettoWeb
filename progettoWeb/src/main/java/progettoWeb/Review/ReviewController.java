@@ -14,7 +14,7 @@ public class ReviewController {
     private ReviewService reviewService;
 
     //Restituisco tutte le Review
-    @RequestMapping("/getReviews")
+    @GetMapping("/getReviews")
     public ResponseEntity<Object> getAllReviews() {
         List<ReviewRecord> reviewRecords = reviewService.getAllReviews();
         if(reviewRecords.isEmpty())
@@ -23,7 +23,7 @@ public class ReviewController {
     }
 
     //Aggiungo una Review
-    @RequestMapping(value = "/addReview", method= RequestMethod.POST)
+    @PostMapping("/addReview")
     public ResponseEntity<String> addReview(@RequestBody ReviewRecord reviewRecord) {
         if(reviewService.addReview(reviewRecord))
             return new ResponseEntity<>("Review aggiunta correttamente.", HttpStatus.OK);
@@ -31,14 +31,13 @@ public class ReviewController {
     }
 
     //Restituisco una Review a partire dal suo ID
-    @GetMapping(value = "/getReview/{id}")
+    @GetMapping("/getReview/{id}")
     public ResponseEntity<ReviewRecord> getReview(@PathVariable("id") int id){
         return new ResponseEntity<>(reviewService.getReview(id), HttpStatus.OK);
     }
 
-
     //Restituisco tutte le Review fatte da un Utente
-    @RequestMapping("/getReviewByIdUser/{id}")
+    @GetMapping("/getReviewByIdUser/{id}")
     public ResponseEntity<Object> getAllReviewByIDUser(@PathVariable("id") int id) {
         List<ReviewRecord> reviewRecords = reviewService.getAllReviewByIdUser(id);
         if (reviewRecords.isEmpty())
@@ -47,7 +46,7 @@ public class ReviewController {
     }
 
     //Restituisco tutte le Review fatte a un Venditore
-    @RequestMapping("/getReviewByIDVendor/{id}")
+    @GetMapping("/getReviewByIDVendor/{id}")
     public ResponseEntity<Object> getAllReviewByIDVendor(@PathVariable("id") int id) {
         List<ReviewRecord> reviewRecords = reviewService.getAllReviewByIdVendor(id);
         if (reviewRecords.isEmpty())

@@ -15,7 +15,7 @@ public class AssistanceController {
     AssistanceService assistanceService;
 
     //Restituisco tutte le assistenze fatte
-    @RequestMapping("/getAssistance")
+    @PostMapping("/getAssistance")
     public ResponseEntity<Object> getAllAssistant(){
         List<AssistanceRecord> assistanceRecords = assistanceService.getAllAssistance();
         if(assistanceRecords.isEmpty())
@@ -40,7 +40,7 @@ public class AssistanceController {
     }
 
     //Chiudo una chat
-    @RequestMapping("/closeChat/{id}")
+    @PostMapping("/closeChat/{id}")
     public ResponseEntity<Object> closeChat(@PathVariable("id") int id){
         if(assistanceService.closeChat(id))
             return new ResponseEntity<>("Chat chiusa correttamente.", HttpStatus.OK);

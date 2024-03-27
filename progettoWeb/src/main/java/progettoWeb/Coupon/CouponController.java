@@ -14,7 +14,7 @@ public class CouponController {
     private CouponService couponService;
 
     //Restituisco tutti i Coupon
-    @GetMapping(value = "/getCoupons")
+    @GetMapping("/getCoupons")
     public ResponseEntity<Object> getCoupons() {
         List<CouponRecord> couponRecords = couponService.getAllCoupon();
         if (couponRecords.isEmpty())
@@ -23,14 +23,14 @@ public class CouponController {
     }
 
     //Restituisco uno specifico Coupon
-    @GetMapping(value = "/getSingleCoupons/{id}")
+    @GetMapping("/getSingleCoupons/{id}")
     public ResponseEntity<Object> getSingleCoupon(@PathVariable int id) {
         CouponRecord couponRecord = couponService.getSingleCoupon(id);
         return new ResponseEntity<>(couponRecord, HttpStatus.OK);
     }
 
     //Aggiungo un Coupon
-    @RequestMapping(value = "/addCoupon", method = RequestMethod.POST)
+    @PostMapping("/addCoupon")
     public ResponseEntity<String> addCoupon(@RequestBody CouponRecord couponRecord){
         if(couponService.addCoupon(couponRecord))
            return new ResponseEntity<>("Coupon aggiunto correttamente.", HttpStatus.OK);
@@ -39,9 +39,9 @@ public class CouponController {
 
 
     //Elimino un Coupon
-    @RequestMapping(value = "/deleteCoupon/{idCoupon}", method=RequestMethod.DELETE)
-    public ResponseEntity<String> deleteCoupon(@PathVariable ("idCoupon") int idCoupon) {
-        couponService.deleteCoupon(idCoupon);
+    @PostMapping("/deleteCoupon/{id}")
+    public ResponseEntity<String> deleteCoupon(@PathVariable ("id") int id) {
+        couponService.deleteCoupon(id);
         return new ResponseEntity<>("Coupon eliminato correttamente", HttpStatus.OK);
     }
 }

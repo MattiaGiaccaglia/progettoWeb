@@ -5,13 +5,11 @@ import org.springframework.stereotype.Service;
 import progettoWeb.Assistence.AssistanceRecord;
 import progettoWeb.Assistence.AssistanceService;
 import progettoWeb.Chat.ChatRecord;
-import progettoWeb.Chat.ChatRepository;
 import progettoWeb.Chat.ChatService;
 import progettoWeb.User.Role;
 import progettoWeb.User.UserRecord;
 import progettoWeb.User.UserService;
 
-import javax.print.DocFlavor;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -30,20 +28,15 @@ public class MessagesService {
 
     //Restituisco tutti i messaggi
     public List<MessagesRecord> getAllMessages() {
-        List<ChatRecord> chatRecords = chatService.getAllChats();
-        List<MessagesRecord> allMessagesRecords = new ArrayList<>();
-        for(ChatRecord c : chatRecords) {
-            List<MessagesRecord> messages = c.getMessaggi();
-            allMessagesRecords.addAll(messages);
-        }
-        return allMessagesRecords;
+        return chatService.getAllChats().stream().flatMap(chatRecord -> chatRecord.getMessaggi().stream()).collect(Collectors.toList());
     }
+
 
     //Restituisco tutti i messaggi da una chat
     public List<MessagesRecord> getAllMessagesByIDChat(int idChat) {
-        ChatRecord chatRecord = chatService.getChat(idChat);
-        return chatRecord.getMessaggi();
+        return chatService.getChat(idChat).getMessaggi();
     }
+
 
     //Aggiungo un messaggio a una determinata chat
     public boolean addMessages(MessagesRecord messagesRecord) {

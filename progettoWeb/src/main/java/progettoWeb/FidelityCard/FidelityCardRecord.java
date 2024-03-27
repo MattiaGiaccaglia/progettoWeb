@@ -1,6 +1,5 @@
 package progettoWeb.FidelityCard;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import progettoWeb.Store.StoreRecord;
 import progettoWeb.User.UserRecord;
@@ -16,12 +15,10 @@ public class FidelityCardRecord {
 
     @ManyToOne(targetEntity = UserRecord.class, fetch = FetchType.EAGER)
     @JoinColumn(nullable = false, name = "id_user")
-    //@JsonProperty("user")
     private UserRecord user;
 
     @ManyToOne(targetEntity = UserRecord.class, fetch = FetchType.EAGER)
     @JoinColumn(nullable = false, name = "vendor_id")
-    //@JsonProperty("vendorFidelity")
     private UserRecord vendorFidelity;
 
     @ManyToMany(fetch = FetchType.EAGER)

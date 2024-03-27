@@ -13,12 +13,11 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/chat")
 public class ChatController {
-
     @Autowired
     ChatService chatService;
 
     //Restituisco tutte le chat
-    @GetMapping(value = "/getChats")
+    @GetMapping("/getChats")
     public ResponseEntity<Object> getChats() {
         List<ChatRecord> chatRecords = chatService.getAllChats();
         if (chatRecords.isEmpty())
@@ -27,7 +26,7 @@ public class ChatController {
     }
 
     //Restituisco una specifica Chat
-    @GetMapping(value = "/getChat/{id}")
+    @GetMapping("/getChat/{id}")
     public ResponseEntity<Object> getChat(@PathVariable int id) {
         ChatRecord chatRecord = chatService.getChat(id);
         return new ResponseEntity<>(chatRecord, HttpStatus.OK);
