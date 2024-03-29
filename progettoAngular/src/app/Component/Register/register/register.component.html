@@ -1,1 +1,30 @@
-<p>register works!</p>
+<div class="container">
+    <h2>Register</h2>
+    <form [formGroup]="registerForm" (onSubmit) = submitForm>
+        <div class="form-group">
+            <label for="nome">Nome</label>
+            <input type="text" class="form-control" id="nome" formControlName = "Nome">
+        </div>
+        <div class="form-group">
+            <label for="cognome">Cognome</label>
+            <input type="text" class="form-control" id="cognome" formControlName = "cognome">
+        </div>
+        <div class="form-group">
+            <label for="username">Username</label>
+            <input type="text" class="form-control" id="username" formControlName = "username">
+        </div>
+        <div class="form-group">
+            <label for="password">Password</label>
+            <input type="password" class="form-control" id="password" formControlName = "password">
+        </div>
+        <div class="form-group">
+            <label for="email">Email</label>
+            <input type="email" class="form-control" id="email" formControlName = "email">
+        </div>
+        <div class="form-group">
+            <label for="telefono">Telefono</label>
+            <input type="tel" class="form-control" id="telefono" formControlName = "telefono">
+        </div>
+        <button type="submit" class="btn btn-primary" [disabled]="registerForm.invalid">Register</button>
+    </form>
+</div>
