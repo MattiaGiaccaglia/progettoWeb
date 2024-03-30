@@ -1,9 +1,9 @@
 <div class="container">
-    <h2>Register</h2>
-    <form [formGroup]="registerForm" (onSubmit) = submitForm>
+    <h2>Registrazione</h2>
+    <form [formGroup]="registerForm" (ngSubmit) = submitForm()>
         <div class="form-group">
             <label for="nome">Nome</label>
-            <input type="text" class="form-control" id="nome" formControlName = "Nome">
+            <input type="text" class="form-control" id="nome" formControlName = "nome">
         </div>
         <div class="form-group">
             <label for="cognome">Cognome</label>
@@ -25,6 +25,6 @@
             <label for="telefono">Telefono</label>
             <input type="tel" class="form-control" id="telefono" formControlName = "telefono">
         </div>
-        <button type="submit" class="btn btn-primary" [disabled]="registerForm.invalid">Register</button>
+        <button type="submit" class="btn btn-primary">Conferma</button>
     </form>
 </div>
