@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { JwtService } from '../../Service/JWT/jwt.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+import { ConstantsService } from '../../constants.service';
+
 
 @Component({
   selector: 'app-registrazione',
@@ -14,29 +17,25 @@ export class RegistrazioneComponent {
 
   constructor(
     private service: JwtService,
-    private fb:FormBuilder
-  ){
-
-  }
+    private fb:FormBuilder,
+    private router: Router,
+    private constants: ConstantsService
+  ){}
 
   ngOnInit(): void {
     this.registerForm = this.fb.group({
       nome : ['', Validators.required],
       cognome : ['', Validators.required],
       username : ['', Validators.required],
-      password : ['', Validators.required, Validators.minLength(8)],
-      email : ['', Validators.required, Validators.email],
-      telefono : ['', Validators.required, Validators.minLength(10), Validators.maxLength(10)]
+      password : ['', Validators.required],
+      email : ['', Validators.required],
+      telefono : ['', Validators.required]
     })
     }
 
-    submitForm(){
+    submitForm() {
       console.log(this.registerForm.value);
       this.service.register(this.registerForm.value).subscribe(
-        (response) => {
-          if(response.id != null)
-          alert("Benvenuto " + response.nome)
-        }
-      )
-    }
+      );
+    }       
 }

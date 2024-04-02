@@ -20,7 +20,6 @@ import java.util.Objects;
 @AllArgsConstructor
 @Entity
 public class UserRecord implements UserDetails {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;

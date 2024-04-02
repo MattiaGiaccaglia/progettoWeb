@@ -11,4 +11,10 @@
       </ul>
   </div>
 </nav>
+
+<div *ngFor="let user of user">
+    <div>
+        {{user.nome}}
+    </div>
+</div>
 <router-outlet></router-outlet>

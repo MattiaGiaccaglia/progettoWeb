@@ -1,0 +1,6 @@
+2024-04-02 17:16:28.267860+02:00 jdbc[23]: exception
+org.h2.jdbc.JdbcSQLDataException: Data conversion error converting "'' (USER_RECORD: ""DIPENDENTI"" INTEGER)"; SQL statement:
+INSERT INTO "PUBLIC"."USER_RECORD"("DIPENDENTI","ID","COGNOME","EMAIL","NOME","PASSWORD","RUOLO","TELEFONO","USERNAME")VALUES(?,?,?,?,?,?,?,?,?) [22018-224]
+2024-04-02 17:16:28.269860+02:00 jdbc[23]: exception
+org.h2.jdbc.JdbcSQLDataException: Data conversion error converting "'' (USER_RECORD: ""DIPENDENTI"" INTEGER)"; SQL statement:
+INSERT INTO "PUBLIC"."USER_RECORD"("DIPENDENTI","ID","COGNOME","EMAIL","NOME","PASSWORD","RUOLO","TELEFONO","USERNAME")VALUES(?,?,?,?,?,?,?,?,?) [22018-224]

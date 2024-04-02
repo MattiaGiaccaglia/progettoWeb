@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { JwtService } from '../../Service/JWT/jwt.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ConstantsService } from '../../constants.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -13,7 +15,9 @@ export class LoginComponent implements OnInit{
 
   constructor(
     private service: JwtService,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private constants: ConstantsService,
+    private router: Router
   ){}
 
   ngOnInit(): void {
@@ -24,16 +28,8 @@ export class LoginComponent implements OnInit{
   }
     
   submitForm(){
+    console.log(this.loginForm.value);
     this.service.login(this.loginForm.value).subscribe(
-      (response) => {
-        console.log(response);
-        if(response.jwt != null){
-          alert("Accesso effettuato: " + response.jwt)
-        }
-      }
     )
   }
-
-
-
 }
