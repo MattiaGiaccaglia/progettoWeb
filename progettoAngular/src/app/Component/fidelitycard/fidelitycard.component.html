@@ -1,1 +1,20 @@
-<p>fidelitycard works!</p>
+<div>
+    <table class="mat-elevation-z8 table">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>User</th>
+          <th>Venditore</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let fidelitycard of fidelitycards" routerLink="/fidelitycard/{{fidelitycard.id}}">
+          <td>{{fidelitycard.id}}</td>
+          <td>{{fidelitycard.user.nome + " " + fidelitycard.user.cognome}}</td>
+          <td>{{fidelitycard.vendorFidelity.nome + " " + fidelitycard.vendorFidelity.cognome}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <router-outlet></router-outlet>
+  

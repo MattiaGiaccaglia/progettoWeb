@@ -1,1 +1,22 @@
-<p>coupon works!</p>
+<div>
+    <table class="mat-elevation-z8 table">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Valore coupon</th>
+          <th>Venditore</th>
+          <th>User</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let coupon of coupons" routerLink="/coupon{{coupon.id}}">
+          <td>{{coupon.id}}</td>
+          <td>{{coupon.valore + " €"}}</td>
+          <td>{{coupon.vendorCoupon.nome + " " + coupon.vendorCoupon.cognome}}</td>
+          <td>{{coupon.userCoupon.nome + " " + coupon.userCoupon.cognome}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <router-outlet></router-outlet>
+  

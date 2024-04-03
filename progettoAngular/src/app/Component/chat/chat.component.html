@@ -1,1 +1,26 @@
-<p>chat works!</p>
+<div>
+    <table class="mat-elevation-z8 table">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Stato Chat</th>
+          <th>Staff</th>
+          <th>User</th>
+          <th>Messaggi</th>
+          <th>Assistenza ID</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let chat of chats" routerLink="/chat/{{chat.id}}">
+          <td>{{chat.id}}</td>
+          <td>{{chat.close ? 'Chiusa' : 'Aperta'}}</td>
+          <td>{{chat.staff.nome + " " + chat.staff.cognome}}</td>
+          <td>{{chat.utente.nome + " " + chat.utente.cognome}}</td>
+          <td>{{chat.messaggi.length}}</td>
+          <td>{{chat.assistance.id}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <router-outlet></router-outlet>
+  

@@ -1,1 +1,24 @@
-<p>review works!</p>
+<div>
+    <table class="mat-elevation-z8 table">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Testo</th>
+          <th>Valutazione</th>
+          <th>Venditore</th>
+          <th>User</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let review of reviews" routerLink="/review/{{review.id}}">
+          <td>{{review.id}}</td>
+          <td>{{review.testo}}</td>
+          <td>{{review.valutazione}}</td>
+          <td>{{review.vendor.nome + " " + review.vendor.cognome}}</td>
+          <td>{{review.user.nome + " " + review.user.cognome}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <router-outlet></router-outlet>
+  

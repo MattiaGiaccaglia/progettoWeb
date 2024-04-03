@@ -1,5 +1,5 @@
 import { assistanceList } from "./assistanceList";
-import { messaggiList } from "./messagesList";
+import { messagesList } from "./messagesList";
 import { userList } from "./userList";
 
 export interface chatList{
@@ -7,6 +7,6 @@ export interface chatList{
     close: boolean;
     staff: userList;
     utente: userList;
-    messaggi: messaggiList[];
+    messaggi: messagesList[];
     assistance: assistanceList;
 }

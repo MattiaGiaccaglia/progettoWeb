@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { BehaviorSubject, Observable, tap } from 'rxjs';
-import { User } from '../../user.model';
+import { User } from '../../models/user.model';
 
 const baseUrl = ["http://localhost:8080"]
 

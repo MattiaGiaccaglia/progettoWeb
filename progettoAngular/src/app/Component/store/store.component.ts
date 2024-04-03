@@ -1,4 +1,7 @@
 import { Component } from '@angular/core';
+import { storeList } from '../../List/storeList';
+import { StoreService } from '../../Service/store/store.service';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-store',
@@ -6,5 +9,22 @@ import { Component } from '@angular/core';
   styleUrl: './store.component.css'
 })
 export class StoreComponent {
+  public stores: storeList[];
 
+  constructor(private storeService: StoreService){}
+
+  ngOnInit() {
+    this.getAllStores();
+  }
+
+  public getAllStores(): void{
+    this.storeService.getAllStores().subscribe(
+      (response: storeList[]) =>{
+        this.stores = response;
+      },
+      (error: HttpErrorResponse) =>{
+        alert("Nessun negozio presente.");
+      }
+    );
+  }
 }

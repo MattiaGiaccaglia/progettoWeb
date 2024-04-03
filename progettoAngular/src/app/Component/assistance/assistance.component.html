@@ -1,1 +1,20 @@
-<p>assistance works!</p>
+<div>
+    <table class="mat-elevation-z8 table">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Staff</th>
+          <th>Chat</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let assistance of assistances" routerLink="/assistance/{{assistance.id}}">
+          <td>{{assistance.id}}</td>
+          <td>{{assistance.staff.nome + " " + assistance.staff.cognome + " id:" + assistance.staff.id}}</td>
+          <td>{{assistance.chat.id}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <router-outlet></router-outlet>
+  

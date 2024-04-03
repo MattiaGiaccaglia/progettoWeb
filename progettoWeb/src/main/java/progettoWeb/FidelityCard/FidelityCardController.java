@@ -15,7 +15,7 @@ public class FidelityCardController {
     private FidelityCardService fidelityCardService;
 
     //Restituisco tutte le fidelity card
-    @PostMapping("/getFidelityCards")
+    @GetMapping("/getFidelityCards")
     public ResponseEntity<Object> getAllFidelityCard() {
         List<FidelityCardRecord> fidelityCardRecord = fidelityCardService.getAllFidelityCard();
         if(fidelityCardRecord.isEmpty())

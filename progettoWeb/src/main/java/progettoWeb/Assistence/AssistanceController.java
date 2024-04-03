@@ -15,8 +15,8 @@ public class AssistanceController {
     AssistanceService assistanceService;
 
     //Restituisco tutte le assistenze fatte
-    @PostMapping("/getAssistance")
-    public ResponseEntity<Object> getAllAssistant(){
+    @GetMapping("/getAssistance")
+    public ResponseEntity<Object> getAllAssistance(){
         List<AssistanceRecord> assistanceRecords = assistanceService.getAllAssistance();
         if(assistanceRecords.isEmpty())
             return new ResponseEntity<>("Nessun assistenza presente", HttpStatus.NOT_FOUND);
@@ -32,7 +32,7 @@ public class AssistanceController {
 
     //Richiedo tutte le assistenze fatte da un determinato Staff
     @GetMapping("/getAssistanceByStaff/{id}")
-    public ResponseEntity<Object> getAllAssistant(@PathVariable("id") int id){
+    public ResponseEntity<Object> getAllAssistance(@PathVariable("id") int id){
         List<AssistanceRecord> assistanceRecords = assistanceService.getAllAssistanceByStaff(id);
         if(assistanceRecords.isEmpty())
             return new ResponseEntity<>("Nessun assistenza effettuata da questo staff.", HttpStatus.NOT_FOUND);

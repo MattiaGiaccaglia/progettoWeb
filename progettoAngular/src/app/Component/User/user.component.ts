@@ -10,6 +10,7 @@ import { userList } from '../../List/userList';
 })
 export class UserComponent implements OnInit {
   public users: userList[];
+  public user: userList;
   constructor(private userService: UserService){}
 
   ngOnInit() {
@@ -20,6 +21,17 @@ export class UserComponent implements OnInit {
     this.userService.getAllUsers().subscribe(
       (response: userList[]) =>{
         this.users = response;
+      },
+      (error: HttpErrorResponse) =>{
+        alert(error.message);
+      }
+    );
+  }
+
+  public getUserById(id: number): void{
+    this.userService.getUserById(id).subscribe(
+      (response: userList) =>{
+        this.user = response;
       },
       (error: HttpErrorResponse) =>{
         alert(error.message);
