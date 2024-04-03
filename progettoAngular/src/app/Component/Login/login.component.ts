@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { JwtService } from '../../Service/JWT/jwt.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ConstantsService } from '../../constants.service';
 import { Router } from '@angular/router';
+import { JwtHelperService } from '@auth0/angular-jwt';
 
 @Component({
   selector: 'app-login',
@@ -14,9 +14,8 @@ export class LoginComponent implements OnInit{
   loginForm : FormGroup;
 
   constructor(
-    private service: JwtService,
+    private jwtService: JwtService,
     private fb: FormBuilder,
-    private constants: ConstantsService,
     private router: Router
   ){}
 
@@ -29,7 +28,17 @@ export class LoginComponent implements OnInit{
     
   submitForm(){
     console.log(this.loginForm.value);
-    this.service.login(this.loginForm.value).subscribe(
-    )
+    this.jwtService.login(this.loginForm.value).subscribe((data: any) =>{
+
+    //decodifico il token
+    const helper = new JwtHelperService();
+    const decodedToken = helper.decodeToken(data.token);
+    const expirationDate = helper.getTokenExpirationDate(data.token);
+
+    //creo User
+    this.jwtService.createUser(decodedToken.sub, data.localID, data.token, expirationDate!)
+    localStorage.setItem('user', JSON.stringify(this.jwtService.user))
+    this.router.navigate(['/']);
+    });
   }
 }

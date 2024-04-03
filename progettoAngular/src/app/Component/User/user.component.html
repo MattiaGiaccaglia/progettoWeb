@@ -1,1 +1,27 @@
-<p>user works!</p>
+<div>
+    <table class="mat-elevation-z8 table">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Nome</th>
+          <th>Cognome</th>
+          <th>Email</th>
+          <th>Telefono</th>
+          <th>Ruolo</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let user of users" routerLink="/User/{{user.id}}">
+          <td>{{user.id}}</td>
+          <td>{{user.nome}}</td>
+          <td>{{user.cognome}}</td>
+          <td>{{user.email}}</td>
+          <td>{{user.telefono}}</td>
+          <td>{{user.ruolo}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  
+  <router-outlet></router-outlet>
+  

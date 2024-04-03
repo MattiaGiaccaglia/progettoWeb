@@ -1,20 +1,60 @@
-<nav class="navbar navbar-expand navbar-dark bg-dark">
-  <div class="container">
-      <a class="navbar-brand" href="#">Loyality Platform</a>
-      <ul class="navbar-nav ml-auto">
-          <li class="nav-item">
-              <a class="nav-link" routerLink="/Registrazione" routerLinkActive="active">Registrazione</a>
-          </li>
-          <li class="nav-item">
-              <a class="nav-link" routerLink="/Login" routerLinkActive="active">Login</a>
-          </li>
-      </ul>
-  </div>
-</nav>
 
-<div *ngFor="let user of user">
-    <div>
-        {{user.nome}}
-    </div>
-</div>
+
+<div *ngIf="jwtService.isLoggedIn | async; else loginButtons">
+    <!-- Mostra i link di logout o altre funzionalità riservate -->
+    <nav class="navbar navbar-expand navbar-dark bg-dark">
+        <div class="container">
+            <a class="navbar-brand">Loyality Platform</a>
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link" routerLink="/user" routerLinkActive="active">Profilo</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" routerLink="/user" routerLinkActive="active">Utenti</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" routerLink="/coupon" routerLinkActive="active">Coupon</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" routerLink="/assistenza" routerLinkActive="active">Assistenza</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" routerLink="/fidelitycard" routerLinkActive="active">FidelityCard</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" routerLink="/recensioni" routerLinkActive="active">Recensioni</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" routerLink="/negozi" routerLinkActive="active">Negozi</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" routerLink="/messaggi" routerLinkActive="active">Messaggi</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" routerLink="/chat" routerLinkActive="active">Chat</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link btn btn-link" (click)="onLogout()">Logout</a>
+                </li>
+            </ul>
+        </div>
+      </nav>
+    <!-- Altre azioni riservate -->
+  </div>
+  <ng-template #loginButtons>
+    <!-- Mostra i link di login e registrazione -->
+    <nav class="navbar navbar-expand navbar-dark bg-dark">
+        <div class="container">
+            <a class="navbar-brand" href="#">Loyality Platform</a>
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link" routerLink="/registrazione" routerLinkActive="active">Registrazione</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" routerLink="/login" routerLinkActive="active">Login</a>
+                </li>
+            </ul>
+        </div>
+      </nav>
+  </ng-template>
 <router-outlet></router-outlet>

@@ -14,7 +14,6 @@ export class RegistrazioneComponent {
 
   registerForm: FormGroup | undefined;
 
-
   constructor(
     private service: JwtService,
     private fb:FormBuilder,
@@ -37,5 +36,6 @@ export class RegistrazioneComponent {
       console.log(this.registerForm.value);
       this.service.register(this.registerForm.value).subscribe(
       );
+      this.router.navigate(['/Login'])
     }       
 }

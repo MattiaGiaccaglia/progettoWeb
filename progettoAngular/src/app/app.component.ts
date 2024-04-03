@@ -1,30 +1,29 @@
-import { Component, OnInit } from '@angular/core';
-import { UserComponent } from './Component/User/user.component';
-import { UserService } from './Service/User/user.service';
-import { HttpErrorResponse } from '@angular/common/http';
+import { Component } from '@angular/core';
+import { JwtService } from './Service/JWT/jwt.service';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
-export class AppComponent implements OnInit{
-  title = 'progetto';
-  public user: UserComponent[];
-  constructor(private userService: UserService){}
 
-  ngOnInit() {
-    this.getAllUsers();
+export class AppComponent {
+  title = 'progetto';
+
+  constructor(public jwtService: JwtService){}
+
+  onLogout(){
+    this.jwtService.logout();
   }
 
-  public getAllUsers(): void{
-    this.userService.getAllUsers().subscribe(
-      (response: UserComponent[]) =>{
-        this.user = response;
-      },
-      (error: HttpErrorResponse) =>{
-        alert(error.message);
-      }
-    );
+  ngOnInit(): void{
+    if(localStorage.getItem('user')){ //Se esiste già uno user nel LocalStorage e l'expiration date non è passata, allora rimango loggato
+      const user = JSON.parse(localStorage.getItem('user')!)
+      const dateOne = new Date()
+      if(Date.parse(user._expirationDate) < dateOne.getTime()) 
+        this.onLogout(); 
+      else 
+        this.jwtService.createUser(user.username, user.id, user._token, user._expirationDate) 
+    }
   }
 }

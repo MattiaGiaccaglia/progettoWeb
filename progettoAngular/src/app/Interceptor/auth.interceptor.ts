@@ -6,13 +6,13 @@ import { Observable } from 'rxjs';
 export class AuthInterceptor implements HttpInterceptor {
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    // Verifica se la richiesta è per un'API che richiede autorizzazione
+    //verifico se la richiesta è per un'API che richiede autorizzazione
     if (req.url.includes('/api/user/login') || req.url.includes('/api/user/registrazione')) {
-      // Non aggiungere il token JWT per il login o la registrazione
+      //non aggiungo il token JWT per il login o la registrazione
       return next.handle(req);
     }
 
-    // Aggiungi il token JWT per tutte le altre richieste
+    //aggiungi il token JWT per tutte le altre richieste
     const jwtToken = this.getJwtToken();
     const cloneRequest = req.clone({
       setHeaders: {
