@@ -1,16 +1,16 @@
 <div *ngIf="user" class="center-content">
   <h2>Dettagli utente {{ tempNome }} {{ tempCognome }}</h2>
-  <div *ngIf="!modifica">
+  <div *ngIf="!modifica"> <!--Se modifica è false, mostro dettagli utente-->
     <p>ID: {{ user.id }}</p>
     <p>Nome: {{ user.nome }}</p>
     <p>Cognome: {{ user.cognome }}</p>
     <p>Email: {{ user.email }}</p>
     <p>Telefono: {{ user.telefono }}</p>
     <p>Ruolo: {{ user.ruolo }}</p>
-    <button (click)="inizioModifica()">Modifica</button>
+    <button (click)="inizioModifica()">Modifica</button> <!--Se premo pulsante, modifica diventa true-->
   </div>
   <div *ngIf="modifica">
-    <form (ngSubmit)="confermoModifica()" #userForm="ngForm">
+    <form (ngSubmit)="confermoModifica()" #userForm="ngForm"> <!--Modifico utente-->
       <p>
         <label>ID: </label>
         <input type="text" [(ngModel)]="user.id" name="id" disabled />
@@ -33,7 +33,7 @@
       </p>
       <p>
         <label>Ruolo: </label>
-        <input type="text" [(ngModel)]="user.ruolo" name="ruolo" required />
+        <input type="text" [(ngModel)]="user.ruolo" name="ruolo" disabled />
       </p>
       <button type="submit">Conferma</button>
     </form>

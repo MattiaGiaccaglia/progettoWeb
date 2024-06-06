@@ -1,11 +1,13 @@
-
-
 <div *ngIf="jwtService.isLoggedIn | async; else loginButtons">
-    <!-- Mostra i link di logout o altre funzionalità riservate -->
-    <nav class="navbar navbar-expand navbar-dark bg-dark">
+    <!--Navbar per desktop e menu a tendina per dispositivi mobili-->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <div class="container">
             <a class="navbar-brand">Loyality Platform</a>
-            <ul class="navbar-nav ml-auto">
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse justify-content-end" id="navbarNavAltMarkup">
+                <ul class="navbar-nav ml-auto">
                 <li class="nav-item">
                     <a class="nav-link" routerLink="/user" routerLinkActive="active">Profilo</a>
                 </li>
@@ -36,25 +38,30 @@
                 <li class="nav-item">
                     <a class="nav-link btn btn-link" (click)="onLogout()">Logout</a>
                 </li>
-            </ul>
+                </ul>
+            </div>
         </div>
       </nav>
-    <!-- Altre azioni riservate -->
   </div>
   <ng-template #loginButtons>
-    <!-- Mostra i link di login e registrazione -->
-    <nav class="navbar navbar-expand navbar-dark bg-dark">
+    <!--Navbar per il login e per  la registrazione-->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <div class="container">
             <a class="navbar-brand" href="#">Loyality Platform</a>
-            <ul class="navbar-nav ml-auto">
-                <li class="nav-item">
-                    <a class="nav-link" routerLink="/registrazione" routerLinkActive="active">Registrazione</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" routerLink="/login" routerLinkActive="active">Login</a>
-                </li>
-            </ul>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarLogin" aria-controls="navbarLogin" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarLogin">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" routerLink="/registrazione" routerLinkActive="active">Registrazione</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" routerLink="/login" routerLinkActive="active">Login</a>
+                    </li>
+                </ul>
+            </div>
         </div>
-      </nav>
-  </ng-template>
+    </nav>
+</ng-template>
 <router-outlet></router-outlet>
