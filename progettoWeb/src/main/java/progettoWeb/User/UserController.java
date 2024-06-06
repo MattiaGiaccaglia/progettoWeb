@@ -45,7 +45,7 @@ public class UserController {
 
     //Elimino utenti
     @DeleteMapping("/deleteUser/{id}")
-    public ResponseEntity<String> deleteUser(@PathVariable("id") int id) {
+    public ResponseEntity<String> deleteUser(@PathVariable("id") int id){
         userService.deleteUser(id);
         return new ResponseEntity<>("Utente eliminato correttamente.", HttpStatus.OK);
     }
@@ -54,6 +54,6 @@ public class UserController {
     @PutMapping("/modifyUser")
     public ResponseEntity<String> modifyUser(@RequestBody UserRecord userRecord){
         userService.modifyUser(userRecord);
-        return new ResponseEntity<>("Utente modificato correttamente.", HttpStatus.OK);
+        return ResponseEntity.ok().body("{\"message\": \"Utente modificato correttamente.\"}");
     }
 }

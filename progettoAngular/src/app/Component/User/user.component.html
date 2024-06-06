@@ -1,26 +1,40 @@
-<div>
-    <table class="mat-elevation-z8 table">
-      <thead>
-        <tr>
-          <th>ID</th>
-          <th>Nome</th>
-          <th>Cognome</th>
-          <th>Email</th>
-          <th>Telefono</th>
-          <th>Ruolo</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let user of users" routerLink="/user/{{user.id}}">
-          <td>{{user.id}}</td>
-          <td>{{user.nome}}</td>
-          <td>{{user.cognome}}</td>
-          <td>{{user.email}}</td>
-          <td>{{user.telefono}}</td>
-          <td>{{user.ruolo}}</td>
-        </tr>
-      </tbody>
-    </table>
+<div *ngIf="user" class="center-content">
+  <h2>Dettagli utente {{ tempNome }} {{ tempCognome }}</h2>
+  <div *ngIf="!modifica">
+    <p>ID: {{ user.id }}</p>
+    <p>Nome: {{ user.nome }}</p>
+    <p>Cognome: {{ user.cognome }}</p>
+    <p>Email: {{ user.email }}</p>
+    <p>Telefono: {{ user.telefono }}</p>
+    <p>Ruolo: {{ user.ruolo }}</p>
+    <button (click)="inizioModifica()">Modifica</button>
   </div>
-  <router-outlet></router-outlet>
-  
+  <div *ngIf="modifica">
+    <form (ngSubmit)="confermoModifica()" #userForm="ngForm">
+      <p>
+        <label>ID: </label>
+        <input type="text" [(ngModel)]="user.id" name="id" disabled />
+      </p>
+      <p>
+        <label>Nome: </label>
+        <input type="text" [(ngModel)]="user.nome" name="nome" required />
+      </p>
+      <p>
+        <label>Cognome: </label>
+        <input type="text" [(ngModel)]="user.cognome" name="cognome" required />
+      </p>
+      <p>
+        <label>Email: </label>
+        <input type="email" [(ngModel)]="user.email" name="email" required />
+      </p>
+      <p>
+        <label>Telefono: </label>
+        <input type="text" [(ngModel)]="user.telefono" name="telefono" required />
+      </p>
+      <p>
+        <label>Ruolo: </label>
+        <input type="text" [(ngModel)]="user.ruolo" name="ruolo" required />
+      </p>
+      <button type="submit">Conferma</button>
+    </form>
+</div>

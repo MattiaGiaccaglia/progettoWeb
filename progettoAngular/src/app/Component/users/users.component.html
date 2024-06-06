@@ -1,0 +1,20 @@
+<div>
+    <table class="mat-elevation-z8 table">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Nome</th>
+          <th>Cognome</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let user of users" routerLink="/user/{{user.id}}">
+          <td>{{user.id}}</td>
+          <td>{{user.nome}}</td>
+          <td>{{user.cognome}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <router-outlet></router-outlet>
+  

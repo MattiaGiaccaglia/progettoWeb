@@ -1,1 +1,10 @@
 /* You can add global styles to this file, and also import other style files */
+.center-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 50vh; /* Imposta l'altezza per centrare verticalmente */
+    text-align: center;
+  }
+  

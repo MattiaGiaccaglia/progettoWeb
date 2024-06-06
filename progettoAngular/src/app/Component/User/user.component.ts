@@ -1,41 +1,72 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router'; // Importa Router
 import { UserService } from '../../Service/User/user.service';
-import { HttpErrorResponse } from '@angular/common/http';
-import { userList } from '../../List/userList';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatSnackBarVerticalPosition } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-user',
   templateUrl: './user.component.html',
-  styleUrl: './user.component.css'
+  styleUrls: ['./user.component.css'] // Corretto: styleUrls
 })
-export class UserComponent implements OnInit {
-  public users: userList[];
-  public user: userList;
-  constructor(private userService: UserService){}
+export class UserComponent {
+  user: any;
+  modifica: boolean = false;
+  tempNome: string = ''; // Variabile temporanea per memorizzare il nome originale
+  tempCognome: string = ''; // Variabile temporanea per memorizzare il cognome originale
 
-  ngOnInit() {
-    this.getAllUsers();
+  constructor(
+    private route: ActivatedRoute,
+    private userService: UserService,
+    private router: Router,
+    private snackBar: MatSnackBar
+  ) { }
+
+  ngOnInit(): void {
+    this.route.params.subscribe(params => {
+      const userId = params['id'];
+      this.userService.getUserById(userId).subscribe(user => {
+        this.user = user;
+        this.tempNome = user.nome;
+        this.tempCognome = user.cognome;
+      });
+    });
   }
 
-  public getAllUsers(): void{
-    this.userService.getAllUsers().subscribe(
-      (response: userList[]) =>{
-        this.users = response;
+  confermoModifica(): void {
+    console.log('Confermo modifica'); //log per debug
+    this.userService.modifyUser(this.user).subscribe(
+      response => {
+        this.modifica = false;
+        console.log('Utente aggiornato correttamente');
+        this.showSnackbar('Utente aggiornato correttamente.');
+        this.reloadPage();
+        
       },
-      (error: HttpErrorResponse) =>{
-        alert(error.message);
+      error => {
+        console.error('Impossibile aggiornare utente');
+        this.showSnackbar('Impossibile aggiornare utente. Si è verificato un errore.');
+        this.reloadPage()
       }
     );
   }
 
-  public getUserById(id: number): void{
-    this.userService.getUserById(id).subscribe(
-      (response: userList) =>{
-        this.user = response;
-      },
-      (error: HttpErrorResponse) =>{
-        alert(error.message);
-      }
-    );
+  inizioModifica(): void {
+    this.modifica = true;
+  }
+
+  reloadPage(): void {
+    console.log('Ricaricamento pagina'); //log per debug
+    const currentUrl = this.router.url;
+    this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
+      this.router.navigate([currentUrl]);
+    });
+  }
+
+  showSnackbar(message: string): void {
+    this.snackBar.open(message, 'Chiudi', {
+      duration: 5000,
+      verticalPosition: 'top'
+    });
   }
 }

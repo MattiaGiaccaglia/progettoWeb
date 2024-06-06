@@ -6,7 +6,7 @@ import { AppComponent } from './app.component';
 import { RegistrazioneComponent } from './Component/registrazione/registrazione.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { LoginComponent } from './Component/login/login.component';
-import { UserComponent } from './Component/user/user.component';
+import { UserComponent } from './Component/User/user.component';
 import { AuthInterceptorProvider } from './Interceptor/auth.interceptor';
 import { CouponComponent } from './Component/coupon/coupon.component';
 import { ChatComponent } from './Component/chat/chat.component';
@@ -15,6 +15,9 @@ import { StoreComponent } from './Component/store/store.component';
 import { AssistanceComponent } from './Component/assistance/assistance.component';
 import { FidelitycardComponent } from './Component/fidelitycard/fidelitycard.component';
 import { ReviewComponent } from './Component/review/review.component';
+import { UsersComponent } from './Component/users/users.component';
+import { FormsModule } from '@angular/forms';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 
 @NgModule({
@@ -23,6 +26,7 @@ import { ReviewComponent } from './Component/review/review.component';
     RegistrazioneComponent,
     LoginComponent,
     UserComponent,
+    UsersComponent,
     CouponComponent,
     ChatComponent,
     MessagesComponent,
@@ -36,6 +40,8 @@ import { ReviewComponent } from './Component/review/review.component';
     AppRoutingModule,
     HttpClientModule,
     ReactiveFormsModule,
+    FormsModule,
+    BrowserAnimationsModule
   ],
   providers:[AuthInterceptorProvider],
   bootstrap: [AppComponent]
