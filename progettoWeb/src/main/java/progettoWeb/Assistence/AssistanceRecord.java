@@ -1,11 +1,12 @@
 package progettoWeb.Assistence;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.*;
 import jakarta.persistence.*;
 import progettoWeb.Chat.ChatRecord;
 import progettoWeb.User.UserRecord;
 
 @Entity
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class AssistanceRecord {
 
     @Id
@@ -18,7 +19,6 @@ public class AssistanceRecord {
 
     @ManyToOne
     @JoinColumn(name = "chat_id")
-    @JsonIgnore
     private ChatRecord chat;
 
     public int getId() {

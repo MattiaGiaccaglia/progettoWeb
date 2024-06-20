@@ -19,6 +19,10 @@ export class UserService {
   public getUserById(UserId: number): Observable<userList>{
     return this.Http.get<userList>(`${this.constants.baseUrl}/api/user/getUser/${UserId}`)
   }
+
+  public getUserByUsername(username: string): Observable<userList>{
+    return this.Http.get<userList>(`${this.constants.baseUrl}/api/user/getUserByUsername/${username}`)
+  }
   
   public deleteUser(UserId: number): Observable<String>{
     return this.Http.delete<String>(`${this.constants.baseUrl}/api/user/deleteUser/${UserId}`)

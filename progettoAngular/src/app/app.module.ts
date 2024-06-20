@@ -18,6 +18,7 @@ import { ReviewComponent } from './Component/review/review.component';
 import { UsersComponent } from './Component/users/users.component';
 import { FormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ProfileComponent } from './Component/profile/profile.component';
 
 
 @NgModule({
@@ -27,13 +28,15 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     LoginComponent,
     UserComponent,
     UsersComponent,
+    ProfileComponent,
     CouponComponent,
     ChatComponent,
     MessagesComponent,
     StoreComponent,
     AssistanceComponent,
     FidelitycardComponent,
-    ReviewComponent
+    ReviewComponent,
+    ProfileComponent
   ],
   imports: [
     BrowserModule,

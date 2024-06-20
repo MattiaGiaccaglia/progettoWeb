@@ -38,7 +38,7 @@ export class LoginComponent implements OnInit{
     //creo User
     this.jwtService.createUser(decodedToken.sub, data.localID, data.token, expirationDate!)
     localStorage.setItem('user', JSON.stringify(this.jwtService.user))
-    this.router.navigate(['/']);
+    this.router.navigate(['/profile']);
     });
   }
 }

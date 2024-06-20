@@ -10,6 +10,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 })
 export class ChatComponent implements OnInit{
   public chats: chatList[];
+
   constructor(private chatService: ChatService){}
 
   public getAllChats(): void{

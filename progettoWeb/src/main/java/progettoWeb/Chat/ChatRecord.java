@@ -1,6 +1,9 @@
 package progettoWeb.Chat;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
 import progettoWeb.Assistence.AssistanceRecord;
 import progettoWeb.Messages.MessagesRecord;
@@ -9,6 +12,7 @@ import progettoWeb.User.UserRecord;
 import java.util.List;
 
 @Entity
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class ChatRecord {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -29,7 +33,6 @@ public class ChatRecord {
     private List<MessagesRecord> messaggi;
 
     @OneToOne(mappedBy = "chat")
-    @JsonIgnore
     private AssistanceRecord assistanceRecord;
 
     public List<MessagesRecord> getMessaggi() {

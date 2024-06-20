@@ -43,6 +43,13 @@ public class UserController {
         return new ResponseEntity<>(userRecord, HttpStatus.OK);
     }
 
+    //Restituisco utente dal suo username
+    @GetMapping("/getUserByUsername/{username}")
+    public ResponseEntity<Object> getUserByUsername(@PathVariable("username") String username){
+        UserRecord userRecord = userService.getUserByUsername(username);
+        return new ResponseEntity<>(userRecord, HttpStatus.OK);
+    }
+
     //Elimino utenti
     @DeleteMapping("/deleteUser/{id}")
     public ResponseEntity<String> deleteUser(@PathVariable("id") int id){

@@ -11,11 +11,13 @@ import { ReviewComponent } from './Component/review/review.component';
 import { StoreComponent } from './Component/store/store.component'; 
 import { MessagesComponent } from './Component/messages/messages.component'; 
 import { ChatComponent } from './Component/chat/chat.component';
+import { ProfileComponent } from './Component/profile/profile.component';
 
 const routes: Routes = [
   { path: "registrazione", component: RegistrazioneComponent },
   { path: "login", component: LoginComponent },
-  {path: 'user', component: UsersComponent, children: [{path: ':id', component: UserComponent}]},  { path: "coupon", component: CouponComponent},
+  { path: "profile", component: ProfileComponent},
+  { path: "user", component: UsersComponent, children: [{path: ':id', component: UserComponent}]},  { path: "coupon", component: CouponComponent},
   { path: "assistenza", component: AssistanceComponent},
   { path: "fidelitycard", component: FidelitycardComponent},
   { path: "recensioni", component: ReviewComponent},

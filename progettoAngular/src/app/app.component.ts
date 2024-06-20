@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { JwtService } from './Service/JWT/jwt.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -9,6 +10,7 @@ import { JwtService } from './Service/JWT/jwt.service';
 
 export class AppComponent {
   title = 'progetto';
+  private router: Router
 
   constructor(public jwtService: JwtService){}
 

@@ -55,6 +55,12 @@ public class UserService {
                 .orElseThrow(() -> new UserException.UserExceptionNotFound("Nessun utente presente con il seguente id: " + id));
     }
 
+    //Restituisco utente a partire dall'username
+    public UserRecord getUserByUsername(String username) {
+        return userRepository.findByUsername(username)
+                .orElseThrow(() -> new UserException.UserExceptionNotFound("Nessun utente presente con il seguente username: " + username));
+    }
+
     //Modifico utente
     public void modifyUser(UserRecord userRecord){
         UserRecord user = this.getUser(userRecord.getId());

@@ -36,6 +36,6 @@ export class RegistrazioneComponent {
       console.log(this.registerForm.value);
       this.service.register(this.registerForm.value).subscribe(
       );
-      this.router.navigate(['/Login'])
+      this.router.navigate(['/login'])
     }       
 }

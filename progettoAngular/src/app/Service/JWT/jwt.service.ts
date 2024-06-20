@@ -18,8 +18,9 @@ export class JwtService {
 
   constructor(private router: Router, private http:HttpClient) { }
 
-  createUser(username: string, id: string, token: string, expirationDate: Date){
+  createUser(username: string, id: number, token: string, expirationDate: Date){
     this.user = new User(username, id, token, expirationDate);
+    console.log('Creazione utente:', { username, id, token, expirationDate });
     this.isloggedIn.next(true);
   }
 
@@ -29,7 +30,9 @@ export class JwtService {
 
   login(loginRequest: any): Observable<any>{
     return this.http.post(baseUrl + '/api/user/login', loginRequest).pipe(
-      tap((response: any) => this.doLoginUser(loginRequest.username, response.token)));
+      tap((response: any) => {
+        console.log('Login response:', loginRequest); // Verifica la risposta del server
+        this.doLoginUser(loginRequest.username, response.token)}));
   }
 
   private doLoginUser(username: string, token: any){
@@ -48,7 +51,7 @@ export class JwtService {
     localStorage.removeItem(this.JWT_TOKEN);
     localStorage.removeItem('user');
     this.isAuthenticateSubject.next(false);
-    this.router.navigate(['/Login'])
+    this.router.navigate(['/login'])
   }
 
   get isLoggedIn(): Observable<boolean> {
