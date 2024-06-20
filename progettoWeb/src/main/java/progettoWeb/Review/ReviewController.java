@@ -23,6 +23,7 @@ public class ReviewController {
     }
 
     //Aggiungo una Review
+    @CrossOrigin(origins = "http://localhost:4200")
     @PostMapping("/addReview")
     public ResponseEntity<String> addReview(@RequestBody ReviewRecord reviewRecord) {
         if(reviewService.addReview(reviewRecord))

@@ -19,6 +19,7 @@ import { UsersComponent } from './Component/users/users.component';
 import { FormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ProfileComponent } from './Component/profile/profile.component';
+import { ReviewsComponent } from './Component/reviews/reviews.component';
 
 
 @NgModule({
@@ -36,7 +37,8 @@ import { ProfileComponent } from './Component/profile/profile.component';
     AssistanceComponent,
     FidelitycardComponent,
     ReviewComponent,
-    ProfileComponent
+    ProfileComponent,
+    ReviewsComponent,
   ],
   imports: [
     BrowserModule,

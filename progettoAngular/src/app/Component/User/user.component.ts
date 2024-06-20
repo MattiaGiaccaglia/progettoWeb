@@ -2,13 +2,13 @@ import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router'; // Importa Router
 import { UserService } from '../../Service/User/user.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { MatSnackBarVerticalPosition } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-user',
   templateUrl: './user.component.html',
-  styleUrls: ['./user.component.css'] // Corretto: styleUrls
+  styleUrl: './user.component.css',
 })
+
 export class UserComponent {
   user: any;
   modifica: boolean = false;

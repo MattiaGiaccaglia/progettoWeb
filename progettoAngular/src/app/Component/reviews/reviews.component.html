@@ -1,0 +1,9 @@
+<div *ngIf="review" class="center-content">
+  <h2>Dettagli review</h2>
+  <p>ID: {{ review.id }}</p>
+  <p>Testo: {{ review.testo }}</p>
+  <p>Valutazione: {{ review.valutazione }}</p>
+  <p>Venditore: {{ review.vendor.nome }} {{ review.vendor.cognome }}</p>
+  <p>Utente: {{ review.user.nome }} {{ review.user.cognome }}</p>
+</div>
+

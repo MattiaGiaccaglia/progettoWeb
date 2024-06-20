@@ -12,17 +12,19 @@ import { StoreComponent } from './Component/store/store.component';
 import { MessagesComponent } from './Component/messages/messages.component'; 
 import { ChatComponent } from './Component/chat/chat.component';
 import { ProfileComponent } from './Component/profile/profile.component';
+import { ReviewsComponent } from './Component/reviews/reviews.component';
 
 const routes: Routes = [
   { path: "registrazione", component: RegistrazioneComponent },
   { path: "login", component: LoginComponent },
   { path: "profile", component: ProfileComponent},
-  { path: "user", component: UsersComponent, children: [{path: ':id', component: UserComponent}]},  { path: "coupon", component: CouponComponent},
-  { path: "assistenza", component: AssistanceComponent},
+  { path: "user", component: UsersComponent, children: [{path: ':id', component: UserComponent}]},  
+  { path: "coupon", component: CouponComponent},
+  { path: "assistance", component: AssistanceComponent},
   { path: "fidelitycard", component: FidelitycardComponent},
-  { path: "recensioni", component: ReviewComponent},
-  { path: "negozi", component: StoreComponent},
-  { path: "messaggi", component: MessagesComponent},
+  { path: "review", component: ReviewComponent, children: [{path: ':id', component: ReviewsComponent}]},
+  { path: "store", component: StoreComponent},
+  { path: "messages", component: MessagesComponent},
   { path: "chat", component: ChatComponent}
 
 ];

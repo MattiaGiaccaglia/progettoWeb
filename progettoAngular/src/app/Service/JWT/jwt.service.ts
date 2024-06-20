@@ -20,7 +20,6 @@ export class JwtService {
 
   createUser(username: string, id: number, token: string, expirationDate: Date){
     this.user = new User(username, id, token, expirationDate);
-    console.log('Creazione utente:', { username, id, token, expirationDate });
     this.isloggedIn.next(true);
   }
 
@@ -31,7 +30,6 @@ export class JwtService {
   login(loginRequest: any): Observable<any>{
     return this.http.post(baseUrl + '/api/user/login', loginRequest).pipe(
       tap((response: any) => {
-        console.log('Login response:', loginRequest); // Verifica la risposta del server
         this.doLoginUser(loginRequest.username, response.token)}));
   }
 
