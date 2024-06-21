@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { UserService } from '../../Service/User/user.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { userList } from '../../List/userList';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-user',
@@ -11,7 +12,8 @@ import { userList } from '../../List/userList';
 export class UsersComponent implements OnInit {
   public users: userList[];
   public user: userList;
-  constructor(private userService: UserService){}
+  displayedColumns: string[] = ['id', 'nome', 'cognome'];
+  constructor(private userService: UserService, private router: Router) {}
 
   ngOnInit() {
     this.getAllUsers();

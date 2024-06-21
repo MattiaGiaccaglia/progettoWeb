@@ -1,10 +1,14 @@
-<div *ngIf="message" class="center-content">
-    <h2>Dettagli messaggio</h2>
-    <p>ID: {{ message.id }}</p>
-    <p>Testo: {{ message.testoMessaggio }}</p>
-    <p>Data: {{message.data}}</p>
-    <p>Mittente: {{message.mittente.nome + " " + message.mittente.cognome}}</p>
-    <p>Destinatario: {{message.destinatario.nome + " " + message.destinatario.cognome}}</p>
-</div>
-  
+<div *ngIf="message" class="table-centered">
+    <div class="card">
+      <div class="card-body">
+        <h2 class="card-title">Dettagli messaggio</h2>
+        <p><strong>ID: </strong>{{ message.id }}</p>
+        <p><strong>Testo: </strong>{{ message.testoMessaggio }}</p>
+        <p><strong>Data: </strong>{{ message.data }}</p>
+        <p><strong>Mittente: </strong>{{ message.mittente.nome + ' ' + message.mittente.cognome }}</p>
+        <p><strong>Destinatario: </strong>{{ message.destinatario.nome + ' ' + message.destinatario.cognome }}</p>
+      </div>
+    </div>
+  </div>
+  <router-outlet></router-outlet>
   

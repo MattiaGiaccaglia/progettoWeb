@@ -1,20 +1,26 @@
 <div>
-    <table class="mat-elevation-z8 table">
-      <thead>
-        <tr>
-          <th>ID</th>
-          <th>Venditore</th>
-          <th>User</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let review of reviews" routerLink="/review/{{review.id}}">
-          <td>{{review.id}}</td>
-          <td>{{review.vendor.nome + " " + review.vendor.cognome}}</td>
-          <td>{{review.user.nome + " " + review.user.cognome}}</td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
+  <div style="margin: 20px;">
+  <table mat-table [dataSource]="reviews" class="mat-elevation-z8">
+    <!-- Definizione delle colonne -->
+    <ng-container matColumnDef="id">
+      <th mat-header-cell *matHeaderCellDef><strong>ID</strong></th>
+      <td mat-cell *matCellDef="let review">{{review.id}}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="venditore">
+      <th mat-header-cell *matHeaderCellDef><strong>Venditore</strong></th>
+      <td mat-cell *matCellDef="let review">{{review.vendor.nome + ' ' + review.vendor.cognome}}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="utente">
+      <th mat-header-cell *matHeaderCellDef><strong>User</strong></th>
+      <td mat-cell *matCellDef="let review">{{review.user.nome + ' ' + review.user.cognome}}</td>
+    </ng-container>
+
+    <!-- Riga di intestazione -->
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <!-- Righe di dati -->
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;" [routerLink]="['/review', row.id]"></tr>
+  </table>
   <router-outlet></router-outlet>
-  
+</div>

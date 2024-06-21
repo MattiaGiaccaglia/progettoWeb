@@ -10,6 +10,8 @@ import { HttpErrorResponse } from '@angular/common/http';
 })
 export class MessageComponent {
   public messages: messagesList[];
+  displayedColumns: string[] = ['id', 'mittente', 'destinatario'];
+
   constructor(private messagesService: MessagesService){}
 
   ngOnInit() {

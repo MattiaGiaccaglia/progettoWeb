@@ -22,6 +22,11 @@ import { ProfileComponent } from './Component/profile/profile.component';
 import { ReviewsComponent } from './Component/reviews/reviews.component';
 import { StoresComponent } from './Component/stores/stores.component';
 import { MessagesComponent } from './Component/messages/messages.component';
+import { MatButtonModule } from '@angular/material/button';
+import { MatInputModule } from '@angular/material/input';
+import { MatTableModule } from '@angular/material/table';
+import { MatCardModule } from '@angular/material/card';
+import { ChatsComponent } from './Component/chats/chats.component';
 
 
 @NgModule({
@@ -42,7 +47,9 @@ import { MessagesComponent } from './Component/messages/messages.component';
     ProfileComponent,
     ReviewsComponent,
     StoresComponent,
-    MessagesComponent
+    MessagesComponent,
+    ChatsComponent,
+    
   ],
   imports: [
     BrowserModule,
@@ -50,7 +57,11 @@ import { MessagesComponent } from './Component/messages/messages.component';
     HttpClientModule,
     ReactiveFormsModule,
     FormsModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    MatButtonModule,
+    MatInputModule,
+    MatTableModule,
+    MatCardModule,
   ],
   providers:[AuthInterceptorProvider],
   bootstrap: [AppComponent]

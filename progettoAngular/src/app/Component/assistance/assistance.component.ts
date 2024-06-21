@@ -10,6 +10,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 })
 export class AssistanceComponent implements OnInit{
   public assistances: assistanceList[];
+  displayedColumns: string[] = ['id', 'staff', 'chat'];
   constructor(private assistanceService: AssistanceService){}
 
   

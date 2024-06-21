@@ -1,20 +1,26 @@
 <div>
-    <table class="mat-elevation-z8 table">
-      <thead>
-        <tr>
-          <th>Nome negozio</th>
-          <th>Proprietario</th>
-          <th>Luogo</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let store of stores" routerLink="/store/{{store.id}}">
-          <td>{{store.nome}}</td>
-          <td>{{store.proprietario.nome}}</td>
-          <td>{{store.luogo}}</td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
+  <div style="margin: 20px;">
+  <table mat-table [dataSource]="stores" class="mat-elevation-z8">
+    <!-- Definizione delle colonne -->
+    <ng-container matColumnDef="nomeNegozio">
+      <th mat-header-cell *matHeaderCellDef><strong>Nome negozio</strong></th>
+      <td mat-cell *matCellDef="let store">{{store.nome}}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="proprietario">
+      <th mat-header-cell *matHeaderCellDef><strong>Proprietario</strong></th>
+      <td mat-cell *matCellDef="let store">{{store.proprietario.nome}}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="luogo">
+      <th mat-header-cell *matHeaderCellDef><strong>Luogo</strong></th>
+      <td mat-cell *matCellDef="let store">{{store.luogo}}</td>
+    </ng-container>
+
+    <!-- Riga di intestazione -->
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <!-- Righe di dati -->
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;" [routerLink]="['/store', row.id]"></tr>
+  </table>
   <router-outlet></router-outlet>
-  
+</div>

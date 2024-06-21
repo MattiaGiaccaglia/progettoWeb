@@ -10,6 +10,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 })
 export class ReviewComponent {
   public reviews: reviewList[];
+  displayedColumns: string[] = ['id', 'venditore', 'utente'];
 
   constructor(private reviewService: ReviewService){}
 

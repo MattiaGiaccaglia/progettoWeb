@@ -1,0 +1,44 @@
+
+.table-centered {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .card {
+    width: 100%;
+    max-width: 600px; 
+  }
+  
+  .card-body {
+    text-align: center;
+  }
+  
+  .card-title {
+    text-align: center;
+  }
+  
+  .btn {
+    display: block;
+    margin: 20px auto;
+  }
+  
+  .card-body p {
+    margin-bottom: 10px;
+  }
+
+  /*Stile per tabella*/
+.mat-elevation-z8 {
+    width: 100%;
+    max-width: 800px;
+    margin-bottom: 20px;
+  }
+  
+  .centered-text {
+    text-align: center;
+    vertical-align: middle;
+  }
+  
+  .mat-header-cell, .mat-cell {
+    padding: 8px;
+  }

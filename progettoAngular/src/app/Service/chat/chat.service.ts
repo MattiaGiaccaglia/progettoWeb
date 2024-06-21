@@ -14,4 +14,8 @@ export class ChatService {
   public getChats(): Observable<chatList[]>{
     return this.Http.get<chatList[]>(`${this.constants.baseUrl}/api/chat/getChats`)
   }
+
+  public getChat(chatID: number): Observable<chatList>{
+    return this.Http.get<chatList>(`${this.constants.baseUrl}/api/chat/getChat/${chatID}`)
+  }
 }

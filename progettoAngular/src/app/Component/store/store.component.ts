@@ -10,6 +10,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 })
 export class StoreComponent {
   public stores: storeList[];
+  displayedColumns: string[] = ['nomeNegozio', 'proprietario', 'luogo'];
 
   constructor(private storeService: StoreService){}
 

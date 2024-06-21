@@ -10,6 +10,8 @@ import { HttpErrorResponse } from '@angular/common/http';
 })
 export class CouponComponent implements OnInit{
   public coupons: couponList[];
+  displayedColumns: string[] = ['id', 'valoreCoupon', 'venditore', 'utente'];
+
   constructor(private couponService: CouponService){}
 
   ngOnInit() {

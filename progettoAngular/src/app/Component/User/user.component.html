@@ -1,41 +1,51 @@
-<div *ngIf="user" class="center-content">
-  <h2>Dettagli utente {{ tempNome }} {{ tempCognome }}</h2>
-  <div *ngIf="!modifica"> <!--Se modifica è false, mostro dettagli utente-->
-    <p>ID: {{ user.id }}</p>
-    <p>Nome: {{ user.nome }}</p>
-    <p>Cognome: {{ user.cognome }}</p>
-    <p>Username: {{ user.username }}</p>
-    <p>Email: {{ user.email }}</p>
-    <p>Telefono: {{ user.telefono }}</p>
-    <p>Ruolo: {{ user.ruolo }}</p>
-    <button (click)="inizioModifica()">Modifica</button> <!--Se premo pulsante, modifica diventa true-->
+<div *ngIf="user" class="table-centered">
+  <div class="card">
+    <div class="card-body">
+      <h2 class="card-title">Dettagli utente {{ tempNome }} {{ tempCognome }}</h2>
+      <div *ngIf="!modifica"> <!--Se modifica è false, mostro dettagli utente-->
+        <p><strong>ID: </strong>{{ user.id }}</p>
+        <p><strong>Nome: </strong> {{ user.nome }}</p>
+        <p><strong>Cognome: </strong> {{ user.cognome }}</p>
+        <p><strong>Username: </strong> {{ user.username }}</p>
+        <p><strong>Email: </strong> {{ user.email }}</p>
+        <p><strong>Telefono </strong> {{ user.telefono }}</p>
+        <p><strong>Ruolo: </strong> {{ user.ruolo }}</p>
+        <button class="btn btn-primary" (click)="inizioModifica()">Modifica</button> <!--Se premo pulsante, modifica diventa true-->
+      </div>
+      <div *ngIf="modifica">
+        <form (ngSubmit)="confermoModifica()" #userForm="ngForm"> <!--Modifico utente-->
+          <div class="mb-3">
+            <label><strong>ID</strong></label>
+            <input type="text" class="form-control" [(ngModel)]="user.id" name="id" disabled />
+          </div>
+          <div class="mb-3">
+            <label><strong>Nome</strong> </label>
+            <input type="text" class="form-control" [(ngModel)]="user.nome" name="nome" required />
+          </div>
+          <div class="mb-3">
+            <label><strong>Cognome</strong> </label>
+            <input type="text" class="form-control" [(ngModel)]="user.cognome" name="cognome" required />
+          </div>
+          <div class="mb-3">
+            <label><strong>Username</strong> </label>
+            <input type="text" class="form-control" [(ngModel)]="user.username" name="username" required />
+          </div>
+          <div class="mb-3">
+            <label><strong>Email</strong> </label>
+            <input type="email" class="form-control" [(ngModel)]="user.email" name="email" required />
+          </div>
+          <div class="mb-3">
+            <label><strong>Telefono</strong> </label>
+            <input type="text" class="form-control" [(ngModel)]="user.telefono" name="telefono" required />
+          </div>
+          <div class="mb-3">
+            <label><strong>Ruolo</strong> </label>
+            <input type="text" class="form-control" [(ngModel)]="user.ruolo" name="ruolo" disabled />
+          </div>
+          <button type="submit" class="btn btn-success">Conferma</button>
+        </form>
+      </div>
+    </div>
   </div>
-  <div *ngIf="modifica">
-    <form (ngSubmit)="confermoModifica()" #userForm="ngForm"> <!--Modifico utente-->
-      <p>
-        <label>ID: </label>
-        <input type="text" [(ngModel)]="user.id" name="id" disabled />
-      </p>
-      <p>
-        <label>Nome: </label>
-        <input type="text" [(ngModel)]="user.nome" name="nome" required />
-      </p>
-      <p>
-        <label>Cognome: </label>
-        <input type="text" [(ngModel)]="user.cognome" name="cognome" required />
-      </p>
-      <p>
-        <label>Email: </label>
-        <input type="email" [(ngModel)]="user.email" name="email" required />
-      </p>
-      <p>
-        <label>Telefono: </label>
-        <input type="text" [(ngModel)]="user.telefono" name="telefono" required />
-      </p>
-      <p>
-        <label>Ruolo: </label>
-        <input type="text" [(ngModel)]="user.ruolo" name="ruolo" disabled />
-      </p>
-      <button type="submit">Conferma</button>
-    </form>
 </div>
+<router-outlet></router-outlet>

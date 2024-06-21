@@ -15,6 +15,7 @@ import { ProfileComponent } from './Component/profile/profile.component';
 import { ReviewsComponent } from './Component/reviews/reviews.component';
 import { StoresComponent } from './Component/stores/stores.component';
 import { MessagesComponent } from './Component/messages/messages.component';
+import { ChatsComponent } from './Component/chats/chats.component';
 
 const routes: Routes = [
   { path: "registrazione", component: RegistrazioneComponent },
@@ -27,7 +28,7 @@ const routes: Routes = [
   { path: "review", component: ReviewComponent, children: [{path: ':id', component: ReviewsComponent}]},
   { path: "store", component: StoreComponent, children: [{path: ':id', component: StoresComponent}]},
   { path: "message", component: MessageComponent, children: [{path: ':id', component: MessagesComponent}]},
-  { path: "chat", component: ChatComponent}
+  { path: "chat", component: ChatComponent,  children: [{path: ':id', component: ChatsComponent}]}
 
 ];
 

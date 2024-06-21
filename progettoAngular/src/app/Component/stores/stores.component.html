@@ -1,11 +1,15 @@
-<div *ngIf="store" class="center-content">
-    <h2>Dettagli store</h2>
-    <p>ID: {{ store.id }}</p>
-    <p>Nome negozio: {{ store.nome }}</p>
-    <p>Luogo: {{ store.luogo }}</p>
-    <p>Proprietario: {{ store.proprietario.nome }} {{ store.proprietario.cognome }}</p>
-    <p>Dipendenti: {{ store.dipendenti.length }}</p>
-    <p>Programma: {{ store.programma }}</p>  
-</div>
-
+<div *ngIf="store" class="table-centered">
+    <div class="card">
+      <div class="card-body">
+        <h2 class="card-title">Dettagli store</h2>
+        <p><strong>ID: </strong>{{ store.id }}</p>
+        <p><strong>Nome negozio: </strong>{{ store.nome }}</p>
+        <p><strong>Luogo: </strong>{{ store.luogo }}</p>
+        <p><strong>Proprietario: </strong>{{ store.proprietario.nome }} {{ store.proprietario.cognome }}</p>
+        <p><strong>Dipendenti: </strong>{{ store.dipendenti.length }}</p>
+        <p><strong>Programma: </strong>{{ store.programma }}</p>
+      </div>
+    </div>
+  </div>
+  <router-outlet></router-outlet>
   

@@ -10,6 +10,8 @@ import { HttpErrorResponse } from '@angular/common/http';
 })
 export class FidelitycardComponent {
   public fidelitycards: fidelityCardList[];
+  displayedColumns: string[] = ['id', 'utente', 'venditore'];
+
   constructor(private fidelitycardService: FidelitycardService){}
 
   ngOnInit() {

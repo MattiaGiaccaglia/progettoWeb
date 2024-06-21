@@ -18,8 +18,8 @@ constructor(
 
 ngOnInit(): void {
   this.route.params.subscribe(params => {
-    const reviewId = params['id'];
-    this.reviewService.getReview(reviewId).subscribe(review => {
+    const reviewID = params['id'];
+    this.reviewService.getReview(reviewID).subscribe(review => {
       this.review = review;
     });
   });
