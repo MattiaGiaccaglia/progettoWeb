@@ -1,8 +1,7 @@
 import { Component } from '@angular/core';
 import { ReviewService } from '../../Service/review/review.service';
-import { ActivatedRoute, Router } from '@angular/router';
-import { MatSnackBar } from '@angular/material/snack-bar';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
+
 
 @Component({
   selector: 'app-reviews',
@@ -11,15 +10,10 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 })
 export class ReviewsComponent {
 review: any;
-addingReview: boolean = false;
-reviewForm: FormGroup;
-private formBuilder: FormBuilder;
 
 constructor(
   private route: ActivatedRoute,
   private reviewService: ReviewService,
-  private router: Router,
-  private snackBar: MatSnackBar
 ) { }
 
 ngOnInit(): void {

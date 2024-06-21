@@ -7,6 +7,7 @@ import progettoWeb.Assistence.AssistanceService;
 import progettoWeb.Chat.ChatRecord;
 import progettoWeb.Chat.ChatService;
 import progettoWeb.User.Role;
+import progettoWeb.User.UserException;
 import progettoWeb.User.UserRecord;
 import progettoWeb.User.UserService;
 
@@ -37,6 +38,12 @@ public class MessagesService {
         return chatService.getChat(idChat).getMessaggi();
     }
 
+
+    //Restituisco messaggi a partire da ID
+    public MessagesRecord getMessageByID(int id) {
+        return messagesRepository.findById(id)
+                .orElseThrow(() -> new MessageException.MessageExceptionNotFound("Nessun messaggio presente con il seguente id: " + id));
+    }
 
     //Aggiungo un messaggio a una determinata chat
     public boolean addMessages(MessagesRecord messagesRecord) {

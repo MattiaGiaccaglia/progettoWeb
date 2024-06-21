@@ -1,26 +1,10 @@
-<div>
-    <table class="mat-elevation-z8 table">
-      <thead>
-        <tr>
-          <th>ID</th>
-          <th>Testo messaggio</th>
-          <th>Data</th>
-          <th>Mittente</th>
-          <th>Destinatario</th>
-          <th>ID chat</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let message of messages" routerLink="/message{{message.id}}">
-          <td>{{message.id}}</td>
-          <td>{{message.testoMessaggio}}</td>
-          <td>{{message.data}}</td>
-          <td>{{message.mittente.nome + " " + message.mittente.cognome}}</td>
-          <td>{{message.destinatario.nome + " " + message.destinatario.cognome}}</td>
-          <td>{{message.chatId.id}}</td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
-  <router-outlet></router-outlet>
+<div *ngIf="message" class="center-content">
+    <h2>Dettagli messaggio</h2>
+    <p>ID: {{ message.id }}</p>
+    <p>Testo: {{ message.testoMessaggio }}</p>
+    <p>Data: {{message.data}}</p>
+    <p>Mittente: {{message.mittente.nome + " " + message.mittente.cognome}}</p>
+    <p>Destinatario: {{message.destinatario.nome + " " + message.destinatario.cognome}}</p>
+</div>
+  
   

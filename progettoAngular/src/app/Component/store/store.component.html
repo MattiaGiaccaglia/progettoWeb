@@ -2,22 +2,16 @@
     <table class="mat-elevation-z8 table">
       <thead>
         <tr>
-          <th>ID</th>
-          <th>Nome</th>
-          <th>Luogo</th>
+          <th>Nome negozio</th>
           <th>Proprietario</th>
-          <th>Dipendenti</th>
-          <th>Programma</th>
+          <th>Luogo</th>
         </tr>
       </thead>
       <tbody>
         <tr *ngFor="let store of stores" routerLink="/store/{{store.id}}">
-          <td>{{store.id}}</td>
           <td>{{store.nome}}</td>
-          <td>{{store.luogo}}</td>
           <td>{{store.proprietario.nome}}</td>
-          <td>{{store.dipendenti.length}}</td>
-          <td>{{store.programma}}</td>
+          <td>{{store.luogo}}</td>
         </tr>
       </tbody>
     </table>

@@ -1,15 +1,13 @@
 package progettoWeb.Messages;
 
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
 import progettoWeb.Chat.ChatRecord;
 import progettoWeb.User.UserRecord;
 import java.time.LocalDateTime;
 
 @Entity
-@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class MessagesRecord {
 
     @Id
@@ -31,6 +29,7 @@ public class MessagesRecord {
 
     @ManyToOne
     @JoinColumn(name = "chat_id")
+    @JsonIgnore
     private ChatRecord chat;
 
     public ChatRecord getChat() {

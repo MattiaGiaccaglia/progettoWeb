@@ -14,4 +14,8 @@ export class MessagesService {
   public getMessages(): Observable<messagesList[]>{
     return this.Http.get<messagesList[]>(`${this.constants.baseUrl}/api/messages/getMessages`)
   }
+
+  public getMessageByID(messageID: number): Observable<messagesList>{
+    return this.Http.get<messagesList>(`${this.constants.baseUrl}/api/messages/getMessageByID/${messageID}`)
+  }
 }

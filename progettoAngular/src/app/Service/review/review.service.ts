@@ -16,8 +16,8 @@ export class ReviewService {
     return this.Http.get<reviewList[]>(`${this.constants.baseUrl}/api/review/getReviews`)
   }
 
-  public getReview(ReviewId: number): Observable<reviewList>{
-    return this.Http.get<reviewList>(`${this.constants.baseUrl}/api/review/getReview/${ReviewId}`)
+  public getReview(ReviewID: number): Observable<reviewList>{
+    return this.Http.get<reviewList>(`${this.constants.baseUrl}/api/review/getReview/${ReviewID}`)
   }
 
   public addReview(review: any): Observable<any>{

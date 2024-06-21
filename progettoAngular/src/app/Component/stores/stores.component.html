@@ -1,0 +1,11 @@
+<div *ngIf="store" class="center-content">
+    <h2>Dettagli store</h2>
+    <p>ID: {{ store.id }}</p>
+    <p>Nome negozio: {{ store.nome }}</p>
+    <p>Luogo: {{ store.luogo }}</p>
+    <p>Proprietario: {{ store.proprietario.nome }} {{ store.proprietario.cognome }}</p>
+    <p>Dipendenti: {{ store.dipendenti.length }}</p>
+    <p>Programma: {{ store.programma }}</p>  
+</div>
+
+  

@@ -13,4 +13,9 @@ export class StoreService {
 
   public getAllStores(): Observable<storeList[]>{
     return this.Http.get<storeList[]>(`${this.constants.baseUrl}/api/store/getAllStores`)
-  }}
+  }
+
+  public getStore(storeID: number): Observable<storeList>{
+    return this.Http.get<storeList>(`${this.constants.baseUrl}/api/store/getStore/${storeID}`)
+  }
+}

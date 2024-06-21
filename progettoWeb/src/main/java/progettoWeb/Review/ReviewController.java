@@ -9,6 +9,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/review")
+@CrossOrigin(origins = "http://localhost:4200")
 public class ReviewController {
     @Autowired
     private ReviewService reviewService;
@@ -23,7 +24,6 @@ public class ReviewController {
     }
 
     //Aggiungo una Review
-    @CrossOrigin(origins = "http://localhost:4200")
     @PostMapping("/addReview")
     public ResponseEntity<String> addReview(@RequestBody ReviewRecord reviewRecord) {
         if(reviewService.addReview(reviewRecord))

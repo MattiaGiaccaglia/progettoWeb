@@ -10,7 +10,7 @@ import { UserComponent } from './Component/User/user.component';
 import { AuthInterceptorProvider } from './Interceptor/auth.interceptor';
 import { CouponComponent } from './Component/coupon/coupon.component';
 import { ChatComponent } from './Component/chat/chat.component';
-import { MessagesComponent } from './Component/messages/messages.component';
+import { MessageComponent } from './Component/message/message.component';
 import { StoreComponent } from './Component/store/store.component';
 import { AssistanceComponent } from './Component/assistance/assistance.component';
 import { FidelitycardComponent } from './Component/fidelitycard/fidelitycard.component';
@@ -20,6 +20,8 @@ import { FormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ProfileComponent } from './Component/profile/profile.component';
 import { ReviewsComponent } from './Component/reviews/reviews.component';
+import { StoresComponent } from './Component/stores/stores.component';
+import { MessagesComponent } from './Component/messages/messages.component';
 
 
 @NgModule({
@@ -32,13 +34,15 @@ import { ReviewsComponent } from './Component/reviews/reviews.component';
     ProfileComponent,
     CouponComponent,
     ChatComponent,
-    MessagesComponent,
+    MessageComponent,
     StoreComponent,
     AssistanceComponent,
     FidelitycardComponent,
     ReviewComponent,
     ProfileComponent,
     ReviewsComponent,
+    StoresComponent,
+    MessagesComponent
   ],
   imports: [
     BrowserModule,

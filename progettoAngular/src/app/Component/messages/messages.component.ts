@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
-import { messagesList } from '../../List/messagesList';
+import { ActivatedRoute } from '@angular/router';
 import { MessagesService } from '../../Service/messages/messages.service';
-import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-messages',
@@ -9,21 +8,19 @@ import { HttpErrorResponse } from '@angular/common/http';
   styleUrl: './messages.component.css'
 })
 export class MessagesComponent {
-  public messages: messagesList[];
-  constructor(private messagesService: MessagesService){}
+message: any;
 
-  ngOnInit() {
-    this.getMessages();
-  }
+constructor(
+  private route: ActivatedRoute,
+  private messagesService: MessagesService,
+) { }
 
-  public getMessages(): void{
-    this.messagesService.getMessages().subscribe(
-      (response: messagesList[]) =>{
-        this.messages = response;
-      },
-      (error: HttpErrorResponse) =>{
-        alert(error.message);
-      }
-    );
-  }
+ngOnInit(): void {
+  this.route.params.subscribe(params => {
+    const messageID = params['id'];
+    this.messagesService.getMessageByID(messageID).subscribe(message => {
+      this.message = message;
+    });
+  });
+}
 }

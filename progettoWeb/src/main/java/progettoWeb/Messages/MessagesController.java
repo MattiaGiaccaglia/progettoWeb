@@ -22,7 +22,14 @@ public class MessagesController {
         return new ResponseEntity<>("Non ci sono messaggi da mostrare", HttpStatus.NOT_FOUND);
     }
 
-    //Restituisco tutti i messaggi di una determinata chat
+    //Restituisco messaggio a partire da ID
+    @GetMapping("/getMessageByID/{id}")
+    public ResponseEntity<MessagesRecord> getMessageByID(@PathVariable("id") int id) {
+        return new ResponseEntity<>(messagesService.getMessageByID(id), HttpStatus.OK);
+    }
+
+
+        //Restituisco tutti i messaggi di una determinata chat
     @GetMapping("/getMessagesByIDChat/{idChat}")
     public ResponseEntity<Object> getMessagesByIDChat(@PathVariable("idChat") int idChat){
         List<MessagesRecord> messagesRecords = messagesService.getAllMessagesByIDChat(idChat);

@@ -11,6 +11,7 @@ import progettoWeb.Assistence.AssistanceException;
 import progettoWeb.Chat.ChatException;
 import progettoWeb.Coupon.CouponException;
 import progettoWeb.FidelityCard.FidelityCardException;
+import progettoWeb.Messages.MessageException;
 import progettoWeb.Review.ReviewException;
 import progettoWeb.Store.StoreException;
 import progettoWeb.User.UserException;
@@ -52,6 +53,12 @@ public class GlobalExceptionHandler {
     //Exception Fidelity Card ID non esiste
     @ExceptionHandler(FidelityCardException.FidelityCardExceptionNotFound.class)
     public ResponseEntity<Object> handleFidelityCardNotFoundException(FidelityCardException.FidelityCardExceptionNotFound e) {
+        return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
+    }
+
+    //Exception Message Card ID non esiste
+    @ExceptionHandler(MessageException.MessageExceptionNotFound.class)
+    public ResponseEntity<Object> handleMessageNotFoundException(MessageException.MessageExceptionNotFound e) {
         return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
     }
 
