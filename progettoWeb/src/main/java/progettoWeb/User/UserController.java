@@ -11,6 +11,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/user")
+@CrossOrigin(origins = "http://localhost:4200")
 public class UserController {
     @Autowired
     private UserService userService;
@@ -54,7 +55,7 @@ public class UserController {
     @DeleteMapping("/deleteUser/{id}")
     public ResponseEntity<String> deleteUser(@PathVariable("id") int id){
         userService.deleteUser(id);
-        return new ResponseEntity<>("Utente eliminato correttamente.", HttpStatus.OK);
+        return ResponseEntity.ok().body("{\"message\": \"Utente eliminato correttamente.\"}");
     }
 
     //Modifico utente

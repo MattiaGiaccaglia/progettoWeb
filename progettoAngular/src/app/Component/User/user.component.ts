@@ -33,22 +33,34 @@ export class UserComponent {
     });
   }
 
+  eliminaUtente(): void {
+    if (confirm('Sei sicuro di voler eliminare questo utente?')) {
+      this.userService.deleteUser(this.user.id).subscribe(
+        response => {
+          this.showSnackbar('Utente eliminato correttamente.');
+          this.reloadPage();
+        },
+        error =>{
+          this.showSnackbar('Impossibile elimiare utente. Si è verificato un errore.');
+        }
+      );
+    }
+  }
+  
+
   confermoModifica(): void {
-    console.log('Confermo modifica'); //log per debug
-    this.userService.modifyUser(this.user).subscribe(
-      response => {
+    this.userService.modifyUser(this.user).subscribe({
+      next: (res) => {
         this.modifica = false;
-        console.log('Utente aggiornato correttamente');
         this.showSnackbar('Utente aggiornato correttamente.');
         this.reloadPage();
         
       },
-      error => {
-        console.error('Impossibile aggiornare utente');
+      error: (err) => {
         this.showSnackbar('Impossibile aggiornare utente. Si è verificato un errore.');
         this.reloadPage()
       }
-    );
+    });
   }
 
   inizioModifica(): void {

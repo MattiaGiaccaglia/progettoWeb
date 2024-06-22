@@ -25,6 +25,6 @@
             <label for="telefono">Telefono</label>
             <input type="telefono" class="form-control" id="telefono" formControlName = "telefono">
         </div>
-        <button type="submit" class="btn btn-primary">Conferma</button>
+        <button type="submit" class="btn btn-primary" [disabled]="!registerForm.valid">Conferma</button>
     </form>
 </div>

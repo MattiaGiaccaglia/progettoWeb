@@ -27,6 +27,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatTableModule } from '@angular/material/table';
 import { MatCardModule } from '@angular/material/card';
 import { ChatsComponent } from './Component/chats/chats.component';
+import {MatTooltipModule} from '@angular/material/tooltip';
 
 
 @NgModule({
@@ -62,6 +63,7 @@ import { ChatsComponent } from './Component/chats/chats.component';
     MatInputModule,
     MatTableModule,
     MatCardModule,
+    MatTooltipModule
   ],
   providers:[AuthInterceptorProvider],
   bootstrap: [AppComponent]

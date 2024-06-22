@@ -1,9 +1,18 @@
-<div *ngIf="isObject(user)" class="center-content">
-    <h2>Benvenuto {{user.nome}} {{ user.cognome }}</h2> <!--Stampo i dettagli dell'utente-->
-      <p>ID: {{ user.id }}</p>
-      <p>Username: {{ user.username }}</p>
-      <p>Email: {{ user.email }}</p>
-      <p>Telefono: {{ user.telefono }}</p>
-      <p>Ruolo: {{ user.ruolo }}</p>
-    <h2>Seleziona uno dei pulsanti in alto per accedere alle varie sezioni</h2>
+<div *ngIf="isObject(user)" class="table-centered">
+  <div style="margin: 20px;">
+    <div class="card">
+      <div class="card-body">
+        <h2 class="card-title">Benvenuto {{ user.nome }} {{ user.cognome }}</h2>
+        <div class="user-details">
+          <p><strong>ID: </strong>{{ user.id }}</p>
+          <p><strong>Username: </strong>{{ user.username }}</p>
+          <p><strong>Email: </strong>{{ user.email }}</p>
+          <p><strong>Telefono: </strong>{{ user.telefono }}</p>
+          <p><strong>Ruolo: </strong>{{ user.ruolo }}</p>
+        </div>
+        <h3 class="card-subtitle">Seleziona uno dei pulsanti in alto per accedere alle varie sezioni</h3>
+      </div>
     </div>
+  </div>
+</div>
+<router-outlet></router-outlet>

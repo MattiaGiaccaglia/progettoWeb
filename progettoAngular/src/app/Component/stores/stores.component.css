@@ -7,7 +7,9 @@
   
   .card {
     width: 100%;
-    max-width: 600px; 
+    max-width: 600px;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.54);
+    background-color: #e8e8e8;
   }
   
   .card-body {

@@ -40,7 +40,7 @@ public class UserService {
         if(userRecord.getNome().isEmpty() || userRecord.getCognome().isEmpty() || userRecord.getUsername1().isEmpty()
                 || userRecord.getPassword1().isEmpty() || userRecord.getPassword1().length() < 8 || userRecord.getEmail().isEmpty() ||
                 userRecord.getTelefono().length() != 10){
-            return AuthenticationResponse.builder().token("").build();
+            throw new RuntimeException("Impossibile effettuare registrazione, dati errati");
         }
         userRecord.setRuolo(Role.utente); //Ruolo di default è Role.utente
         userRecord.setPassword(passwordEncoder.encode(userRecord.getPassword1()));

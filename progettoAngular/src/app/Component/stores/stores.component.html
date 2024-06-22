@@ -1,15 +1,17 @@
-<div *ngIf="store" class="table-centered">
+<div style="margin: 20px;">
+  <div *ngIf="store" class="table-centered">
     <div class="card">
       <div class="card-body">
-        <h2 class="card-title">Dettagli store</h2>
-        <p><strong>ID: </strong>{{ store.id }}</p>
-        <p><strong>Nome negozio: </strong>{{ store.nome }}</p>
-        <p><strong>Luogo: </strong>{{ store.luogo }}</p>
-        <p><strong>Proprietario: </strong>{{ store.proprietario.nome }} {{ store.proprietario.cognome }}</p>
-        <p><strong>Dipendenti: </strong>{{ store.dipendenti.length }}</p>
-        <p><strong>Programma: </strong>{{ store.programma }}</p>
+          <h2 class="card-title">Dettagli store</h2>
+          <p><strong>ID: </strong>{{ store.id }}</p>
+          <p><strong>Nome negozio: </strong>{{ store.nome }}</p>
+          <p><strong>Luogo: </strong>{{ store.luogo }}</p>
+          <p><strong>Proprietario: </strong>{{ store.proprietario.nome }} {{ store.proprietario.cognome }}</p>
+          <p><strong>Dipendenti: </strong>{{ store.dipendenti.length }}</p>
+          <p><strong>Programma: </strong>{{ store.programma }}</p>
       </div>
     </div>
   </div>
-  <router-outlet></router-outlet>
+</div>
+<router-outlet></router-outlet>
   

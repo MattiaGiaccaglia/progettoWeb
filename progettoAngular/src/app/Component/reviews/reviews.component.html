@@ -1,12 +1,14 @@
-<div *ngIf="review" class="table-centered">
-  <div class="card">
-    <div class="card-body">
-      <h2 class="card-title">Dettagli review</h2>
-      <p><strong>ID: </strong>{{ review.id }}</p>
-      <p><strong>Testo: </strong>{{ review.testo }}</p>
-      <p><strong>Valutazione: </strong>{{ review.valutazione }}</p>
-      <p><strong>Venditore: </strong>{{ review.vendor.nome }} {{ review.vendor.cognome }}</p>
-      <p><strong>Utente: </strong>{{ review.user.nome }} {{ review.user.cognome }}</p>
+<div style="margin: 20px;">
+  <div *ngIf="review" class="table-centered">
+    <div class="card">
+      <div class="card-body">
+        <h2 class="card-title">Dettagli review</h2>
+        <p><strong>ID: </strong>{{ review.id }}</p>
+        <p><strong>Testo: </strong>{{ review.testo }}</p>
+        <p><strong>Valutazione: </strong>{{ review.valutazione }}</p>
+        <p><strong>Venditore: </strong>{{ review.vendor.nome }} {{ review.vendor.cognome }}</p>
+        <p><strong>Utente: </strong>{{ review.user.nome }} {{ review.user.cognome }}</p>
+      </div>
     </div>
   </div>
 </div>
