@@ -44,3 +44,7 @@
   .mat-header-cell, .mat-cell {
     padding: 8px;
   }
+
+  .outer-container {
+    margin: 20px;
+  }

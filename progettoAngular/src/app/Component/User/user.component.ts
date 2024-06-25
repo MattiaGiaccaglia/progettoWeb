@@ -18,8 +18,8 @@ export class UserComponent {
   constructor(
     private route: ActivatedRoute,
     private userService: UserService,
-    private router: Router,
-    private snackBar: MatSnackBar
+    private snackBar: MatSnackBar,
+    private router: Router
   ) { }
 
   ngOnInit(): void {
@@ -49,18 +49,17 @@ export class UserComponent {
   
 
   confermoModifica(): void {
-    this.userService.modifyUser(this.user).subscribe({
-      next: (res) => {
+    this.userService.modifyUser(this.user).subscribe(
+      response => {
         this.modifica = false;
-        this.showSnackbar('Utente aggiornato correttamente.');
         this.reloadPage();
-        
+        this.showSnackbar('Utente aggiornato correttamente.');
       },
-      error: (err) => {
-        this.showSnackbar('Impossibile aggiornare utente. Si è verificato un errore.');
+      error =>{
         this.reloadPage()
+        this.showSnackbar('Impossibile aggiornare utente. Si è verificato un errore.');
       }
-    });
+    );
   }
 
   inizioModifica(): void {
@@ -68,13 +67,11 @@ export class UserComponent {
   }
 
   reloadPage(): void {
-    console.log('Ricaricamento pagina'); //log per debug
     const currentUrl = this.router.url;
     this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
       this.router.navigate([currentUrl]);
     });
   }
-
   showSnackbar(message: string): void {
     this.snackBar.open(message, 'Chiudi', {
       duration: 5000,

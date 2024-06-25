@@ -1,6 +1,5 @@
-<div>
-  <div style="margin: 20px;">
-  <table mat-table [dataSource]="chats" class="mat-elevation-z8">
+<div class="outer-container">
+    <table mat-table [dataSource]="chats" class="mat-elevation-z8">
     <!-- Definizione delle colonne -->
 
     <ng-container matColumnDef="staff">
@@ -23,5 +22,4 @@
     <!-- Righe di dati -->
     <tr mat-row *matRowDef="let row; columns: displayedColumns;" [routerLink]="['/chat', row.id]"></tr>
   </table>
-  <router-outlet></router-outlet>
-</div>
+<router-outlet></router-outlet>

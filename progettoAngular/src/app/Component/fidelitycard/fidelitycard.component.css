@@ -1,0 +1,39 @@
+.outer-container {
+  margin: 20px;
+}
+
+.custom-table {
+  margin-top: 20px;
+}
+
+.button-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px; 
+}
+
+.centered-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.form-control, .form-label {
+  display: block;
+  width: 100%;
+  margin: 10px auto;
+}
+
+.card {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  margin: 20px;
+  padding: 20px;
+  background-color: #e8e8e8;
+  border-radius: 8px;
+}
+
+.card-body {
+  text-align: center;
+}
+
+

@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 import { UserService } from '../../Service/User/user.service';
 import { JwtService } from '../../Service/JWT/jwt.service';
 import { userList } from '../../List/userList';
+import { FidelitycardService } from '../../Service/fidelitycard/fidelitycard.service';
+import { fidelityCardList } from '../../List/fidelitycardList';
 
 @Component({
   selector: 'app-profile',
@@ -9,18 +11,29 @@ import { userList } from '../../List/userList';
   styleUrl: './profile.component.css'
 })
 export class ProfileComponent {
-  user: any;
+  user: userList;
+  fidelityCards: fidelityCardList[] = [];
+  hasFidelityCards: boolean = false; 
 
-  constructor(private userService: UserService, private jwtService: JwtService) {}
+  constructor(private userService: UserService, private jwtService: JwtService, private fidelitycardservice: FidelitycardService) {}
 
   ngOnInit(): void {
-    //Prendo i dati dell'utente loggato
     this.userService.getUserByUsername(this.jwtService.user.username).subscribe((res: userList) => {
-      console.log(res);
-      this.user = res;
+      if (res) {
+        this.user = res;
+        this.fidelitycardservice.getFidelityCardUser(this.user.id).subscribe((cards: fidelityCardList[]) => {
+          if (cards && cards.length > 0) {
+            this.fidelityCards = cards;
+            this.hasFidelityCards = true;
+          }else
+            this.hasFidelityCards = false;
+        });
+      }
     });
   }
   
-  isObject(value: any): boolean { return typeof value === 'object'; } //Lo uso per non farmi dare errori in console, dato che il component.html renderizza più veloce della subscribe nel component.ts
+  isObject(value: any): boolean { 
+    return typeof value === 'object'; 
+  }
 }
 

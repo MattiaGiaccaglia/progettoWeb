@@ -25,7 +25,7 @@ export class UsersComponent implements OnInit {
         this.users = response;
       },
       (error: HttpErrorResponse) =>{
-        alert(error.message);
+        alert("Nessun utente registrato");
       }
     );
   }
@@ -36,7 +36,7 @@ export class UsersComponent implements OnInit {
         this.user = response;
       },
       (error: HttpErrorResponse) =>{
-        alert(error.message);
+        alert("Nessun utente con il seguente id " + id);
       }
     );
   }

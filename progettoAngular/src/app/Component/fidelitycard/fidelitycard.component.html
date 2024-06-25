@@ -1,26 +1,47 @@
-<div>
-  <div style="margin: 20px;">
-  <table mat-table [dataSource]="fidelitycards" class="mat-elevation-z8">
-    <!-- Definizione delle colonne -->
-    <ng-container matColumnDef="id">
-      <th mat-header-cell *matHeaderCellDef><strong>ID</strong></th>
-      <td mat-cell *matCellDef="let fidelitycard">{{fidelitycard.id}}</td>
-    </ng-container>
+<div class="outer-container">
+    <table mat-table [dataSource]="fidelitycards" class="mat-elevation-z8 custom-table">
+        <!-- Definizione delle colonne -->
+        <ng-container matColumnDef="id">
+            <th mat-header-cell *matHeaderCellDef><strong>ID</strong></th>
+            <td mat-cell *matCellDef="let fidelitycard">{{fidelitycard.id}}</td>
+        </ng-container>
 
-    <ng-container matColumnDef="utente">
-      <th mat-header-cell *matHeaderCellDef><strong>User</strong></th>
-      <td mat-cell *matCellDef="let fidelitycard">{{fidelitycard.user.nome + ' ' + fidelitycard.user.cognome}}</td>
-    </ng-container>
+        <ng-container matColumnDef="utente">
+            <th mat-header-cell *matHeaderCellDef><strong>User</strong></th>
+            <td mat-cell *matCellDef="let fidelitycard">{{fidelitycard.user.nome + ' ' + fidelitycard.user.cognome}}</td>
+        </ng-container>
 
-    <ng-container matColumnDef="venditore">
-      <th mat-header-cell *matHeaderCellDef><strong>Venditore</strong></th>
-      <td mat-cell *matCellDef="let fidelitycard">{{fidelitycard.vendorFidelity.nome + ' ' + fidelitycard.vendorFidelity.cognome}}</td>
-    </ng-container>
+        <ng-container matColumnDef="venditore">
+            <th mat-header-cell *matHeaderCellDef><strong>Venditore</strong></th>
+            <td mat-cell *matCellDef="let fidelitycard">{{fidelitycard.vendorFidelity.nome + ' ' + fidelitycard.vendorFidelity.cognome}}</td>
+        </ng-container>
 
-    <!-- Riga di intestazione -->
-    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-    <!-- Righe di dati -->
-    <tr mat-row *matRowDef="let row; columns: displayedColumns;" [routerLink]="['/fidelitycard', row.id]"></tr>
-  </table>
-  <router-outlet></router-outlet>
+        <!-- Riga di intestazione -->
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <!-- Righe di dati -->
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+    <div class="button-container">
+        <button class="button" (click)="onSubmit()">Aggiungi Fidelity Card</button>
+    </div>
 </div>
+<div class="centered-container" *ngIf="aggiungi">
+    <div class="card">
+      <div class="card-body">
+        <form (ngSubmit)="addFidelityCard()" #fidelityCardForm="ngForm">
+          <div class="mb-3">
+            <label class="form-label"><strong>Username Utente</strong></label>
+            <input type="text" class="form-control" [(ngModel)]="userUsername" name="user" required />
+          </div>
+          <div class="mb-3">
+            <label class="form-label"><strong>Username Venditore</strong></label>
+            <input type="text" class="form-control" [(ngModel)]="vendorUsername" name="vendorFidelity" required />
+          </div>
+          <button type="submit" class="btn btn-primary">Aggiungi</button>
+        </form>
+      </div>
+    </div>
+  </div>
+  
+  
+<router-outlet></router-outlet>

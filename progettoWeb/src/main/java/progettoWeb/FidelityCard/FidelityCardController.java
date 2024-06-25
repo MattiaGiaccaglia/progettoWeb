@@ -43,8 +43,8 @@ public class FidelityCardController {
     @PostMapping("/addFidelityCard")
     public ResponseEntity<String> addFidelityCard(@RequestBody FidelityCardRecord fidelityCard) {
         if (fidelityCardService.addFidelityCard(fidelityCard))
-            return new ResponseEntity<>("Fidelity Card aggiunta correttamente.", HttpStatus.OK);
-        return new ResponseEntity<>("Non è possibile aggiungere la Fidelity Card, controllare i dati inseriti e riprovare.", HttpStatus.BAD_REQUEST);
+            return ResponseEntity.ok().body("{\"message\": \"Fidelity Card aggiunta correttamente.\"}");
+        return ResponseEntity.badRequest().body("{\"message\": \"Non è possibile aggiungere la Fidelity Card, controllare i dati inseriti e riprovare.\"}");
     }
 
     //Modifico una fidelity card
@@ -61,40 +61,4 @@ public class FidelityCardController {
         fidelityCardService.deleteFidelityCard(id);
         return new ResponseEntity<>("Fidelity Card eliminata correttamente.", HttpStatus.OK);
     }
-
-    //Aggiungo fidelity plan a una fidelity card
-    /*@RequestMapping(value="/api/addFidelityPlan/{idFidelityCard}/{idStore}", method= RequestMethod.POST)
-    public ResponseEntity<String> addFidelityPlan(@PathVariable("idFidelityCard") String idFidelityCard, @PathVariable("idStore") String idStore) {
-        try{
-            Optional<FidelityCardRecord> fidelityCard = fidelityCardService.getFidelityCard(Integer.parseInt(idFidelityCard));
-            List<StoreRecord> fidelityPlan = fidelityCard.get().getFidelityPlan();
-            Optional<StoreRecord> store = storeService.getStore(Integer.parseInt(idStore));
-
-            //Creo fidelity plan
-            StoreRecord newFidelityPlan = new StoreRecord();
-            newFidelityPlan.setId(store.get().getId());
-            newFidelityPlan.setNome(store.get().getNome());
-            newFidelityPlan.setDipendenti(store.get().getDipendenti());
-            newFidelityPlan.setProprietario(store.get().getProprietario());
-            newFidelityPlan.setProgramma(store.get().getProgramma());
-            storeService.modifyStore(newFidelityPlan);
-            fidelityPlan.add(newFidelityPlan);
-
-            //Creo fidelity card
-            FidelityCardRecord newFidelityCard = new FidelityCardRecord();
-            newFidelityCard.setId(fidelityCard.get().getId());
-            newFidelityCard.setUser(fidelityCard.get().getUser());
-            newFidelityCard.setVendorFidelity(fidelityCard.get().getVendorFidelity());
-            newFidelityCard.setFidelityPlan(fidelityPlan);
-
-            //Sostituisco fidelity card esistente con quella modificata
-            fidelityCardService.modifyFidelityCard(newFidelityCard);
-
-            return new ResponseEntity<>("Piano fedeltà aggiunto correttamente", HttpStatus.OK);
-        }
-        catch (Exception e){
-            return new ResponseEntity<>("Non è possibile aggiungere il piano fedeltà", HttpStatus.BAD_REQUEST);
-        }
-    }*/
-
 }

@@ -12,6 +12,7 @@
   border-radius: 8px;
   box-shadow: 0 5px 10px rgba(0, 0, 0, 0.54);
   background-color: #e8e8e8;
+  text-align: center;
 }
 
 .card-body {

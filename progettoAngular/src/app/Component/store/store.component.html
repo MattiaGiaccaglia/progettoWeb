@@ -1,6 +1,6 @@
-<div>
-  <div style="margin: 20px;">
-  <table mat-table [dataSource]="stores" class="mat-elevation-z8">
+
+  <div class="outer-container">
+    <table mat-table [dataSource]="stores" class="mat-elevation-z8">
     <!-- Definizione delle colonne -->
     <ng-container matColumnDef="nomeNegozio">
       <th mat-header-cell *matHeaderCellDef><strong>Nome negozio</strong></th>
@@ -23,4 +23,3 @@
     <tr mat-row *matRowDef="let row; columns: displayedColumns;" [routerLink]="['/store', row.id]"></tr>
   </table>
   <router-outlet></router-outlet>
-</div>

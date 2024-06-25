@@ -13,6 +13,23 @@
         <h3 class="card-subtitle">Seleziona uno dei pulsanti in alto per accedere alle varie sezioni</h3>
       </div>
     </div>
-  </div>
-</div>
+    
+    <!--Mostro le fidelityCards dell'utente-->
+    <div *ngIf="hasFidelityCards">
+      <div class="card" style="margin-top: 20px;" *ngFor="let card of fidelityCards">
+        <div class="card-body">
+          <h4 class="card-title">Dettagli Fidelity Card</h4>
+          <p><strong>ID: </strong>{{ card.id }}</p>
+          <p><strong>Venditore: </strong>{{ card.vendorFidelity.nome }} {{ card.vendorFidelity.cognome }}</p>
+        </div>
+      </div>
+    </div>
+
+    <!--Se non ci sono fidelityCard-->
+    <div *ngIf="!hasFidelityCards" class="card" style="margin-top: 20px;">
+      <div class="card-body">
+        <h4 class="card-title">Carta Fedeltà non presente</h4>
+      </div>
+    </div>
+    
 <router-outlet></router-outlet>

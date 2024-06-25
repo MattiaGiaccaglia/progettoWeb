@@ -1,5 +1,4 @@
-<div>
-  <div style="margin: 20px;">
+  <div class="outer-container">
     <table mat-table [dataSource]="coupons" class="mat-elevation-z8">
     <!-- Definizione delle colonne -->
     <ng-container matColumnDef="id">
@@ -25,7 +24,6 @@
     <!-- Riga di intestazione -->
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
     <!-- Righe di dati -->
-    <tr mat-row *matRowDef="let row; columns: displayedColumns;" [routerLink]="['/coupon', row.id]"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
   </table>
   <router-outlet></router-outlet>
-</div>

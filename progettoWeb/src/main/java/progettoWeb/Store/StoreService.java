@@ -36,7 +36,8 @@ public class StoreService {
     //Aggiungo un nuovo store
     public boolean addStore(StoreRecord storeRecords) {
         UserRecord proprietario = userService.getUser(storeRecords.getProprietario().getId());
-        if (!proprietario.equals(storeRecords.getProprietario()))
+        //Controllo se è venditore
+        if (!proprietario.equals(storeRecords.getProprietario()) || !proprietario.getRuolo().equals(Role.venditore))
             return false;
         //Controllo se il proprietario ha già un negozio nello stesso luogo
         if (getStoreByVendor(proprietario.getId()).stream().anyMatch(s -> s.getLuogo().equals(storeRecords.getLuogo())))

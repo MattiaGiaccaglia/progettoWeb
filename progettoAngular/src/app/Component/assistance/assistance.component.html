@@ -1,5 +1,4 @@
-<!-- Componente HTML -->
-<div style="margin: 20px;">
+<div class="outer-container">
   <table mat-table [dataSource]="assistances" class="mat-elevation-z8">
     <!-- Definizione delle colonne -->
     <ng-container matColumnDef="id">
@@ -9,18 +8,18 @@
 
     <ng-container matColumnDef="staff">
       <th mat-header-cell *matHeaderCellDef><strong>Staff</strong></th>
-      <td mat-cell *matCellDef="let assistance">{{assistance.staff.nome + " " + assistance.staff.cognome + " id:" + assistance.staff.id}}</td>
+      <td mat-cell *matCellDef="let assistance">{{assistance.staff.nome + " " + assistance.staff.cognome}}</td>
     </ng-container>
 
     <ng-container matColumnDef="chat">
-      <th mat-header-cell *matHeaderCellDef><strong>Chat</strong></th>
+      <th mat-header-cell *matHeaderCellDef><strong>Chat ID</strong></th>
       <td mat-cell *matCellDef="let assistance">{{assistance.chat.id}}</td>
     </ng-container>
 
     <!-- Riga di intestazione -->
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
     <!-- Righe di dati -->
-    <tr mat-row *matRowDef="let row; columns: displayedColumns;" [routerLink]="['/assistance', row.id]"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
   </table>
   <router-outlet></router-outlet>
 </div>

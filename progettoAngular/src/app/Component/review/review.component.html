@@ -1,6 +1,5 @@
-<div>
-  <div style="margin: 20px;">
-  <table mat-table [dataSource]="reviews" class="mat-elevation-z8">
+  <div class="outer-container">
+    <table mat-table [dataSource]="reviews" class="mat-elevation-z8">
     <!-- Definizione delle colonne -->
     <ng-container matColumnDef="id">
       <th mat-header-cell *matHeaderCellDef><strong>ID</strong></th>
@@ -23,4 +22,3 @@
     <tr mat-row *matRowDef="let row; columns: displayedColumns;" [routerLink]="['/review', row.id]"></tr>
   </table>
   <router-outlet></router-outlet>
-</div>
