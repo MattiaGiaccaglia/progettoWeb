@@ -35,7 +35,7 @@ public class FidelityCardController {
     public ResponseEntity<Object> getFidelityCardByUserId(@PathVariable("id") int id){
         List<FidelityCardRecord> fidelityCard = fidelityCardService.getFidelityCardByUserId(id);
         if (fidelityCard.isEmpty())
-            return new ResponseEntity<>("Nessuna Fidelity Card associata a questo utente.", HttpStatus.NOT_FOUND);
+            return ResponseEntity.ok().body("{\"message\": \"Nessuna Fidelity Card associata all'utente.\"}");
         return new ResponseEntity<>(fidelityCard, HttpStatus.OK);
     }
 

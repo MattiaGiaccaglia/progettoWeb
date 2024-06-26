@@ -2,6 +2,10 @@ import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router'; // Importa Router
 import { UserService } from '../../Service/User/user.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { JwtService } from '../../Service/JWT/jwt.service';
+import { userList } from '../../List/userList';
+import { Role } from './role.enum';
+import { AdministratorService } from '../../Service/administrator/administrator.service';
 
 @Component({
   selector: 'app-user',
@@ -10,16 +14,21 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 })
 
 export class UserComponent {
-  user: any;
+  user: userList;
   modifica: boolean = false;
   tempNome: string = ''; // Variabile temporanea per memorizzare il nome originale
   tempCognome: string = ''; // Variabile temporanea per memorizzare il cognome originale
+
+  admin: userList;
+  isAdmin: boolean = false;
 
   constructor(
     private route: ActivatedRoute,
     private userService: UserService,
     private snackBar: MatSnackBar,
-    private router: Router
+    private router: Router,
+    private jwtService: JwtService,
+    private administratorService: AdministratorService
   ) { }
 
   ngOnInit(): void {
@@ -31,9 +40,10 @@ export class UserComponent {
         this.tempCognome = user.cognome;
       });
     });
+    this.checkRole();
   }
 
-  eliminaUtente(): void {
+  deleteUser(): void {
     if (confirm('Sei sicuro di voler eliminare questo utente?')) {
       this.userService.deleteUser(this.user.id).subscribe(
         response => {
@@ -46,9 +56,14 @@ export class UserComponent {
       );
     }
   }
-  
 
-  confermoModifica(): void {
+  confirmModify(): void {
+    if(this.isAdmin){
+      this.administratorService.modifyUserRole(this.user.id, this.user.ruolo.toString()).subscribe(
+        roleResponse => {
+          this.modifyUser();
+        })
+    }
     this.userService.modifyUser(this.user).subscribe(
       response => {
         this.modifica = false;
@@ -62,8 +77,15 @@ export class UserComponent {
     );
   }
 
-  inizioModifica(): void {
+  modifyUser(): void {
     this.modifica = true;
+  }
+
+  checkRole(): void {
+    this.userService.getUserByUsername(this.jwtService.user.username).subscribe((res: userList) => {
+      this.admin = res;
+      this.isAdmin = this.admin.ruolo === Role.Amministratore;
+    });
   }
 
   reloadPage(): void {

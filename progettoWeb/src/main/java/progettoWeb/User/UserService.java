@@ -64,9 +64,7 @@ public class UserService {
     //Modifico utente
     public void modifyUser(UserRecord userRecord){
         UserRecord user = this.getUser(userRecord.getId());
-        if(!user.getRuolo().equals(userRecord.getRuolo()))
-            throw new IllegalArgumentException
-                    ("Non è possibile modificare il ruolo. Modifiche ammesse:\nNome, Cognome, Username, Password, Email, Telefono");
+
         if(userRecord.getNome().isEmpty() || userRecord.getCognome().isEmpty() || userRecord.getUsername1().isEmpty()
                 || userRecord.getPassword1().isEmpty() || userRecord.getEmail().isEmpty())
             throw new IllegalArgumentException
@@ -84,6 +82,7 @@ public class UserService {
         if(!user.getPassword1().equals(userRecord.getPassword1()))
             user.setPassword(passwordEncoder.encode(userRecord.getPassword1()));
         user.setUsername(userRecord.getUsername());
+        user.setRuolo(user.getRuolo());
         save(user);
     }
 

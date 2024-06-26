@@ -31,9 +31,5 @@ export class ProfileComponent {
       }
     });
   }
-  
-  isObject(value: any): boolean { 
-    return typeof value === 'object'; 
-  }
 }
 

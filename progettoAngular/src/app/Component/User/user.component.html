@@ -12,11 +12,11 @@
           <p><strong>Email: </strong> {{ user.email }}</p>
           <p><strong>Telefono </strong> {{ user.telefono }}</p>
           <p><strong>Ruolo: </strong> {{ user.ruolo }}</p>
-          <button class="btn btn-primary" (click)="inizioModifica()">Modifica</button> <!--Se premo pulsante, modifica diventa true-->
-          <button class="btn btn-danger" (click)="eliminaUtente()">Elimina</button> <!-- Pulsante per eliminare l'utente -->
+          <button class="btn btn-primary" (click)="modifyUser()">Modifica</button> <!--Se premo pulsante, modifica diventa true-->
+          <button class="btn btn-danger" (click)="deleteUser()">Elimina</button> <!-- Pulsante per eliminare l'utente -->
         </div>
         <div *ngIf="modifica">
-          <form (ngSubmit)="confermoModifica()" #userForm="ngForm"> <!--Modifico utente-->
+          <form (ngSubmit)="confirmModify()" #userForm="ngForm"> <!--Modifico utente-->
             <div class="mb-3">
               <label><strong>ID</strong></label>
               <input type="text" class="form-control" [(ngModel)]="user.id" name="id" disabled />
@@ -43,7 +43,7 @@
             </div>
             <div class="mb-3">
               <label><strong>Ruolo</strong> </label>
-              <input type="text" class="form-control" [(ngModel)]="user.ruolo" name="ruolo" disabled />
+              <input type="text" class="form-control" [(ngModel)]="user.ruolo" name="ruolo" [disabled]="!isAdmin" /> <!--Se admin, allora posso cambiare ruolo-->
             </div>
             <button type="submit" class="btn btn-success">Conferma</button>
           </form>

@@ -1,7 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { UserComponent } from '../../Component/User/user.component';
 import { ConstantsService } from '../../constants.service';
 import { userList } from '../../List/userList';
 
