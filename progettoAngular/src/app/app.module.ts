@@ -1,11 +1,11 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { HttpClientModule } from '@angular/common/http';
+import {} from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { RegistrazioneComponent } from './Component/registrazione/registrazione.component';
+import { RegistrazioneComponent } from './Component/Registrazione/registrazione.component';
 import { ReactiveFormsModule } from '@angular/forms';
-import { LoginComponent } from './Component/login/login.component';
+import { LoginComponent } from './Component/Login/login.component';
 import { UserComponent } from './Component/User/user.component';
 import { AuthInterceptorProvider } from './Interceptor/auth.interceptor';
 import { CouponComponent } from './Component/coupon/coupon.component';
@@ -55,7 +55,6 @@ import {MatTooltipModule} from '@angular/material/tooltip';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    HttpClientModule,
     ReactiveFormsModule,
     FormsModule,
     BrowserAnimationsModule,
