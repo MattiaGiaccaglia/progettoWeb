@@ -11,6 +11,7 @@ export class CouponService {
 
   constructor(private Http: HttpClient, private constants: ConstantsService) { }
 
+  //Ottengo coupons
   public getCoupons(): Observable<couponList[]>{
     return this.Http.get<couponList[]>(`${this.constants.baseUrl}/api/coupon/getCoupons`)
   }

@@ -11,10 +11,12 @@ export class StoreService {
 
   constructor(private Http: HttpClient, private constants: ConstantsService) { }
 
+  //Ottengo tutti gli stores
   public getAllStores(): Observable<storeList[]>{
     return this.Http.get<storeList[]>(`${this.constants.baseUrl}/api/store/getAllStores`)
   }
 
+  //Ottengo gli store a partire dall'ID
   public getStore(storeID: number): Observable<storeList>{
     return this.Http.get<storeList>(`${this.constants.baseUrl}/api/store/getStore/${storeID}`)
   }

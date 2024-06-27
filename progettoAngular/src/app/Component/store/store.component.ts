@@ -18,6 +18,7 @@ export class StoreComponent {
     this.getAllStores();
   }
 
+  //Ottengo tutti i negozi
   public getAllStores(): void{
     this.storeService.getAllStores().subscribe(
       (response: storeList[]) =>{

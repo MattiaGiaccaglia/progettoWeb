@@ -18,6 +18,7 @@ export class ReviewComponent {
     this.getReviews();
   }
 
+  //Ottengo tutte le reviews
   public getReviews(): void{
     this.reviewService.getReviews().subscribe(
       (response: reviewList[]) =>{

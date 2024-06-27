@@ -11,6 +11,7 @@ export class AssistanceService {
 
   constructor(private Http: HttpClient, private constants: ConstantsService) { }
 
+  //ottengo assistenze
   public getAssistance(): Observable<assistanceList[]>{
     return this.Http.get<assistanceList[]>(`${this.constants.baseUrl}/api/assistance/getAssistance`)
   }

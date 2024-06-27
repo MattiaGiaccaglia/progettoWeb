@@ -11,6 +11,7 @@ export class AdministratorService {
 
   constructor(private Http: HttpClient, private constants: ConstantsService) { }
 
+  //Modifico ruolo utente
   public modifyUserRole(userID: number, userRole: string): Observable<String> {
     return this.Http.put<String>(`${this.constants.baseUrl}/api/administrator/modifyUserRole/${userID}/${userRole}`, {});
   }

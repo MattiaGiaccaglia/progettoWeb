@@ -18,13 +18,14 @@ export class MessageComponent {
     this.getMessages();
   }
 
+  //Ricavo tutti i messaggi
   public getMessages(): void{
     this.messagesService.getMessages().subscribe(
       (response: messagesList[]) =>{
         this.messages = response;
       },
       (error: HttpErrorResponse) =>{
-        alert(error.message);
+        alert("Nessun messaggio presente");
       }
     );
   }

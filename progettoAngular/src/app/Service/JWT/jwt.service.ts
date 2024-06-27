@@ -3,8 +3,7 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { BehaviorSubject, Observable, tap } from 'rxjs';
 import { User } from '../../models/user.model';
-
-const baseUrl = ["http://localhost:8080"]
+import { ConstantsService } from '../../constants.service';
 
 @Injectable({
   providedIn: 'root'
@@ -16,19 +15,22 @@ export class JwtService {
   private isAuthenticateSubject = new BehaviorSubject<boolean>(false);
   user: User | undefined
 
-  constructor(private router: Router, private http:HttpClient) { }
+  constructor(private router: Router, private http:HttpClient, private constants: ConstantsService) { }
 
+  //Creo nuovo user autenticato
   createUser(username: string, id: number, token: string, expirationDate: Date){
     this.user = new User(username, id, token, expirationDate);
     this.isloggedIn.next(true);
   }
 
+  //Effettuo registrazione
   register(signRequest: any): Observable<any>{
-    return this.http.post(baseUrl + '/api/user/registrazione', signRequest)
+    return this.http.post(`${this.constants.baseUrl}/api/user/registrazione`, signRequest)
   }
 
+  //Effettuo login
   login(loginRequest: any): Observable<any>{
-    return this.http.post(baseUrl + '/api/user/login', loginRequest).pipe(
+    return this.http.post(`${this.constants.baseUrl}/api/user/login`, loginRequest).pipe(
       tap((response: any) => {
         this.doLoginUser(loginRequest.username, response.token)}));
   }
@@ -56,6 +58,7 @@ export class JwtService {
     return this.isloggedIn.asObservable();
   }
 
+  //Ottengo utente loggato
   get getloggedUser() {
     return this.loggedUser;
   }

@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ChatService } from '../../Service/chat/chat.service';
+import { chatList } from '../../List/chatList';
 
 @Component({
   selector: 'app-chats',
@@ -8,7 +9,7 @@ import { ChatService } from '../../Service/chat/chat.service';
   styleUrl: './chats.component.css'
 })
 export class ChatsComponent {
-chat: any;
+chat: chatList;
 
 constructor(
   private route: ActivatedRoute,
@@ -16,6 +17,7 @@ constructor(
 ) { }
 
 
+//Ricavo singole chat a partire da ID
 ngOnInit(): void {
   this.route.params.subscribe(params => {
     const chatID = params['id'];

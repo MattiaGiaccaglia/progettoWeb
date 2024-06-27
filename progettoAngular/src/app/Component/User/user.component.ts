@@ -16,8 +16,10 @@ import { AdministratorService } from '../../Service/administrator/administrator.
 export class UserComponent {
   user: userList;
   modifica: boolean = false;
-  tempNome: string = ''; // Variabile temporanea per memorizzare il nome originale
-  tempCognome: string = ''; // Variabile temporanea per memorizzare il cognome originale
+
+  // Variabili temporanee per memorizzare il nome e cognome originale
+  tempNome: string = ''; 
+  tempCognome: string = '';
 
   admin: userList;
   isAdmin: boolean = false;
@@ -31,6 +33,7 @@ export class UserComponent {
     private administratorService: AdministratorService
   ) { }
 
+  //Ottengo singolo utente a partire dal suo ID
   ngOnInit(): void {
     this.route.params.subscribe(params => {
       const userId = params['id'];
@@ -43,6 +46,7 @@ export class UserComponent {
     this.checkRole();
   }
 
+  //Elimino utente
   deleteUser(): void {
     if (confirm('Sei sicuro di voler eliminare questo utente?')) {
       this.userService.deleteUser(this.user.id).subscribe(
@@ -57,11 +61,13 @@ export class UserComponent {
     }
   }
 
+  //Modifico utente
   confirmModify(): void {
+    //Se utente loggato è amministratore, allora cambio anche il ruolo
     if(this.isAdmin){
       this.administratorService.modifyUserRole(this.user.id, this.user.ruolo.toString()).subscribe(
         roleResponse => {
-          this.modifyUser();
+          this.modifica = true;
         })
     }
     this.userService.modifyUser(this.user).subscribe(
@@ -80,7 +86,8 @@ export class UserComponent {
   modifyUser(): void {
     this.modifica = true;
   }
-
+ù
+  //Verifico se utente loggato è amministratore
   checkRole(): void {
     this.userService.getUserByUsername(this.jwtService.user.username).subscribe((res: userList) => {
       this.admin = res;
@@ -88,12 +95,15 @@ export class UserComponent {
     });
   }
 
+  //Ricarico pagina
   reloadPage(): void {
     const currentUrl = this.router.url;
     this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
       this.router.navigate([currentUrl]);
     });
   }
+
+
   showSnackbar(message: string): void {
     this.snackBar.open(message, 'Chiudi', {
       duration: 5000,

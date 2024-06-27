@@ -14,19 +14,20 @@ export class ChatComponent implements OnInit{
 
   constructor(private chatService: ChatService){}
 
+  ngOnInit() {
+    this.getAllChats();
+  }
+
+  //Ricavo tutte le chat
   public getAllChats(): void{
     this.chatService.getChats().subscribe(
       (response: chatList[]) =>{
         this.chats = response;
       },
       (error: HttpErrorResponse) =>{
-        alert(error.message);
+        alert("Nessuna chat disponibile");
       }
     );
-  }
-
-  ngOnInit() {
-    this.getAllChats();
   }
 
 }

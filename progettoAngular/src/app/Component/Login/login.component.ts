@@ -27,15 +27,15 @@ export class LoginComponent implements OnInit{
       password: ['', [Validators.required, Validators.minLength(8)]]
     })
   }
-    
+
   submitForm(){
     this.jwtService.login(this.loginForm.value).subscribe((data: any) =>{
-    //decodifico il token
+    //Decodifico il token
     const helper = new JwtHelperService();
     const decodedToken = helper.decodeToken(data.token);
     const expirationDate = helper.getTokenExpirationDate(data.token);
 
-    //creo User
+    //Creo nuovo user autenticato
     this.jwtService.createUser(decodedToken.sub, data.localID, data.token, expirationDate!)
     localStorage.setItem('user', JSON.stringify(this.jwtService.user))
     this.router.navigate(['/profile']);

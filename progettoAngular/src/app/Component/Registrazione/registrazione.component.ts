@@ -33,7 +33,6 @@ export class RegistrazioneComponent {
 }
 
 submitForm() {
-  console.log(this.registerForm.value);
   this.service.register(this.registerForm.value).subscribe(
     (data: any) =>{
       this.showSnackbar('Registrazione effettuata correttamente.');

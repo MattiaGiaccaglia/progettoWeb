@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { JwtService } from './Service/JWT/jwt.service';
-import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -9,8 +8,7 @@ import { Router } from '@angular/router';
 })
 
 export class AppComponent {
-  title = 'progetto';
-  private router: Router
+  title = 'loyalityPlatform';
 
   constructor(public jwtService: JwtService){}
 
@@ -19,9 +17,11 @@ export class AppComponent {
   }
 
   ngOnInit(): void{
-    if(localStorage.getItem('user')){ //Se esiste già uno user nel LocalStorage e l'expiration date non è passata, allora rimango loggato
+    //Se esiste già uno user nel LocalStorage e l'expiration date non è scaduta, allora rimango loggato
+    if(localStorage.getItem('user')){ 
       const user = JSON.parse(localStorage.getItem('user')!)
       const dateOne = new Date()
+      //Controllo expiration date
       if(Date.parse(user._expirationDate) < dateOne.getTime()) 
         this.onLogout(); 
       else 

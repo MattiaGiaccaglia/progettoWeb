@@ -18,9 +18,11 @@ export class ProfileComponent {
   constructor(private userService: UserService, private jwtService: JwtService, private fidelitycardservice: FidelitycardService) {}
 
   ngOnInit(): void {
+    //Ricavo username utente attulmente loggato
     this.userService.getUserByUsername(this.jwtService.user.username).subscribe((res: userList) => {
       if (res) {
         this.user = res;
+        //Mostro le fidelity card, se disponibili
         this.fidelitycardservice.getFidelityCardUser(this.user.id).subscribe((cards: fidelityCardList[]) => {
           if (cards && cards.length > 0) {
             this.fidelityCards = cards;

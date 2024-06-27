@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { StoreService } from '../../Service/store/store.service';
+import { storeList } from '../../List/storeList';
 
 @Component({
   selector: 'app-stores',
@@ -8,13 +9,14 @@ import { StoreService } from '../../Service/store/store.service';
   styleUrl: './stores.component.css'
 })
 export class StoresComponent {
-  store: any;
+  store: storeList;
 
   constructor(
     private route: ActivatedRoute,
     private storeService: StoreService,
   ) { }
 
+  //Ottengo store a partire dal suo ID
   ngOnInit(): void {
     this.route.params.subscribe(params => {
       const storeID = params['id'];

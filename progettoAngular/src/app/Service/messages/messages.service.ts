@@ -11,10 +11,12 @@ export class MessagesService {
 
   constructor(private Http: HttpClient, private constants: ConstantsService) { }
 
+  //Ottengo messaggi
   public getMessages(): Observable<messagesList[]>{
     return this.Http.get<messagesList[]>(`${this.constants.baseUrl}/api/messages/getMessages`)
   }
 
+  //Ottengo messagi a partire dall'ID
   public getMessageByID(messageID: number): Observable<messagesList>{
     return this.Http.get<messagesList>(`${this.constants.baseUrl}/api/messages/getMessageByID/${messageID}`)
   }

@@ -2,7 +2,6 @@ import { Component } from '@angular/core';
 import { fidelityCardList } from '../../List/fidelitycardList';
 import { FidelitycardService } from '../../Service/fidelitycard/fidelitycard.service';
 import { HttpErrorResponse } from '@angular/common/http';
-import { NgForm } from '@angular/forms';
 import { userList } from '../../List/userList';
 import { UserService } from '../../Service/User/user.service';
 import { forkJoin } from 'rxjs';
@@ -15,7 +14,7 @@ import { Router } from '@angular/router';
   styleUrl: './fidelitycard.component.css'
 })
 export class FidelitycardComponent {
-  public fidelitycards: fidelityCardList[];
+  fidelitycards: fidelityCardList[];
   displayedColumns: string[] = ['id', 'utente', 'venditore'];
   aggiungi: boolean = false;
 
@@ -39,6 +38,7 @@ export class FidelitycardComponent {
     this.getFidelityCards();
   }
 
+  //Ricavo tutte le fidelity card presenti
   public getFidelityCards(): void{
     this.fidelitycardService.getFidelityCards().subscribe(
       (response: fidelityCardList[]) =>{
@@ -54,11 +54,14 @@ export class FidelitycardComponent {
     this.aggiungi = true;
   }
 
+  //Aggiungo fidelityCard
   addFidelityCard(): void {
+    //Eseguo due richieste HTTP in parallelo per ottenere le informazioni dell'utente e del venditore
     forkJoin({
       user: this.userService.getUserByUsername(this.userUsername),
       vendor: this.userService.getUserByUsername(this.vendorUsername)
     }).subscribe({
+      //Quando entrambe le richieste sono completate con successo, creo un nuovo oggetto fidelity card
       next: ({ user, vendor }) => {
         const newFidelityCard: fidelityCardList = {
           user: user,
@@ -66,9 +69,10 @@ export class FidelitycardComponent {
           length: null,
           id: null
         };
+        //Aggiungo fidelity card
         this.fidelitycardService.addFidelityCard(newFidelityCard).subscribe({
           next: response => {
-            this.aggiungi = false; // Chiudi il form di aggiunta
+            this.aggiungi = false;
             this.reloadPage();
             this.showSnackbar("Fidelity card aggiunta correttamente");
           },
@@ -77,14 +81,14 @@ export class FidelitycardComponent {
           }
         });
       },
-      error: (error: HttpErrorResponse) => {
-        // Gestisco errori di recupero utente o venditore
+      error: error => {
+        //Gestisco errori di recupero utente o venditore
         this.showSnackbar('Errore nel recupero delle informazioni utente o venditore.');
       }
     });
   }
   
-
+  //Ricarico pagina
   reloadPage(): void {
     const currentUrl = this.router.url;
     this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {

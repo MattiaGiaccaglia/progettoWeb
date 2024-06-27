@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { ReviewService } from '../../Service/review/review.service';
 import { ActivatedRoute } from '@angular/router';
+import { reviewList } from '../../List/reviewList';
 
 
 @Component({
@@ -9,13 +10,11 @@ import { ActivatedRoute } from '@angular/router';
   styleUrl: './reviews.component.css'
 })
 export class ReviewsComponent {
-review: any;
+review: reviewList;
 
-constructor(
-  private route: ActivatedRoute,
-  private reviewService: ReviewService,
-) { }
+constructor(private route: ActivatedRoute,private reviewService: ReviewService) { }
 
+//Ottengo singola review a partire dal suo ID
 ngOnInit(): void {
   this.route.params.subscribe(params => {
     const reviewID = params['id'];

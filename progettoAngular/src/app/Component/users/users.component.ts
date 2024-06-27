@@ -11,7 +11,6 @@ import { Router } from '@angular/router';
 })
 export class UsersComponent implements OnInit {
   public users: userList[];
-  public user: userList;
   displayedColumns: string[] = ['id', 'nome', 'cognome'];
   constructor(private userService: UserService, private router: Router) {}
 
@@ -19,6 +18,7 @@ export class UsersComponent implements OnInit {
     this.getAllUsers();
   }
 
+  //Ottengo tutti gli utenti registrati
   public getAllUsers(): void{
     this.userService.getAllUsers().subscribe(
       (response: userList[]) =>{
@@ -26,17 +26,6 @@ export class UsersComponent implements OnInit {
       },
       (error: HttpErrorResponse) =>{
         alert("Nessun utente registrato");
-      }
-    );
-  }
-
-  public getUserById(id: number): void{
-    this.userService.getUserById(id).subscribe(
-      (response: userList) =>{
-        this.user = response;
-      },
-      (error: HttpErrorResponse) =>{
-        alert("Nessun utente con il seguente id " + id);
       }
     );
   }

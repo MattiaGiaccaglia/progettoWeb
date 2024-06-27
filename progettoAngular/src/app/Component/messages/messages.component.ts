@@ -15,6 +15,7 @@ constructor(
   private messagesService: MessagesService,
 ) { }
 
+//Ottengo messaggio a partire dal suo ID
 ngOnInit(): void {
   this.route.params.subscribe(params => {
     const messageID = params['id'];

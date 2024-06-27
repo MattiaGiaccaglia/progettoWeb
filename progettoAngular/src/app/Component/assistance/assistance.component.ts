@@ -16,15 +16,16 @@ export class AssistanceComponent implements OnInit{
   
   ngOnInit(){
     this.getAllAssistance();
-    }
+  }
 
+  //Ricavo tutte le assistenze
   public getAllAssistance(): void{
     this.assistanceService.getAssistance().subscribe(
       (response: assistanceList[]) => {
         this.assistances = response;
       },
       (error: HttpErrorResponse) => {
-        alert(error.message);
+        alert("Nessuna assistenza presente");
       }
     );
   }

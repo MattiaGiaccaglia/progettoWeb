@@ -18,6 +18,7 @@ export class CouponComponent implements OnInit{
     this.getCoupons();
   }
 
+  //Ricavo tutti i coupon disponibili
   public getCoupons(): void{
     this.couponService.getCoupons().subscribe(
       (response: couponList[]) =>{
